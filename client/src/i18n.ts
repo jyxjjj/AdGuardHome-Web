@@ -12,7 +12,6 @@ import { setHtmlLangAttr } from './helpers/helpers';
 
 const resources = {
     en: { translation: en },
-    'en-us': { translation: en },
     nl: { translation: nl },
     'zh-cn': { translation: zhCN },
 };
@@ -33,7 +32,7 @@ i18n.use(langDetect)
                 escapeValue: false,
             },
             react: {
-                wait: true,
+                useSuspense: true,
             },
             whitelist: availableLanguages,
         },

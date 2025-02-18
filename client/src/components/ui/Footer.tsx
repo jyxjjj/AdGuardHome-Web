@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import cn from 'classnames';
 
 import { LANGUAGES } from '../../helpers/twosky';
@@ -11,6 +12,8 @@ import './Select.css';
 import { setHtmlLangAttr } from '../../helpers/helpers';
 
 const Footer = () => {
+    useTranslation();
+
     const getYear = () => {
         const today = new Date();
         return today.getFullYear();
