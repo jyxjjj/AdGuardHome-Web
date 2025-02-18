@@ -1,0 +1,5 @@
+.DS_Store
+Thumbs.db
+.idea
+/client/node_modules/
+sync.sh
