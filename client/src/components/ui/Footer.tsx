@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import cn from 'classnames';
 
 import { LANGUAGES } from '../../helpers/twosky';
@@ -11,20 +10,7 @@ import './Select.css';
 
 import { setHtmlLangAttr } from '../../helpers/helpers';
 
-const linksData = [
-    {
-        href: 'https://www.desmg.com',
-        name: 'homepage',
-    },
-    {
-        href: 'https://www.desmg.com/policies/privacy',
-        name: 'privacy_policy',
-    }
-];
-
 const Footer = () => {
-    const { t } = useTranslation();
-
     const getYear = () => {
         const today = new Date();
         return today.getFullYear();
@@ -36,32 +22,45 @@ const Footer = () => {
         setHtmlLangAttr(value);
     };
 
-    const renderCopyright = () => (
-        <div className="footer__column">
-            <div className="footer__copyright">
-                {/* eslint-disable-next-line react/jsx-no-target-blank */}
-                Copyright &copy; {getYear()}{' '} <b><a target="_blank" href="https://www.desmg.com">DESMG</a></b> All Rights Reserved.
-            </div>
-        </div>
-    );
-
-    const renderLinks = (linksData: any) =>
-        linksData.map(({ name, href, className = '' }: any) => (
-            <a
-                key={name}
-                href={href}
-                className={cn('footer__link', className)}
-                target="_blank"
-                rel="noopener noreferrer">
-                {t(name)}
-            </a>
-        ));
     return (
         <>
             <footer className="footer">
                 <div className="container">
                     <div className="footer__row">
-                        <div className="footer__column footer__column--links">{renderLinks(linksData)}</div>
+                        <div className="footer__column footer__column--links">
+                            {/* eslint-disable-next-line react/jsx-no-target-blank */}
+                            <a
+                                key='Home'
+                                href='https://www.desmg.com'
+                                className={cn('footer__link', '')}
+                                target="_blank">
+                                Home
+                            </a>
+                            {/* eslint-disable-next-line react/jsx-no-target-blank */}
+                            <a
+                                key='Privacy'
+                                href='https://www.desmg.com/policies/privacy'
+                                className={cn('footer__link', '')}
+                                target="_blank">
+                                Privacy
+                            </a>
+                            {/* eslint-disable-next-line react/jsx-no-target-blank */}
+                            <a
+                                key='Terms'
+                                href='https://www.desmg.com/policies/terms'
+                                className={cn('footer__link', '')}
+                                target="_blank">
+                                Terms
+                            </a>
+                            <a
+                                key='GitHub'
+                                href='https://github.com/jyxjjj/AdGuardHome-Web'
+                                className={cn('footer__link', '')}
+                                target="_blank"
+                                rel="noreferrer">
+                                GitHub
+                            </a>
+                        </div>
 
                         <div className="footer__column footer__column--language">
                             <select
@@ -82,7 +81,13 @@ const Footer = () => {
             <div className="footer">
                 <div className="container">
                     <div className="footer__row">
-                        {renderCopyright()}
+
+                        <div className="footer__column">
+                            <div className="footer__copyright">
+                                {/* eslint-disable-next-line react/jsx-no-target-blank */}
+                                Copyright &copy; {getYear()}{' '} <b><a target="_blank" href="https://www.desmg.com">DESMG</a></b> All Rights Reserved.
+                            </div>
+                        </div>
 
                         <div className="footer__column footer__column--language">
                             <Version />
