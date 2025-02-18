@@ -1,12 +1,12 @@
-import {handleActions} from 'redux-actions';
+import { handleActions } from 'redux-actions';
 
 import * as actions from '../actions';
-import {areEqualVersions} from '../helpers/version';
-import {STANDARD_DNS_PORT, STANDARD_WEB_PORT} from '../helpers/constants';
+import { areEqualVersions } from '../helpers/version';
+import { STANDARD_DNS_PORT, STANDARD_WEB_PORT } from '../helpers/constants';
 
 const dashboard = handleActions(
     {
-        [actions.setDnsRunningStatus.toString()]: (state, {payload}: any) => ({
+        [actions.setDnsRunningStatus.toString()]: (state, { payload }: any) => ({
             ...state,
             isCoreRunning: payload,
         }),
@@ -18,7 +18,7 @@ const dashboard = handleActions(
             ...state,
             processing: false,
         }),
-        [actions.dnsStatusSuccess.toString()]: (state: any, {payload}: any) => {
+        [actions.dnsStatusSuccess.toString()]: (state: any, { payload }: any) => {
             const {
                 version,
                 dns_port: dnsPort,
@@ -43,8 +43,8 @@ const dashboard = handleActions(
 
             return newState;
         },
-        [actions.timerStatusSuccess.toString()]: (state: any, {payload}: any) => {
-            const {protection_enabled: protectionEnabled, protection_disabled_duration: protectionDisabledDuration} =
+        [actions.timerStatusSuccess.toString()]: (state: any, { payload }: any) => {
+            const { protection_enabled: protectionEnabled, protection_disabled_duration: protectionDisabledDuration } =
                 payload;
             const newState = {
                 ...state,
@@ -63,7 +63,7 @@ const dashboard = handleActions(
             ...state,
             processingVersion: false,
         }),
-        [actions.getVersionSuccess.toString()]: (state: any, {payload}: any) => {
+        [actions.getVersionSuccess.toString()]: (state: any, { payload }: any) => {
             const currentVersion = state.dnsVersion === 'undefined' ? 0 : state.dnsVersion;
 
             if (!payload.disabled && !areEqualVersions(currentVersion, payload.new_version)) {
@@ -116,7 +116,7 @@ const dashboard = handleActions(
             ...state,
             processingProtection: false,
         }),
-        [actions.toggleProtectionSuccess.toString()]: (state: any, {payload}: any) => {
+        [actions.toggleProtectionSuccess.toString()]: (state: any, { payload }: any) => {
             const newState = {
                 ...state,
                 protectionEnabled: !state.protectionEnabled,
@@ -127,7 +127,7 @@ const dashboard = handleActions(
             return newState;
         },
 
-        [actions.setDisableDurationTime.toString()]: (state, {payload}: any) => ({
+        [actions.setDisableDurationTime.toString()]: (state, { payload }: any) => ({
             ...state,
             protectionDisabledDuration: payload.timeToEnableProtection,
         }),
@@ -140,7 +140,7 @@ const dashboard = handleActions(
             ...state,
             processingClients: false,
         }),
-        [actions.getClientsSuccess.toString()]: (state: any, {payload}: any) => {
+        [actions.getClientsSuccess.toString()]: (state: any, { payload }: any) => {
             const newState = {
                 ...state,
                 ...payload,
@@ -157,13 +157,13 @@ const dashboard = handleActions(
             ...state,
             processingProfile: false,
         }),
-        [actions.getProfileSuccess.toString()]: (state, {payload}: any) => ({
+        [actions.getProfileSuccess.toString()]: (state, { payload }: any) => ({
             ...state,
             name: payload.name,
             theme: payload.theme,
             processingProfile: false,
         }),
-        [actions.changeThemeSuccess.toString()]: (state, {payload}: any) => ({
+        [actions.changeThemeSuccess.toString()]: (state, { payload }: any) => ({
             ...state,
             theme: payload.theme,
         }),

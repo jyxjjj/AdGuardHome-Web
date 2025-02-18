@@ -1,13 +1,13 @@
-import {handleActions} from 'redux-actions';
-import {nanoid} from 'nanoid';
+import { handleActions } from 'redux-actions';
+import { nanoid } from 'nanoid';
 
-import {addErrorToast, addNoticeToast, addSuccessToast} from '../actions/toasts';
-import {removeToast} from '../actions';
-import {TOAST_TYPES} from '../helpers/constants';
+import { addErrorToast, addNoticeToast, addSuccessToast } from '../actions/toasts';
+import { removeToast } from '../actions';
+import { TOAST_TYPES } from '../helpers/constants';
 
 const toasts = handleActions(
     {
-        [addErrorToast.toString()]: (state: any, {payload}: any) => {
+        [addErrorToast.toString()]: (state: any, { payload }: any) => {
             const message = payload.error.toString();
             console.error(payload.error);
 
@@ -18,20 +18,20 @@ const toasts = handleActions(
                 type: TOAST_TYPES.ERROR,
             };
 
-            const newState = {...state, notices: [...state.notices, errorToast]};
+            const newState = { ...state, notices: [...state.notices, errorToast] };
             return newState;
         },
-        [addSuccessToast.toString()]: (state: any, {payload}: any) => {
+        [addSuccessToast.toString()]: (state: any, { payload }: any) => {
             const successToast = {
                 id: nanoid(),
                 message: payload,
                 type: TOAST_TYPES.SUCCESS,
             };
 
-            const newState = {...state, notices: [...state.notices, successToast]};
+            const newState = { ...state, notices: [...state.notices, successToast] };
             return newState;
         },
-        [addNoticeToast.toString()]: (state: any, {payload}: any) => {
+        [addNoticeToast.toString()]: (state: any, { payload }: any) => {
             const noticeToast = {
                 id: nanoid(),
                 message: payload.error.toString(),
@@ -39,16 +39,16 @@ const toasts = handleActions(
                 type: TOAST_TYPES.NOTICE,
             };
 
-            const newState = {...state, notices: [...state.notices, noticeToast]};
+            const newState = { ...state, notices: [...state.notices, noticeToast] };
             return newState;
         },
-        [removeToast.toString()]: (state: any, {payload}: any) => {
+        [removeToast.toString()]: (state: any, { payload }: any) => {
             const filtered = state.notices.filter((notice: any) => notice.id !== payload);
-            const newState = {...state, notices: filtered};
+            const newState = { ...state, notices: filtered };
             return newState;
         },
     },
-    {notices: []},
+    { notices: [] },
 );
 
 export default toasts;

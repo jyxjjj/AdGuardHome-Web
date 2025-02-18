@@ -1,12 +1,12 @@
-import {connect} from 'react-redux';
-import {addRewrite, deleteRewrite, getRewritesList, toggleRewritesModal, updateRewrite} from '../actions/rewrites';
+import { connect } from 'react-redux';
+import { addRewrite, deleteRewrite, getRewritesList, toggleRewritesModal, updateRewrite } from '../actions/rewrites';
 
 import Rewrites from '../components/Filters/Rewrites';
-import {RootState} from '../initialState';
+import { RootState } from '../initialState';
 
 const mapStateToProps = (state: RootState) => {
-    const {rewrites} = state;
-    const props = {rewrites};
+    const { rewrites } = state;
+    const props = { rewrites };
     return props;
 };
 

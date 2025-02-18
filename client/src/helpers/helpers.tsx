@@ -1,21 +1,20 @@
 import 'url-polyfill';
-import dateParse from 'date-fns/parse';
-import dateFormat from 'date-fns/format';
+import { format as dateFormat } from 'date-fns';
 import round from 'lodash/round';
 import axios from 'axios';
 import i18n from 'i18next';
-import ipaddr, {IPv4, IPv6} from 'ipaddr.js';
+import ipaddr, { IPv4, IPv6 } from 'ipaddr.js';
 import queryString from 'query-string';
 import React from 'react';
-import {getTrackerData} from './trackers/trackers';
+import { getTrackerData } from './trackers/trackers';
 
 import {
     ADDRESS_TYPES,
     CHECK_TIMEOUT,
     COMMENT_LINE_DEFAULT_TOKEN,
     DEFAULT_DATE_FORMAT_OPTIONS,
+    DEFAULT_SHORT_DATE_FORMAT_OPTIONS,
     DEFAULT_LANGUAGE,
-    DEFAULT_TIME_FORMAT,
     DETAILED_DATE_FORMAT_OPTIONS,
     DHCP_VALUES_PLACEHOLDERS,
     FILTERED,
@@ -27,18 +26,15 @@ import {
     STANDARD_WEB_PORT,
     THEMES,
 } from './constants';
-import {LOCAL_STORAGE_KEYS, LocalStorageHelper} from './localStorageHelper';
-import {DhcpInterface} from '../initialState';
+import { LOCAL_STORAGE_KEYS, LocalStorageHelper } from './localStorageHelper';
+import { DhcpInterface } from '../initialState';
 
 /**
  * @param time {string} The time to format
  * @param options {string}
  * @returns {string} Returns the time in the format HH:mm:ss
  */
-export const formatTime = (time: any, options = DEFAULT_TIME_FORMAT) => {
-    const parsedTime = dateParse(time);
-    return dateFormat(parsedTime, options);
-};
+export const formatTime = dateFormat;
 
 /**
  * @param dateTime {string} The date to format
@@ -47,7 +43,12 @@ export const formatTime = (time: any, options = DEFAULT_TIME_FORMAT) => {
  */
 export const formatDateTime = (dateTime: string, options: Intl.DateTimeFormatOptions = DEFAULT_DATE_FORMAT_OPTIONS) => {
     const parsedTime = new Date(dateTime);
-
+    if (options === DEFAULT_DATE_FORMAT_OPTIONS || options === DETAILED_DATE_FORMAT_OPTIONS) {
+        return dateFormat(parsedTime, 'yyyy-MM-dd HH:mm:ss');
+    }
+    if (options === DEFAULT_SHORT_DATE_FORMAT_OPTIONS) {
+        return dateFormat(parsedTime, 'yyyy-MM-dd');
+    }
     return parsedTime.toLocaleString(navigator.language, options);
 };
 
@@ -81,12 +82,12 @@ export const normalizeLogs = (logs: any) =>
             ecs,
         } = log;
 
-        const {name: domain, unicode_name: unicodeName, type} = question;
+        const { name: domain, unicode_name: unicodeName, type } = question;
 
         const processResponse = (data: any) =>
             data
                 ? data.map((response: any) => {
-                    const {value, type, ttl} = response;
+                    const { value, type, ttl } = response;
                     return `${type}: ${value} (ttl=${ttl})`;
                 })
                 : [];
@@ -163,7 +164,7 @@ export const addClientInfo = (data: any, clients: any, ...params: any[]) =>
 export const normalizeFilters = (filters: any) =>
     filters
         ? filters.map((filter: any) => {
-            const {id, url, enabled, last_updated, name = 'Default name', rules_count = 0} = filter;
+            const { id, url, enabled, last_updated, name = 'Default name', rules_count = 0 } = filter;
 
             return {
                 id,
@@ -177,7 +178,7 @@ export const normalizeFilters = (filters: any) =>
         : [];
 
 export const normalizeFilteringStatus = (filteringStatus: any) => {
-    const {enabled, filters, user_rules: userRules, interval, whitelist_filters} = filteringStatus;
+    const { enabled, filters, user_rules: userRules, interval, whitelist_filters } = filteringStatus;
     const newUserRules = Array.isArray(userRules) ? userRules.join('\n') : '';
 
     return {
@@ -298,8 +299,8 @@ export const checkRedirect = (url: any, attempts: number = 1) => {
 };
 
 export const redirectToCurrentProtocol = (values: any, httpPort = 80) => {
-    const {protocol, hostname, hash, port} = window.location;
-    const {enabled, force_https, port_https} = values;
+    const { protocol, hostname, hash, port } = window.location;
+    const { enabled, force_https, port_https } = values;
     const httpsPort = port_https !== STANDARD_HTTPS_PORT ? `:${port_https}` : '';
 
     if (protocol !== 'https:' && enabled && force_https && port_https) {
@@ -361,7 +362,7 @@ export const normalizeTopClients = (topClients: any) =>
             const {
                 name,
                 count,
-                info: {name: infoName},
+                info: { name: infoName },
             } = clientObj;
             acc.auto[name] = count;
             acc.configured[infoName] = count;
@@ -415,7 +416,7 @@ export const normalizeRulesTextarea = (text: any) => text?.replace(/^\n/g, '').r
 
 export const normalizeWhois = (whois: any) => {
     if (Object.keys(whois).length > 0) {
-        const {city, country, ...values} = whois;
+        const { city, country, ...values } = whois;
         let location = country || '';
 
         if (city && location) {
@@ -431,7 +432,7 @@ export const normalizeWhois = (whois: any) => {
             };
         }
 
-        return {...values};
+        return { ...values };
     }
 
     return whois;
@@ -453,7 +454,7 @@ export const getParamsForClientsSearch = (data: any, param: any, additionalParam
     });
 
     return {
-        clients: Array.from(clients).map(id => ({id})),
+        clients: Array.from(clients).map(id => ({ id })),
     };
 };
 
@@ -487,7 +488,7 @@ export const getCurrentFilter = (url: any, filters: any) => {
     const filter = filters?.find((item: any) => url === item.url);
 
     if (filter) {
-        const {enabled, name, url} = filter;
+        const { enabled, name, url } = filter;
         return {
             enabled,
             name,
@@ -634,11 +635,11 @@ export const separateIpsAndCidrs = (ids: any) =>
             }
             return acc;
         },
-        {ips: [], cidrs: [], clientIds: []},
+        { ips: [], cidrs: [], clientIds: [] },
     );
 
 export const countClientsStatistics = (ids: any, autoClients: any) => {
-    const {ips, cidrs, clientIds} = separateIpsAndCidrs(ids);
+    const { ips, cidrs, clientIds } = separateIpsAndCidrs(ids);
 
     const ipsCount = ips.reduce((acc: any, curr: any) => {
         const count = autoClients[curr] || 0;
@@ -843,7 +844,7 @@ export const getSpecialFilterName = (filterId: any) => {
         case SPECIAL_FILTER_ID.SAFE_SEARCH:
             return i18n.t('safe_search');
         default:
-            return i18n.t('unknown_filter', {filterId});
+            return i18n.t('unknown_filter', { filterId });
     }
 };
 
@@ -865,7 +866,7 @@ export const getFilterName = (
     filters: Filter[],
     whitelistFilters: Filter[],
     filterId: number,
-    resolveFilterName = (filter: Filter) => (filter ? filter.name : i18n.t('unknown_filter', {filterId})),
+    resolveFilterName = (filter: Filter) => (filter ? filter.name : i18n.t('unknown_filter', { filterId })),
 ) => {
     const specialFilterIds = Object.values(SPECIAL_FILTER_ID);
     if (specialFilterIds.includes(filterId)) {
@@ -878,12 +879,12 @@ export const getFilterName = (
 };
 
 export const getFilterNames = (rules: Rule[], filters: Filter[], whitelistFilters: Filter[]) =>
-    rules.map(({filter_list_id}: any) => getFilterName(filters, whitelistFilters, filter_list_id));
+    rules.map(({ filter_list_id }: any) => getFilterName(filters, whitelistFilters, filter_list_id));
 
-export const getRuleNames = (rules: Rule[]) => rules.map(({text}: Rule) => text);
+export const getRuleNames = (rules: Rule[]) => rules.map(({ text }: Rule) => text);
 
 export const getFilterNameToRulesMap = (rules: Rule[], filters: Filter[], whitelistFilters: Filter[]) =>
-    rules.reduce((acc: any, {text, filter_list_id}: Rule) => {
+    rules.reduce((acc: any, { text, filter_list_id }: Rule) => {
         const filterName = getFilterName(filters, whitelistFilters, filter_list_id);
 
         acc[filterName] = (acc[filterName] || []).concat(text);
@@ -944,7 +945,7 @@ export const calculateDhcpPlaceholdersIpv4 = (ip: string, gateway_ip: string) =>
     addr.octets[LAST_OCTET_IDX] = LAST_OCTET_RANGE_END;
     const range_end = addr.toString();
 
-    const {subnet_mask, lease_duration} = DHCP_VALUES_PLACEHOLDERS.ipv4;
+    const { subnet_mask, lease_duration } = DHCP_VALUES_PLACEHOLDERS.ipv4;
 
     return {
         gateway_ip: gateway_ip || ip,
@@ -956,7 +957,7 @@ export const calculateDhcpPlaceholdersIpv4 = (ip: string, gateway_ip: string) =>
 };
 
 export const calculateDhcpPlaceholdersIpv6 = () => {
-    const {range_start, range_end, lease_duration} = DHCP_VALUES_PLACEHOLDERS.ipv6;
+    const { range_start, range_end, lease_duration } = DHCP_VALUES_PLACEHOLDERS.ipv6;
 
     return {
         range_start,

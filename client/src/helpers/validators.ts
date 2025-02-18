@@ -19,9 +19,9 @@ import {
     UNSAFE_PORTS,
 } from './constants';
 
-import {ip4ToInt, isValidAbsolutePath} from './form';
+import { ip4ToInt, isValidAbsolutePath } from './form';
 
-import {isIpInCidr, parseSubnetMask} from './helpers';
+import { isIpInCidr, parseSubnetMask } from './helpers';
 
 // Validation functions
 // https://redux-form.com/8.3.0/examples/fieldlevelvalidation/
@@ -48,7 +48,7 @@ export const validateIpv4RangeEnd = (_: any, allValues: any) => {
         return undefined;
     }
 
-    const {range_end, range_start} = allValues.v4;
+    const { range_end, range_start } = allValues.v4;
 
     if (ip4ToInt(range_end) <= ip4ToInt(range_start)) {
         return 'greater_range_start_error';
@@ -78,7 +78,7 @@ export const validateNotInRange = (value: any, allValues: any) => {
         return undefined;
     }
 
-    const {range_start, range_end} = allValues.v4;
+    const { range_start, range_end } = allValues.v4;
 
     if (range_start && validateIpv4(range_start)) {
         return undefined;
@@ -111,7 +111,7 @@ export const validateGatewaySubnetMask = (_: any, allValues: any) => {
         return 'gateway_or_subnet_invalid';
     }
 
-    const {subnet_mask, gateway_ip} = allValues.v4;
+    const { subnet_mask, gateway_ip } = allValues.v4;
 
     if (validateIpv4(gateway_ip)) {
         return 'gateway_or_subnet_invalid';
@@ -130,7 +130,7 @@ export const validateIpForGatewaySubnetMask = (value: any, allValues: any) => {
         return undefined;
     }
 
-    const {gateway_ip, subnet_mask} = allValues.v4;
+    const { gateway_ip, subnet_mask } = allValues.v4;
 
     if ((gateway_ip && validateIpv4(gateway_ip)) || (subnet_mask && validateIpv4(subnet_mask))) {
         return undefined;
@@ -325,7 +325,7 @@ export const validatePath = (value: any) => {
  */
 export const validateIpv4InCidr = (valueIp: any, allValues: any) => {
     if (!isIpInCidr(valueIp, allValues.cidr)) {
-        return i18next.t('form_error_subnet', {ip: valueIp, cidr: allValues.cidr});
+        return i18next.t('form_error_subnet', { ip: valueIp, cidr: allValues.cidr });
     }
     return undefined;
 };
@@ -399,7 +399,7 @@ export const validateIPv6Subnet = (value: any) => {
  * @param allValues
  */
 export const validatePlainDns = (value: any, allValues: any) => {
-    const {enabled} = allValues;
+    const { enabled } = allValues;
 
     if (!enabled && !value) {
         return 'encryption_plain_dns_error';

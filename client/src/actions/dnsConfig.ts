@@ -1,10 +1,10 @@
-import {createAction} from 'redux-actions';
+import { createAction } from 'redux-actions';
 import i18next from 'i18next';
 
 import apiClient from '../api/Api';
 
-import {splitByNewLine} from '../helpers/helpers';
-import {addErrorToast, addSuccessToast} from './toasts';
+import { splitByNewLine } from '../helpers/helpers';
+import { addErrorToast, addSuccessToast } from './toasts';
 
 export const getDnsConfigRequest = createAction('GET_DNS_CONFIG_REQUEST');
 export const getDnsConfigFailure = createAction('GET_DNS_CONFIG_FAILURE');
@@ -16,7 +16,7 @@ export const getDnsConfig = () => async (dispatch: any) => {
         const data = await apiClient.getDnsConfig();
         dispatch(getDnsConfigSuccess(data));
     } catch (error) {
-        dispatch(addErrorToast({error}));
+        dispatch(addErrorToast({ error }));
         dispatch(getDnsConfigFailure());
     }
 };
@@ -32,7 +32,7 @@ export const clearDnsCache = () => async (dispatch: any) => {
         dispatch(clearDnsCacheSuccess(data));
         dispatch(addSuccessToast(i18next.t('cache_cleared')));
     } catch (error) {
-        dispatch(addErrorToast({error}));
+        dispatch(addErrorToast({ error }));
         dispatch(clearDnsCacheFailure());
     }
 };
@@ -44,7 +44,7 @@ export const setDnsConfigSuccess = createAction('SET_DNS_CONFIG_SUCCESS');
 export const setDnsConfig = (config: any) => async (dispatch: any) => {
     dispatch(setDnsConfigRequest());
     try {
-        const data = {...config};
+        const data = { ...config };
 
         let hasDnsSettings = false;
         if (Object.prototype.hasOwnProperty.call(data, 'bootstrap_dns')) {
@@ -78,7 +78,7 @@ export const setDnsConfig = (config: any) => async (dispatch: any) => {
 
         dispatch(setDnsConfigSuccess(config));
     } catch (error) {
-        dispatch(addErrorToast({error}));
+        dispatch(addErrorToast({ error }));
         dispatch(setDnsConfigFailure());
     }
 };

@@ -1,4 +1,4 @@
-import {handleActions} from 'redux-actions';
+import { handleActions } from 'redux-actions';
 
 import * as actions from '../actions/clients';
 
@@ -52,7 +52,7 @@ const clients = handleActions(
             return newState;
         },
 
-        [actions.toggleClientModal.toString()]: (state: any, {payload}: any) => {
+        [actions.toggleClientModal.toString()]: (state: any, { payload }: any) => {
             if (payload) {
                 const newState = {
                     ...state,

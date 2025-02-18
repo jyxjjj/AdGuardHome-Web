@@ -1,10 +1,10 @@
-import {createAction} from 'redux-actions';
+import { createAction } from 'redux-actions';
 import i18next from 'i18next';
 
 import apiClient from '../api/Api';
-import {addErrorToast, addSuccessToast} from './toasts';
+import { addErrorToast, addSuccessToast } from './toasts';
 
-import {splitByNewLine} from '../helpers/helpers';
+import { splitByNewLine } from '../helpers/helpers';
 
 export const getAccessListRequest = createAction('GET_ACCESS_LIST_REQUEST');
 export const getAccessListFailure = createAction('GET_ACCESS_LIST_FAILURE');
@@ -16,7 +16,7 @@ export const getAccessList = () => async (dispatch: any) => {
         const data = await apiClient.getAccessList();
         dispatch(getAccessListSuccess(data));
     } catch (error) {
-        dispatch(addErrorToast({error}));
+        dispatch(addErrorToast({ error }));
         dispatch(getAccessListFailure());
     }
 };
@@ -28,7 +28,7 @@ export const setAccessListSuccess = createAction('SET_ACCESS_LIST_SUCCESS');
 export const setAccessList = (config: any) => async (dispatch: any) => {
     dispatch(setAccessListRequest());
     try {
-        const {allowed_clients, disallowed_clients, blocked_hosts} = config;
+        const { allowed_clients, disallowed_clients, blocked_hosts } = config;
 
         const values = {
             allowed_clients: splitByNewLine(allowed_clients),
@@ -40,7 +40,7 @@ export const setAccessList = (config: any) => async (dispatch: any) => {
         dispatch(setAccessListSuccess());
         dispatch(addSuccessToast('access_settings_saved'));
     } catch (error) {
-        dispatch(addErrorToast({error}));
+        dispatch(addErrorToast({ error }));
         dispatch(setAccessListFailure());
     }
 };
@@ -78,12 +78,12 @@ export const toggleClientBlock = (ip: any, disallowed: any, disallowed_rule: any
         dispatch(toggleClientBlockSuccess(values));
 
         if (disallowed) {
-            dispatch(addSuccessToast(i18next.t('client_unblocked', {ip: disallowed_rule || ip})));
+            dispatch(addSuccessToast(i18next.t('client_unblocked', { ip: disallowed_rule || ip })));
         } else {
-            dispatch(addSuccessToast(i18next.t('client_blocked', {ip})));
+            dispatch(addSuccessToast(i18next.t('client_blocked', { ip })));
         }
     } catch (error) {
-        dispatch(addErrorToast({error}));
+        dispatch(addErrorToast({ error }));
         dispatch(toggleClientBlockFailure());
     }
 };

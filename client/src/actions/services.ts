@@ -1,6 +1,6 @@
-import {createAction} from 'redux-actions';
+import { createAction } from 'redux-actions';
 import apiClient from '../api/Api';
-import {addErrorToast, addSuccessToast} from './toasts';
+import { addErrorToast, addSuccessToast } from './toasts';
 
 export const getBlockedServicesRequest = createAction('GET_BLOCKED_SERVICES_REQUEST');
 export const getBlockedServicesFailure = createAction('GET_BLOCKED_SERVICES_FAILURE');
@@ -12,7 +12,7 @@ export const getBlockedServices = () => async (dispatch: any) => {
         const data = await apiClient.getBlockedServices();
         dispatch(getBlockedServicesSuccess(data));
     } catch (error) {
-        dispatch(addErrorToast({error}));
+        dispatch(addErrorToast({ error }));
         dispatch(getBlockedServicesFailure());
     }
 };
@@ -27,7 +27,7 @@ export const getAllBlockedServices = () => async (dispatch: any) => {
         const data = await apiClient.getAllBlockedServices();
         dispatch(getAllBlockedServicesSuccess(data));
     } catch (error) {
-        dispatch(addErrorToast({error}));
+        dispatch(addErrorToast({ error }));
         dispatch(getAllBlockedServicesFailure());
     }
 };
@@ -44,7 +44,7 @@ export const updateBlockedServices = (values: any) => async (dispatch: any) => {
         dispatch(getBlockedServices());
         dispatch(addSuccessToast('blocked_services_saved'));
     } catch (error) {
-        dispatch(addErrorToast({error}));
+        dispatch(addErrorToast({ error }));
         dispatch(updateBlockedServicesFailure());
     }
 };

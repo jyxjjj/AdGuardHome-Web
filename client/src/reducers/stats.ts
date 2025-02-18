@@ -1,7 +1,7 @@
-import {handleActions} from 'redux-actions';
+import { handleActions } from 'redux-actions';
 
-import {normalizeTopClients} from '../helpers/helpers';
-import {DAY, HOUR, STATS_INTERVALS_DAYS, TIME_UNITS} from '../helpers/constants';
+import { normalizeTopClients } from '../helpers/helpers';
+import { DAY, HOUR, STATS_INTERVALS_DAYS, TIME_UNITS } from '../helpers/constants';
 
 import * as actions from '../actions/stats';
 
@@ -32,7 +32,7 @@ const stats = handleActions(
             ...state,
             processingGetConfig: false,
         }),
-        [actions.getStatsConfigSuccess.toString()]: (state, {payload}: any) => ({
+        [actions.getStatsConfigSuccess.toString()]: (state, { payload }: any) => ({
             ...state,
             ...payload,
 
@@ -49,7 +49,7 @@ const stats = handleActions(
             ...state,
             processingSetConfig: false,
         }),
-        [actions.setStatsConfigSuccess.toString()]: (state, {payload}: any) => ({
+        [actions.setStatsConfigSuccess.toString()]: (state, { payload }: any) => ({
             ...state,
             ...payload,
             processingSetConfig: false,
@@ -63,7 +63,7 @@ const stats = handleActions(
             ...state,
             processingStats: false,
         }),
-        [actions.getStatsSuccess.toString()]: (state: any, {payload}: any) => {
+        [actions.getStatsSuccess.toString()]: (state: any, { payload }: any) => {
             const {
                 dns_queries: dnsQueries,
                 blocked_filtering: blockedFiltering,

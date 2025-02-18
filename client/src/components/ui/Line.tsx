@@ -1,16 +1,13 @@
 import React from 'react';
-import {ResponsiveLine} from '@nivo/line';
-import addDays from 'date-fns/add_days';
-import subDays from 'date-fns/sub_days';
-import subHours from 'date-fns/sub_hours';
-import dateFormat from 'date-fns/format';
+import { ResponsiveLine } from '@nivo/line';
+import { format as dateFormat, subHours, subDays } from 'date-fns';
 import round from 'lodash/round';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import './Line.css';
 
-import {msToDays, msToHours} from '../../helpers/helpers';
-import {TIME_UNITS} from '../../helpers/constants';
-import {RootState} from '../../initialState';
+import { msToDays, msToHours } from '../../helpers/helpers';
+import { TIME_UNITS } from '../../helpers/constants';
+import { RootState } from '../../initialState';
 
 interface LineProps {
     data: any[];
@@ -19,7 +16,7 @@ interface LineProps {
     height?: number;
 }
 
-const Line = ({data, color = 'black'}: LineProps) => {
+const Line = ({ data, color = 'black' }: LineProps) => {
     const interval = useSelector((state: RootState) => state.stats.interval);
 
     const timeUnits = useSelector((state: RootState) => state.stats.timeUnits);
@@ -55,23 +52,21 @@ const Line = ({data, color = 'black'}: LineProps) => {
             xFormat={(x: number) => {
                 if (timeUnits === TIME_UNITS.HOURS) {
                     const hoursAgo = msToHours(interval) - x - 1;
-                    return dateFormat(subHours(Date.now(), hoursAgo), 'D MMM HH:00');
+                    return dateFormat(subHours(Date.now(), hoursAgo), 'yyyy-MM-dd HH:mm:ss');
                 }
-
-                const daysAgo = subDays(Date.now(), msToDays(interval) - 1);
-
-                return dateFormat(addDays(daysAgo, x), 'D MMM YYYY');
+                const daysAgo = msToDays(interval) - x - 1;
+                return dateFormat(subDays(Date.now(), daysAgo), 'yyyy-MM-dd HH:mm:ss');
             }}
-            yFormat={(y: number) => round(y, 2)}
+            yFormat={(y: number) => round(y, 2).toString()}
             sliceTooltip={(slice) => {
-                const {xFormatted, yFormatted} = slice.slice.points[0].data;
+                const { xFormatted, yFormatted } = slice.slice.points[0].data;
 
                 return (
                     <div className="line__tooltip">
                         <span className="line__tooltip-text">
                             <strong>{yFormatted}</strong>
 
-                            <br/>
+                            <br />
 
                             <small>{xFormatted}</small>
                         </span>

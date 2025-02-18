@@ -1,4 +1,4 @@
-import {handleActions} from 'redux-actions';
+import { handleActions } from 'redux-actions';
 
 import * as actions from '../actions/encryption';
 
@@ -12,7 +12,7 @@ const encryption = handleActions(
             ...state,
             processing: false,
         }),
-        [actions.getTlsStatusSuccess.toString()]: (state: any, {payload}: any) => {
+        [actions.getTlsStatusSuccess.toString()]: (state: any, { payload }: any) => {
             const newState = {
                 ...state,
                 ...payload,
@@ -31,7 +31,7 @@ const encryption = handleActions(
             ...state,
             processingConfig: false,
         }),
-        [actions.setTlsConfigSuccess.toString()]: (state: any, {payload}: any) => {
+        [actions.setTlsConfigSuccess.toString()]: (state: any, { payload }: any) => {
             const newState = {
                 ...state,
                 ...payload,
@@ -49,7 +49,7 @@ const encryption = handleActions(
             ...state,
             processingValidate: false,
         }),
-        [actions.validateTlsConfigSuccess.toString()]: (state: any, {payload}: any) => {
+        [actions.validateTlsConfigSuccess.toString()]: (state: any, { payload }: any) => {
             const {
                 issuer = '',
                 key_type = '',

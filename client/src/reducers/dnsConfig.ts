@@ -1,7 +1,7 @@
-import {handleActions} from 'redux-actions';
+import { handleActions } from 'redux-actions';
 
 import * as actions from '../actions/dnsConfig';
-import {ALL_INTERFACES_IP, BLOCKING_MODES, DNS_REQUEST_OPTIONS} from '../helpers/constants';
+import { ALL_INTERFACES_IP, BLOCKING_MODES, DNS_REQUEST_OPTIONS } from '../helpers/constants';
 
 export const DEFAULT_BLOCKING_IPV4 = ALL_INTERFACES_IP;
 export const DEFAULT_BLOCKING_IPV6 = '::';
@@ -16,7 +16,7 @@ const dnsConfig = handleActions(
             ...state,
             processingGetConfig: false,
         }),
-        [actions.getDnsConfigSuccess.toString()]: (state: any, {payload}: any) => {
+        [actions.getDnsConfigSuccess.toString()]: (state: any, { payload }: any) => {
             const {
                 blocking_ipv4,
                 blocking_ipv6,
@@ -52,7 +52,7 @@ const dnsConfig = handleActions(
             ...state,
             processingSetConfig: false,
         }),
-        [actions.setDnsConfigSuccess.toString()]: (state, {payload}: any) => ({
+        [actions.setDnsConfigSuccess.toString()]: (state, { payload }: any) => ({
             ...state,
             ...payload,
             processingSetConfig: false,

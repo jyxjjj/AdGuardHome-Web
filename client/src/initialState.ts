@@ -6,8 +6,8 @@ import {
     STANDARD_WEB_PORT,
     TIME_UNITS,
 } from './helpers/constants';
-import {DEFAULT_BLOCKING_IPV4, DEFAULT_BLOCKING_IPV6} from './reducers/dnsConfig';
-import {Filter} from './helpers/helpers';
+import { DEFAULT_BLOCKING_IPV4, DEFAULT_BLOCKING_IPV6 } from './reducers/dnsConfig';
+import { Filter } from './helpers/helpers';
 
 export type InstallData = {
     step: number;
@@ -611,7 +611,7 @@ export const initialState: RootState = {
         topUpstreamsAvgTime: [],
         topUpstreamsResponses: [],
     },
-    toasts: {notices: []},
+    toasts: { notices: [] },
     loadingBar: {},
     form: {},
 };

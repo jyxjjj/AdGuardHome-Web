@@ -1,10 +1,10 @@
-import {connect} from 'react-redux';
-import {getTlsStatus, setTlsConfig, validateTlsConfig} from '../actions/encryption';
+import { connect } from 'react-redux';
+import { getTlsStatus, setTlsConfig, validateTlsConfig } from '../actions/encryption';
 
 import Encryption from '../components/Settings/Encryption';
 
 const mapStateToProps = (state: any) => {
-    const {encryption} = state;
+    const { encryption } = state;
     const props = {
         encryption,
     };

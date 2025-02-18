@@ -1,10 +1,10 @@
-import {createAction} from 'redux-actions';
-import {hideLoading, showLoading} from 'react-redux-loading-bar';
+import { createAction } from 'redux-actions';
+import { hideLoading, showLoading } from 'react-redux-loading-bar';
 import i18next from 'i18next';
 
-import {normalizeFilteringStatus, normalizeRulesTextarea} from '../helpers/helpers';
+import { normalizeFilteringStatus, normalizeRulesTextarea } from '../helpers/helpers';
 import apiClient from '../api/Api';
-import {addErrorToast, addSuccessToast} from './toasts';
+import { addErrorToast, addSuccessToast } from './toasts';
 
 export const toggleFilteringModal = createAction('FILTERING_MODAL_TOGGLE');
 export const handleRulesChange = createAction('HANDLE_RULES_CHANGE');
@@ -17,9 +17,9 @@ export const getFilteringStatus = () => async (dispatch: any) => {
     dispatch(getFilteringStatusRequest());
     try {
         const status = await apiClient.getFilteringStatus();
-        dispatch(getFilteringStatusSuccess({...normalizeFilteringStatus(status)}));
+        dispatch(getFilteringStatusSuccess({ ...normalizeFilteringStatus(status) }));
     } catch (error) {
-        dispatch(addErrorToast({error}));
+        dispatch(addErrorToast({ error }));
         dispatch(getFilteringStatusFailure());
     }
 };
@@ -38,7 +38,7 @@ export const setRules = (rules: any) => async (dispatch: any) => {
         dispatch(addSuccessToast('updated_custom_filtering_toast'));
         dispatch(setRulesSuccess());
     } catch (error) {
-        dispatch(addErrorToast({error}));
+        dispatch(addErrorToast({ error }));
         dispatch(setRulesFailure());
     }
 };
@@ -52,7 +52,7 @@ export const addFilter =
         async (dispatch: any, getState: any) => {
             dispatch(addFilterRequest());
             try {
-                await apiClient.addFilter({url, name, whitelist});
+                await apiClient.addFilter({ url, name, whitelist });
                 dispatch(addFilterSuccess(url));
                 if (getState().filtering.isModalOpen) {
                     dispatch(toggleFilteringModal());
@@ -60,7 +60,7 @@ export const addFilter =
                 dispatch(addSuccessToast('filter_added_successfully'));
                 dispatch(getFilteringStatus());
             } catch (error) {
-                dispatch(addErrorToast({error}));
+                dispatch(addErrorToast({ error }));
                 dispatch(addFilterFailure());
             }
         };
@@ -74,7 +74,7 @@ export const removeFilter =
         async (dispatch: any, getState: any) => {
             dispatch(removeFilterRequest());
             try {
-                await apiClient.removeFilter({url, whitelist});
+                await apiClient.removeFilter({ url, whitelist });
                 dispatch(removeFilterSuccess(url));
                 if (getState().filtering.isModalOpen) {
                     dispatch(toggleFilteringModal());
@@ -82,7 +82,7 @@ export const removeFilter =
                 dispatch(addSuccessToast('filter_removed_successfully'));
                 dispatch(getFilteringStatus());
             } catch (error) {
-                dispatch(addErrorToast({error}));
+                dispatch(addErrorToast({ error }));
                 dispatch(removeFilterFailure());
             }
         };
@@ -96,11 +96,11 @@ export const toggleFilterStatus =
         async (dispatch: any) => {
             dispatch(toggleFilterRequest());
             try {
-                await apiClient.setFilterUrl({url, data, whitelist});
+                await apiClient.setFilterUrl({ url, data, whitelist });
                 dispatch(toggleFilterSuccess(url));
                 dispatch(getFilteringStatus());
             } catch (error) {
-                dispatch(addErrorToast({error}));
+                dispatch(addErrorToast({ error }));
                 dispatch(toggleFilterFailure());
             }
         };
@@ -114,7 +114,7 @@ export const editFilter =
         async (dispatch: any, getState: any) => {
             dispatch(editFilterRequest());
             try {
-                await apiClient.setFilterUrl({url, data, whitelist});
+                await apiClient.setFilterUrl({ url, data, whitelist });
                 dispatch(editFilterSuccess(url));
                 if (getState().filtering.isModalOpen) {
                     dispatch(toggleFilteringModal());
@@ -122,7 +122,7 @@ export const editFilter =
                 dispatch(addSuccessToast('filter_updated'));
                 dispatch(getFilteringStatus());
             } catch (error) {
-                dispatch(addErrorToast({error}));
+                dispatch(addErrorToast({ error }));
                 dispatch(editFilterFailure());
             }
         };
@@ -136,11 +136,11 @@ export const refreshFilters = (config: any) => async (dispatch: any) => {
     dispatch(showLoading());
     try {
         const data = await apiClient.refreshFilters(config);
-        const {updated} = data;
+        const { updated } = data;
         dispatch(refreshFiltersSuccess());
 
         if (updated > 0) {
-            dispatch(addSuccessToast(i18next.t('list_updated', {count: updated})));
+            dispatch(addSuccessToast(i18next.t('list_updated', { count: updated })));
         } else {
             dispatch(addSuccessToast('all_lists_up_to_date_toast'));
         }
@@ -148,7 +148,7 @@ export const refreshFilters = (config: any) => async (dispatch: any) => {
         dispatch(getFilteringStatus());
         dispatch(hideLoading());
     } catch (error) {
-        dispatch(addErrorToast({error}));
+        dispatch(addErrorToast({ error }));
         dispatch(refreshFiltersFailure());
         dispatch(hideLoading());
     }
@@ -161,7 +161,7 @@ export const setFiltersConfigSuccess = createAction('SET_FILTERS_CONFIG_SUCCESS'
 export const setFiltersConfig = (config: any) => async (dispatch: any, getState: any) => {
     dispatch(setFiltersConfigRequest());
     try {
-        const {enabled} = config;
+        const { enabled } = config;
         const prevEnabled = getState().filtering.enabled;
         let successToastMessage = 'config_successfully_saved';
 
@@ -173,7 +173,7 @@ export const setFiltersConfig = (config: any) => async (dispatch: any, getState:
         dispatch(addSuccessToast(successToastMessage));
         dispatch(setFiltersConfigSuccess(config));
     } catch (error) {
-        dispatch(addErrorToast({error}));
+        dispatch(addErrorToast({ error }));
         dispatch(setFiltersConfigFailure());
     }
 };
@@ -192,7 +192,7 @@ export const checkHost = (host: any) => async (dispatch: any) => {
     dispatch(checkHostRequest());
     try {
         const data = await apiClient.checkHost(host);
-        const {name: hostname} = host;
+        const { name: hostname } = host;
 
         dispatch(
             checkHostSuccess({
@@ -201,7 +201,7 @@ export const checkHost = (host: any) => async (dispatch: any) => {
             }),
         );
     } catch (error) {
-        dispatch(addErrorToast({error}));
+        dispatch(addErrorToast({ error }));
         dispatch(checkHostFailure());
     }
 };

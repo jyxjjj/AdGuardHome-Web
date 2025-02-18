@@ -1,4 +1,4 @@
-import {handleActions} from 'redux-actions';
+import { handleActions } from 'redux-actions';
 
 import * as actions from '../actions/services';
 
@@ -12,7 +12,7 @@ const services = handleActions(
             ...state,
             processing: false,
         }),
-        [actions.getBlockedServicesSuccess.toString()]: (state, {payload}: any) => ({
+        [actions.getBlockedServicesSuccess.toString()]: (state, { payload }: any) => ({
             ...state,
             list: payload,
             processing: false,
@@ -26,7 +26,7 @@ const services = handleActions(
             ...state,
             processingAll: false,
         }),
-        [actions.getAllBlockedServicesSuccess.toString()]: (state, {payload}: any) => ({
+        [actions.getAllBlockedServicesSuccess.toString()]: (state, { payload }: any) => ({
             ...state,
             allServices: payload.blocked_services,
             processingAll: false,

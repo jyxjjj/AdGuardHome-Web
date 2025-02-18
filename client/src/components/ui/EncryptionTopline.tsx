@@ -1,12 +1,11 @@
 import React from 'react';
-import {Trans} from 'react-i18next';
-import isAfter from 'date-fns/is_after';
-import addDays from 'date-fns/add_days';
-import {useSelector} from 'react-redux';
+import { Trans } from 'react-i18next';
+import { isAfter, addDays } from 'date-fns';
+import { useSelector } from 'react-redux';
 
 import Topline from './Topline';
-import {EMPTY_DATE} from '../../helpers/constants';
-import {RootState} from '../../initialState';
+import { EMPTY_DATE } from '../../helpers/constants';
+import { RootState } from '../../initialState';
 
 const EXPIRATION_ENUM = {
     VALID: 'VALID',
@@ -39,7 +38,7 @@ const getExpirationFlags = (not_after: any) => {
 };
 
 const getExpirationEnumKey = (not_after: any) => {
-    const {isExpiring, isExpired} = getExpirationFlags(not_after);
+    const { isExpiring, isExpired } = getExpirationFlags(not_after);
 
     if (isExpired) {
         return EXPIRATION_ENUM.EXPIRED;
@@ -65,7 +64,7 @@ const EncryptionTopline = () => {
         return null;
     }
 
-    const {toplineType, i18nKey} = EXPIRATION_STATE[expirationStateKey];
+    const { toplineType, i18nKey } = EXPIRATION_STATE[expirationStateKey];
 
     return (
         <Topline type={toplineType}>

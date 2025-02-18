@@ -1,8 +1,8 @@
-import React, {Fragment} from 'react';
-import {Trans, withTranslation} from 'react-i18next';
-import format from 'date-fns/format';
+import React, { Fragment } from 'react';
+import { Trans, withTranslation } from 'react-i18next';
+import { format } from 'date-fns';
 
-import {EMPTY_DATE} from '../../../helpers/constants';
+import { EMPTY_DATE } from '../../../helpers/constants';
 
 interface CertificateStatusProps {
     validChain: boolean;
@@ -13,7 +13,7 @@ interface CertificateStatusProps {
     dnsNames?: string[];
 }
 
-const CertificateStatus = ({validChain, validCert, subject, issuer, notAfter, dnsNames}: CertificateStatusProps) => (
+const CertificateStatus = ({ validChain, validCert, subject, issuer, notAfter, dnsNames }: CertificateStatusProps) => (
     <Fragment>
         <div className="form__label form__label--bold">
             <Trans>encryption_status</Trans>:

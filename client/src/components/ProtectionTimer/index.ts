@@ -1,9 +1,9 @@
-import {useEffect} from 'react';
-import {connect} from 'react-redux';
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
 
-import {ONE_SECOND_IN_MS} from '../../helpers/constants';
+import { ONE_SECOND_IN_MS } from '../../helpers/constants';
 
-import {setProtectionTimerTime, toggleProtectionSuccess} from '../../actions';
+import { setProtectionTimerTime, toggleProtectionSuccess } from '../../actions';
 
 let interval: any = null;
 
@@ -14,13 +14,13 @@ interface ProtectionTimerProps {
 }
 
 const ProtectionTimer = ({
-                             protectionDisabledDuration,
-                             toggleProtectionSuccess,
-                             setProtectionTimerTime,
-                         }: ProtectionTimerProps) => {
+    protectionDisabledDuration,
+    toggleProtectionSuccess,
+    setProtectionTimerTime,
+}: ProtectionTimerProps) => {
     useEffect(() => {
         if (protectionDisabledDuration !== null && protectionDisabledDuration < ONE_SECOND_IN_MS) {
-            toggleProtectionSuccess({disabledDuration: null});
+            toggleProtectionSuccess({ disabledDuration: null });
         }
 
         if (protectionDisabledDuration) {
@@ -38,9 +38,9 @@ const ProtectionTimer = ({
 };
 
 const mapStateToProps = (state: any) => {
-    const {dashboard} = state;
-    const {protectionEnabled, protectionDisabledDuration} = dashboard;
-    return {protectionEnabled, protectionDisabledDuration};
+    const { dashboard } = state;
+    const { protectionEnabled, protectionDisabledDuration } = dashboard;
+    return { protectionEnabled, protectionDisabledDuration };
 };
 
 const mapDispatchToProps = {

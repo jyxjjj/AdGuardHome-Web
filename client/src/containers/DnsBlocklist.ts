@@ -1,4 +1,4 @@
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import {
     addFilter,
     editFilter,
@@ -14,8 +14,8 @@ import {
 import DnsBlocklist from '../components/Filters/DnsBlocklist';
 
 const mapStateToProps = (state: any) => {
-    const {filtering} = state;
-    const props = {filtering};
+    const { filtering } = state;
+    const props = { filtering };
     return props;
 };
 

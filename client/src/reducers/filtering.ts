@@ -1,4 +1,4 @@
-import {handleActions} from 'redux-actions';
+import { handleActions } from 'redux-actions';
 
 import * as actions from '../actions/filtering';
 
@@ -17,9 +17,9 @@ const filtering = handleActions(
             processingRules: false,
         }),
 
-        [actions.handleRulesChange.toString()]: (state: any, {payload}: any) => {
-            const {userRules} = payload;
-            return {...state, userRules};
+        [actions.handleRulesChange.toString()]: (state: any, { payload }: any) => {
+            const { userRules } = payload;
+            return { ...state, userRules };
         },
 
         [actions.getFilteringStatusRequest.toString()]: (state: any) => ({
@@ -31,7 +31,7 @@ const filtering = handleActions(
             ...state,
             processingFilters: false,
         }),
-        [actions.getFilteringStatusSuccess.toString()]: (state, {payload}: any) => ({
+        [actions.getFilteringStatusSuccess.toString()]: (state, { payload }: any) => ({
             ...state,
             ...payload,
             processingFilters: false,
@@ -53,7 +53,7 @@ const filtering = handleActions(
             isFilterAdded: true,
         }),
 
-        [actions.toggleFilteringModal.toString()]: (state: any, {payload}: any) => {
+        [actions.toggleFilteringModal.toString()]: (state: any, { payload }: any) => {
             if (payload) {
                 const newState = {
                     ...state,
@@ -133,7 +133,7 @@ const filtering = handleActions(
             ...state,
             processingSetConfig: false,
         }),
-        [actions.setFiltersConfigSuccess.toString()]: (state, {payload}: any) => ({
+        [actions.setFiltersConfigSuccess.toString()]: (state, { payload }: any) => ({
             ...state,
             ...payload,
             processingSetConfig: false,
@@ -147,7 +147,7 @@ const filtering = handleActions(
             ...state,
             processingCheck: false,
         }),
-        [actions.checkHostSuccess.toString()]: (state, {payload}: any) => ({
+        [actions.checkHostSuccess.toString()]: (state, { payload }: any) => ({
             ...state,
             check: payload,
             processingCheck: false,

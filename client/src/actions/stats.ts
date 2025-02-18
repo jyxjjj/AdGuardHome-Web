@@ -1,8 +1,8 @@
-import {createAction} from 'redux-actions';
+import { createAction } from 'redux-actions';
 
 import apiClient from '../api/Api';
-import {addClientInfo, getParamsForClientsSearch, normalizeTopStats, secondsToMilliseconds} from '../helpers/helpers';
-import {addErrorToast, addSuccessToast} from './toasts';
+import { addClientInfo, getParamsForClientsSearch, normalizeTopStats, secondsToMilliseconds } from '../helpers/helpers';
+import { addErrorToast, addSuccessToast } from './toasts';
 
 export const getStatsConfigRequest = createAction('GET_STATS_CONFIG_REQUEST');
 export const getStatsConfigFailure = createAction('GET_STATS_CONFIG_FAILURE');
@@ -14,7 +14,7 @@ export const getStatsConfig = () => async (dispatch: any) => {
         const data = await apiClient.getStatsConfig();
         dispatch(getStatsConfigSuccess(data));
     } catch (error) {
-        dispatch(addErrorToast({error}));
+        dispatch(addErrorToast({ error }));
         dispatch(getStatsConfigFailure());
     }
 };
@@ -30,7 +30,7 @@ export const setStatsConfig = (config: any) => async (dispatch: any) => {
         dispatch(addSuccessToast('config_successfully_saved'));
         dispatch(setStatsConfigSuccess(config));
     } catch (error) {
-        dispatch(addErrorToast({error}));
+        dispatch(addErrorToast({ error }));
         dispatch(setStatsConfigFailure());
     }
 };
@@ -61,7 +61,7 @@ export const getStats = () => async (dispatch: any) => {
 
         dispatch(getStatsSuccess(normalizedStats));
     } catch (error) {
-        dispatch(addErrorToast({error}));
+        dispatch(addErrorToast({ error }));
         dispatch(getStatsFailure());
     }
 };
@@ -77,7 +77,7 @@ export const resetStats = () => async (dispatch: any) => {
         dispatch(addSuccessToast('statistics_cleared'));
         dispatch(resetStatsSuccess());
     } catch (error) {
-        dispatch(addErrorToast({error}));
+        dispatch(addErrorToast({ error }));
         dispatch(resetStatsFailure());
     }
 };

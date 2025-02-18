@@ -1,7 +1,7 @@
-import {handleActions} from 'redux-actions';
+import { handleActions } from 'redux-actions';
 
 import * as actions from '../actions/queryLogs';
-import {DAY, DEFAULT_LOGS_FILTER, HOUR, QUERY_LOG_INTERVALS_DAYS} from '../helpers/constants';
+import { DAY, DEFAULT_LOGS_FILTER, HOUR, QUERY_LOG_INTERVALS_DAYS } from '../helpers/constants';
 
 const queryLogs = handleActions(
     {
@@ -13,13 +13,13 @@ const queryLogs = handleActions(
             ...state,
             processingGetLogs: false,
         }),
-        [actions.toggleDetailedLogs.toString()]: (state, {payload}: any) => ({
+        [actions.toggleDetailedLogs.toString()]: (state, { payload }: any) => ({
             ...state,
             isDetailed: payload,
         }),
 
-        [actions.setFilteredLogsSuccess.toString()]: (state: any, {payload}: any) => {
-            const {logs, oldest, filter} = payload;
+        [actions.setFilteredLogsSuccess.toString()]: (state: any, { payload }: any) => {
+            const { logs, oldest, filter } = payload;
 
             const isFiltered = filter && Object.keys(filter).some((key) => filter[key]);
 
@@ -34,7 +34,7 @@ const queryLogs = handleActions(
             };
         },
 
-        [actions.setLogsFilterRequest.toString()]: (state, {payload}: any) => ({
+        [actions.setLogsFilterRequest.toString()]: (state, { payload }: any) => ({
             ...state,
             filter: payload,
         }),
@@ -47,8 +47,8 @@ const queryLogs = handleActions(
             ...state,
             processingGetLogs: false,
         }),
-        [actions.getLogsSuccess.toString()]: (state: any, {payload}: any) => {
-            const {logs, oldest, older_than} = payload;
+        [actions.getLogsSuccess.toString()]: (state: any, { payload }: any) => {
+            const { logs, oldest, older_than } = payload;
 
             return {
                 ...state,
@@ -81,7 +81,7 @@ const queryLogs = handleActions(
             ...state,
             processingGetConfig: false,
         }),
-        [actions.getLogsConfigSuccess.toString()]: (state, {payload}: any) => ({
+        [actions.getLogsConfigSuccess.toString()]: (state, { payload }: any) => ({
             ...state,
             ...payload,
 
@@ -98,7 +98,7 @@ const queryLogs = handleActions(
             ...state,
             processingSetConfig: false,
         }),
-        [actions.setLogsConfigSuccess.toString()]: (state, {payload}: any) => ({
+        [actions.setLogsConfigSuccess.toString()]: (state, { payload }: any) => ({
             ...state,
             ...payload,
             processingSetConfig: false,

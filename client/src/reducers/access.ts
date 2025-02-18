@@ -1,4 +1,4 @@
-import {handleActions} from 'redux-actions';
+import { handleActions } from 'redux-actions';
 
 import * as actions from '../actions/access';
 
@@ -12,8 +12,8 @@ const access = handleActions(
             ...state,
             processing: false,
         }),
-        [actions.getAccessListSuccess.toString()]: (state: any, {payload}: any) => {
-            const {allowed_clients, disallowed_clients, blocked_hosts} = payload;
+        [actions.getAccessListSuccess.toString()]: (state: any, { payload }: any) => {
+            const { allowed_clients, disallowed_clients, blocked_hosts } = payload;
             const newState = {
                 ...state,
                 allowed_clients: allowed_clients?.join('\n') || '',
@@ -45,8 +45,8 @@ const access = handleActions(
             ...state,
             processingSet: false,
         }),
-        [actions.toggleClientBlockSuccess.toString()]: (state: any, {payload}: any) => {
-            const {allowed_clients, disallowed_clients, blocked_hosts} = payload;
+        [actions.toggleClientBlockSuccess.toString()]: (state: any, { payload }: any) => {
+            const { allowed_clients, disallowed_clients, blocked_hosts } = payload;
             const newState = {
                 ...state,
                 allowed_clients: allowed_clients?.join('\n') || '',

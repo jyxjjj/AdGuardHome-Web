@@ -1,4 +1,4 @@
-import {handleActions} from 'redux-actions';
+import { handleActions } from 'redux-actions';
 
 import * as actions from '../actions';
 
@@ -12,8 +12,8 @@ const settings = handleActions(
             ...state,
             processing: false,
         }),
-        [actions.initSettingsSuccess.toString()]: (state: any, {payload}: any) => {
-            const {settingsList} = payload;
+        [actions.initSettingsSuccess.toString()]: (state: any, { payload }: any) => {
+            const { settingsList } = payload;
             const newState = {
                 ...state,
                 settingsList,
@@ -21,9 +21,9 @@ const settings = handleActions(
             };
             return newState;
         },
-        [actions.toggleSettingStatus.toString()]: (state: any, {payload}: any) => {
-            const {settingsList} = state;
-            const {settingKey, value} = payload;
+        [actions.toggleSettingStatus.toString()]: (state: any, { payload }: any) => {
+            const { settingsList } = state;
+            const { settingKey, value } = payload;
 
             const setting = settingsList[settingKey];
 

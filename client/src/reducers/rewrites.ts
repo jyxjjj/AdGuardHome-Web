@@ -1,4 +1,4 @@
-import {handleActions} from 'redux-actions';
+import { handleActions } from 'redux-actions';
 
 import * as actions from '../actions/rewrites';
 
@@ -12,7 +12,7 @@ const rewrites = handleActions(
             ...state,
             processing: false,
         }),
-        [actions.getRewritesListSuccess.toString()]: (state: any, {payload}: any) => {
+        [actions.getRewritesListSuccess.toString()]: (state: any, { payload }: any) => {
             const newState = {
                 ...state,
                 list: payload,
@@ -29,7 +29,7 @@ const rewrites = handleActions(
             ...state,
             processingAdd: false,
         }),
-        [actions.addRewriteSuccess.toString()]: (state: any, {payload}: any) => {
+        [actions.addRewriteSuccess.toString()]: (state: any, { payload }: any) => {
             const newState = {
                 ...state,
                 list: [...state.list, payload],
@@ -67,7 +67,7 @@ const rewrites = handleActions(
             return newState;
         },
 
-        [actions.toggleRewritesModal.toString()]: (state: any, {payload}: any) => {
+        [actions.toggleRewritesModal.toString()]: (state: any, { payload }: any) => {
             if (payload) {
                 const newState = {
                     ...state,

@@ -1,20 +1,20 @@
 import i18n from 'i18next';
-import {initReactI18next} from 'react-i18next';
+import { initReactI18next } from 'react-i18next';
 import langDetect from 'i18next-browser-languagedetector';
 
-import {BASE_LOCALE, LANGUAGES} from './helpers/twosky';
+import { BASE_LOCALE, LANGUAGES } from './helpers/twosky';
 
 import en from './__locales/en.json';
 import nl from './__locales/nl.json';
 import zhCN from './__locales/zh-cn.json';
 
-import {setHtmlLangAttr} from './helpers/helpers';
+import { setHtmlLangAttr } from './helpers/helpers';
 
 const resources = {
-    en: {translation: en},
-    'en-us': {translation: en},
-    nl: {translation: nl},
-    'zh-cn': {translation: zhCN},
+    en: { translation: en },
+    'en-us': { translation: en },
+    nl: { translation: nl },
+    'zh-cn': { translation: zhCN },
 };
 
 const availableLanguages = Object.keys(LANGUAGES);

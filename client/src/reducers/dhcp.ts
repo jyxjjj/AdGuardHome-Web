@@ -1,8 +1,8 @@
-import {handleActions} from 'redux-actions';
+import { handleActions } from 'redux-actions';
 
 import * as actions from '../actions';
 
-import {enrichWithConcatenatedIpAddresses} from '../helpers/helpers';
+import { enrichWithConcatenatedIpAddresses } from '../helpers/helpers';
 
 const dhcp = handleActions(
     {
@@ -14,8 +14,8 @@ const dhcp = handleActions(
             ...state,
             processing: false,
         }),
-        [actions.getDhcpStatusSuccess.toString()]: (state: any, {payload}: any) => {
-            const {static_leases: staticLeases, ...values} = payload;
+        [actions.getDhcpStatusSuccess.toString()]: (state: any, { payload }: any) => {
+            const { static_leases: staticLeases, ...values } = payload;
 
             const newState = {
                 ...state,
@@ -35,7 +35,7 @@ const dhcp = handleActions(
             ...state,
             processingInterfaces: false,
         }),
-        [actions.getDhcpInterfacesSuccess.toString()]: (state: any, {payload}: any) => {
+        [actions.getDhcpInterfacesSuccess.toString()]: (state: any, { payload }: any) => {
             const newState = {
                 ...state,
                 interfaces: enrichWithConcatenatedIpAddresses(payload),
@@ -52,7 +52,7 @@ const dhcp = handleActions(
             ...state,
             processingStatus: false,
         }),
-        [actions.findActiveDhcpSuccess.toString()]: (state: any, {payload}: any) => {
+        [actions.findActiveDhcpSuccess.toString()]: (state: any, { payload }: any) => {
             const newState = {
                 ...state,
                 check: payload,
@@ -70,7 +70,7 @@ const dhcp = handleActions(
             processingDhcp: false,
         }),
         [actions.toggleDhcpSuccess.toString()]: (state: any) => {
-            const {enabled} = state;
+            const { enabled } = state;
             const newState = {
                 ...state,
                 enabled: !enabled,
@@ -88,10 +88,10 @@ const dhcp = handleActions(
             ...state,
             processingConfig: false,
         }),
-        [actions.setDhcpConfigSuccess.toString()]: (state: any, {payload}: any) => {
-            const {v4, v6} = state;
-            const newConfigV4 = {...v4, ...payload.v4};
-            const newConfigV6 = {...v6, ...payload.v6};
+        [actions.setDhcpConfigSuccess.toString()]: (state: any, { payload }: any) => {
+            const { v4, v6 } = state;
+            const newConfigV4 = { ...v4, ...payload.v4 };
+            const newConfigV6 = { ...v6, ...payload.v6 };
 
             const newState = {
                 ...state,
@@ -126,7 +126,7 @@ const dhcp = handleActions(
             staticLeases: [],
         }),
 
-        [actions.toggleLeaseModal.toString()]: (state: any, {payload}: any) => {
+        [actions.toggleLeaseModal.toString()]: (state: any, { payload }: any) => {
             const newState = {
                 ...state,
                 isModalOpen: !state.isModalOpen,
@@ -144,8 +144,8 @@ const dhcp = handleActions(
             ...state,
             processingAdding: false,
         }),
-        [actions.addStaticLeaseSuccess.toString()]: (state: any, {payload}: any) => {
-            const {ip, mac, hostname} = payload;
+        [actions.addStaticLeaseSuccess.toString()]: (state: any, { payload }: any) => {
+            const { ip, mac, hostname } = payload;
             const newLease = {
                 ip,
                 mac,
@@ -168,7 +168,7 @@ const dhcp = handleActions(
             ...state,
             processingDeleting: false,
         }),
-        [actions.removeStaticLeaseSuccess.toString()]: (state: any, {payload}: any) => {
+        [actions.removeStaticLeaseSuccess.toString()]: (state: any, { payload }: any) => {
             const leaseToRemove = payload.ip;
             const leases = state.staticLeases.filter((item: any) => item.ip !== leaseToRemove);
             const newState = {

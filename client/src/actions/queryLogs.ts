@@ -1,18 +1,18 @@
-import {createAction} from 'redux-actions';
+import { createAction } from 'redux-actions';
 
 import apiClient from '../api/Api';
 
-import {normalizeLogs} from '../helpers/helpers';
-import {DEFAULT_LOGS_FILTER, FORM_NAME, QUERY_LOGS_PAGE_LIMIT} from '../helpers/constants';
-import {addErrorToast, addSuccessToast} from './toasts';
+import { normalizeLogs } from '../helpers/helpers';
+import { DEFAULT_LOGS_FILTER, FORM_NAME, QUERY_LOGS_PAGE_LIMIT } from '../helpers/constants';
+import { addErrorToast, addSuccessToast } from './toasts';
 
 const getLogsWithParams = async (config: any) => {
-    const {older_than, filter, ...values} = config;
+    const { older_than, filter, ...values } = config;
     const rawLogs = await apiClient.getQueryLog({
         ...filter,
         older_than,
     });
-    const {data, oldest} = rawLogs;
+    const { data, oldest } = rawLogs;
 
     return {
         logs: normalizeLogs(data),
@@ -28,8 +28,8 @@ export const getAdditionalLogsFailure = createAction('GET_ADDITIONAL_LOGS_FAILUR
 export const getAdditionalLogsSuccess = createAction('GET_ADDITIONAL_LOGS_SUCCESS');
 
 const shortPollQueryLogs = async (data: any, filter: any, dispatch: any, getState: any, total?: any) => {
-    const {logs, oldest} = data;
-    const totalData = total || {logs};
+    const { logs, oldest } = data;
+    const totalData = total || { logs };
 
     const queryForm = getState().form[FORM_NAME.LOGS_FILTER];
     const currentQuery = queryForm && queryForm.values.search;
@@ -59,7 +59,7 @@ const shortPollQueryLogs = async (data: any, filter: any, dispatch: any, getStat
             dispatch(getAdditionalLogsSuccess());
             return totalData;
         } catch (error) {
-            dispatch(addErrorToast({error}));
+            dispatch(addErrorToast({ error }));
             dispatch(getAdditionalLogsFailure(error));
         }
     }
@@ -76,7 +76,7 @@ export const getLogsSuccess = createAction('GET_LOGS_SUCCESS');
 
 export const updateLogs = () => async (dispatch: any, getState: any) => {
     try {
-        const {logs, oldest, older_than} = getState().queryLogs;
+        const { logs, oldest, older_than } = getState().queryLogs;
 
         dispatch(
             getLogsSuccess({
@@ -86,7 +86,7 @@ export const updateLogs = () => async (dispatch: any, getState: any) => {
             }),
         );
     } catch (error) {
-        dispatch(addErrorToast({error}));
+        dispatch(addErrorToast({ error }));
         dispatch(getLogsFailure(error));
     }
 };
@@ -94,7 +94,7 @@ export const updateLogs = () => async (dispatch: any, getState: any) => {
 export const getLogs = () => async (dispatch: any, getState: any) => {
     dispatch(getLogsRequest());
     try {
-        const {isFiltered, filter, oldest} = getState().queryLogs;
+        const { isFiltered, filter, oldest } = getState().queryLogs;
         const data = await getLogsWithParams({
             older_than: oldest,
             filter,
@@ -102,13 +102,13 @@ export const getLogs = () => async (dispatch: any, getState: any) => {
 
         if (isFiltered) {
             const additionalData = await shortPollQueryLogs(data, filter, dispatch, getState);
-            const updatedData = additionalData.logs ? {...data, ...additionalData} : data;
+            const updatedData = additionalData.logs ? { ...data, ...additionalData } : data;
             dispatch(getLogsSuccess(updatedData));
         } else {
             dispatch(getLogsSuccess(data));
         }
     } catch (error) {
-        dispatch(addErrorToast({error}));
+        dispatch(addErrorToast({ error }));
         dispatch(getLogsFailure(error));
     }
 };
@@ -137,7 +137,7 @@ export const setFilteredLogs = (filter?: any) => async (dispatch: any, getState:
         });
 
         const additionalData = await shortPollQueryLogs(data, filter, dispatch, getState);
-        const updatedData = additionalData.logs ? {...data, ...additionalData} : data;
+        const updatedData = additionalData.logs ? { ...data, ...additionalData } : data;
 
         dispatch(
             setFilteredLogsSuccess({
@@ -146,7 +146,7 @@ export const setFilteredLogs = (filter?: any) => async (dispatch: any, getState:
             }),
         );
     } catch (error) {
-        dispatch(addErrorToast({error}));
+        dispatch(addErrorToast({ error }));
         dispatch(setFilteredLogsFailure(error));
     }
 };
@@ -154,7 +154,7 @@ export const setFilteredLogs = (filter?: any) => async (dispatch: any, getState:
 export const resetFilteredLogs = () => setFilteredLogs(DEFAULT_LOGS_FILTER);
 
 export const refreshFilteredLogs = () => async (dispatch: any, getState: any) => {
-    const {filter} = getState().queryLogs;
+    const { filter } = getState().queryLogs;
     await dispatch(setFilteredLogs(filter));
 };
 
@@ -169,7 +169,7 @@ export const clearLogs = () => async (dispatch: any) => {
         dispatch(clearLogsSuccess());
         dispatch(addSuccessToast('query_log_cleared'));
     } catch (error) {
-        dispatch(addErrorToast({error}));
+        dispatch(addErrorToast({ error }));
         dispatch(clearLogsFailure(error));
     }
 };
@@ -184,7 +184,7 @@ export const getLogsConfig = () => async (dispatch: any) => {
         const data = await apiClient.getQueryLogConfig();
         dispatch(getLogsConfigSuccess(data));
     } catch (error) {
-        dispatch(addErrorToast({error}));
+        dispatch(addErrorToast({ error }));
         dispatch(getLogsConfigFailure());
     }
 };
@@ -200,7 +200,7 @@ export const setLogsConfig = (config: any) => async (dispatch: any) => {
         dispatch(addSuccessToast('config_successfully_saved'));
         dispatch(setLogsConfigSuccess(config));
     } catch (error) {
-        dispatch(addErrorToast({error}));
+        dispatch(addErrorToast({ error }));
         dispatch(setLogsConfigFailure());
     }
 };

@@ -1,8 +1,8 @@
-import {createAction} from 'redux-actions';
+import { createAction } from 'redux-actions';
 import apiClient from '../api/Api';
 
-import {redirectToCurrentProtocol} from '../helpers/helpers';
-import {addErrorToast, addSuccessToast} from './toasts';
+import { redirectToCurrentProtocol } from '../helpers/helpers';
+import { addErrorToast, addSuccessToast } from './toasts';
 
 export const getTlsStatusRequest = createAction('GET_TLS_STATUS_REQUEST');
 export const getTlsStatusFailure = createAction('GET_TLS_STATUS_FAILURE');
@@ -17,7 +17,7 @@ export const getTlsStatus = () => async (dispatch: any) => {
 
         dispatch(getTlsStatusSuccess(status));
     } catch (error) {
-        dispatch(addErrorToast({error}));
+        dispatch(addErrorToast({ error }));
         dispatch(getTlsStatusFailure());
     }
 };
@@ -30,8 +30,8 @@ export const dnsStatusSuccess = createAction('DNS_STATUS_SUCCESS');
 export const setTlsConfig = (config: any) => async (dispatch: any, getState: any) => {
     dispatch(setTlsConfigRequest());
     try {
-        const {httpPort} = getState().dashboard;
-        const values = {...config};
+        const { httpPort } = getState().dashboard;
+        const values = { ...config };
         values.certificate_chain = btoa(values.certificate_chain);
         values.private_key = btoa(values.private_key);
         values.port_https = values.port_https || 0;
@@ -59,7 +59,7 @@ export const setTlsConfig = (config: any) => async (dispatch: any, getState: any
         dispatch(setTlsConfigSuccess(response));
         dispatch(addSuccessToast('encryption_config_saved'));
     } catch (error) {
-        dispatch(addErrorToast({error}));
+        dispatch(addErrorToast({ error }));
         dispatch(setTlsConfigFailure());
     }
 };
@@ -71,7 +71,7 @@ export const validateTlsConfigSuccess = createAction('VALIDATE_TLS_CONFIG_SUCCES
 export const validateTlsConfig = (config: any) => async (dispatch: any) => {
     dispatch(validateTlsConfigRequest());
     try {
-        const values = {...config};
+        const values = { ...config };
         values.certificate_chain = btoa(values.certificate_chain);
         values.private_key = btoa(values.private_key);
         values.port_https = values.port_https || 0;
@@ -83,7 +83,7 @@ export const validateTlsConfig = (config: any) => async (dispatch: any) => {
         response.private_key = atob(response.private_key);
         dispatch(validateTlsConfigSuccess(response));
     } catch (error) {
-        dispatch(addErrorToast({error}));
+        dispatch(addErrorToast({ error }));
         dispatch(validateTlsConfigFailure());
     }
 };

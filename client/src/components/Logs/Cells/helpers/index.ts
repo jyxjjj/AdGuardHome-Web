@@ -6,11 +6,11 @@ export const getBlockClientInfo = (ip: any, disallowed: any, disallowed_rule: an
     let confirmMessage;
 
     if (disallowed) {
-        confirmMessage = i18next.t('client_confirm_unblock', {ip: disallowed_rule || ip});
+        confirmMessage = i18next.t('client_confirm_unblock', { ip: disallowed_rule || ip });
     } else {
-        confirmMessage = `${i18next.t('adg_will_drop_dns_queries')} ${i18next.t('client_confirm_block', {ip})}`;
+        confirmMessage = `${i18next.t('adg_will_drop_dns_queries')} ${i18next.t('client_confirm_block', { ip })}`;
         if (allowedClients.length > 0) {
-            confirmMessage = confirmMessage.concat(`\n\n${i18next.t('filter_allowlist', {disallowed_rule})}`);
+            confirmMessage = confirmMessage.concat(`\n\n${i18next.t('filter_allowlist', { disallowed_rule })}`);
         }
     }
 

@@ -1,65 +1,106 @@
 import axios from 'axios';
 
-import {BASE_URL} from '../../constants';
+import { BASE_URL } from '../../constants';
 
-import {getPathWithQueryString} from '../helpers/helpers';
-import {HTML_PAGES, QUERY_LOGS_PAGE_LIMIT, R_PATH_LAST_PART, THEMES} from '../helpers/constants';
+import { getPathWithQueryString } from '../helpers/helpers';
+import { HTML_PAGES, QUERY_LOGS_PAGE_LIMIT, R_PATH_LAST_PART, THEMES } from '../helpers/constants';
 import i18n from '../i18n';
-import {LANGUAGES} from '../helpers/twosky';
+import { LANGUAGES } from '../helpers/twosky';
 
 class Api {
     baseUrl = BASE_URL;
+
     // Global methods
-    GLOBAL_STATUS = {path: 'status', method: 'GET'};
-    GLOBAL_TEST_UPSTREAM_DNS = {path: 'test_upstream_dns', method: 'POST'};
-    GLOBAL_VERSION = {path: 'version.json', method: 'POST'};
-    GLOBAL_UPDATE = {path: 'update', method: 'POST'};
+    GLOBAL_STATUS = { path: 'status', method: 'GET' };
+
+    GLOBAL_TEST_UPSTREAM_DNS = { path: 'test_upstream_dns', method: 'POST' };
+
+    GLOBAL_VERSION = { path: 'version.json', method: 'POST' };
+
+    GLOBAL_UPDATE = { path: 'update', method: 'POST' };
+
     // Filtering
-    FILTERING_STATUS = {path: 'filtering/status', method: 'GET'};
-    FILTERING_ADD_FILTER = {path: 'filtering/add_url', method: 'POST'};
-    FILTERING_REMOVE_FILTER = {path: 'filtering/remove_url', method: 'POST'};
-    FILTERING_SET_RULES = {path: 'filtering/set_rules', method: 'POST'};
-    FILTERING_REFRESH = {path: 'filtering/refresh', method: 'POST'};
-    FILTERING_SET_URL = {path: 'filtering/set_url', method: 'POST'};
-    FILTERING_CONFIG = {path: 'filtering/config', method: 'POST'};
-    FILTERING_CHECK_HOST = {path: 'filtering/check_host', method: 'GET'};
+    FILTERING_STATUS = { path: 'filtering/status', method: 'GET' };
+
+    FILTERING_ADD_FILTER = { path: 'filtering/add_url', method: 'POST' };
+
+    FILTERING_REMOVE_FILTER = { path: 'filtering/remove_url', method: 'POST' };
+
+    FILTERING_SET_RULES = { path: 'filtering/set_rules', method: 'POST' };
+
+    FILTERING_REFRESH = { path: 'filtering/refresh', method: 'POST' };
+
+    FILTERING_SET_URL = { path: 'filtering/set_url', method: 'POST' };
+
+    FILTERING_CONFIG = { path: 'filtering/config', method: 'POST' };
+
+    FILTERING_CHECK_HOST = { path: 'filtering/check_host', method: 'GET' };
+
     // Parental
-    PARENTAL_STATUS = {path: 'parental/status', method: 'GET'};
-    PARENTAL_ENABLE = {path: 'parental/enable', method: 'POST'};
-    PARENTAL_DISABLE = {path: 'parental/disable', method: 'POST'};
+    PARENTAL_STATUS = { path: 'parental/status', method: 'GET' };
+
+    PARENTAL_ENABLE = { path: 'parental/enable', method: 'POST' };
+
+    PARENTAL_DISABLE = { path: 'parental/disable', method: 'POST' };
+
     // Safebrowsing
-    SAFEBROWSING_STATUS = {path: 'safebrowsing/status', method: 'GET'};
-    SAFEBROWSING_ENABLE = {path: 'safebrowsing/enable', method: 'POST'};
-    SAFEBROWSING_DISABLE = {path: 'safebrowsing/disable', method: 'POST'};
+    SAFEBROWSING_STATUS = { path: 'safebrowsing/status', method: 'GET' };
+
+    SAFEBROWSING_ENABLE = { path: 'safebrowsing/enable', method: 'POST' };
+
+    SAFEBROWSING_DISABLE = { path: 'safebrowsing/disable', method: 'POST' };
+
     // Safesearch
-    SAFESEARCH_STATUS = {path: 'safesearch/status', method: 'GET'};
-    SAFESEARCH_UPDATE = {path: 'safesearch/settings', method: 'PUT'};
+    SAFESEARCH_STATUS = { path: 'safesearch/status', method: 'GET' };
+
+    SAFESEARCH_UPDATE = { path: 'safesearch/settings', method: 'PUT' };
+
     // DHCP
-    DHCP_STATUS = {path: 'dhcp/status', method: 'GET'};
-    DHCP_SET_CONFIG = {path: 'dhcp/set_config', method: 'POST'};
-    DHCP_FIND_ACTIVE = {path: 'dhcp/find_active_dhcp', method: 'POST'};
-    DHCP_INTERFACES = {path: 'dhcp/interfaces', method: 'GET'};
-    DHCP_ADD_STATIC_LEASE = {path: 'dhcp/add_static_lease', method: 'POST'};
-    DHCP_REMOVE_STATIC_LEASE = {path: 'dhcp/remove_static_lease', method: 'POST'};
-    DHCP_UPDATE_STATIC_LEASE = {path: 'dhcp/update_static_lease', method: 'POST'};
-    DHCP_RESET = {path: 'dhcp/reset', method: 'POST'};
-    DHCP_LEASES_RESET = {path: 'dhcp/reset_leases', method: 'POST'};
+    DHCP_STATUS = { path: 'dhcp/status', method: 'GET' };
+
+    DHCP_SET_CONFIG = { path: 'dhcp/set_config', method: 'POST' };
+
+    DHCP_FIND_ACTIVE = { path: 'dhcp/find_active_dhcp', method: 'POST' };
+
+    DHCP_INTERFACES = { path: 'dhcp/interfaces', method: 'GET' };
+
+    DHCP_ADD_STATIC_LEASE = { path: 'dhcp/add_static_lease', method: 'POST' };
+
+    DHCP_REMOVE_STATIC_LEASE = { path: 'dhcp/remove_static_lease', method: 'POST' };
+
+    DHCP_UPDATE_STATIC_LEASE = { path: 'dhcp/update_static_lease', method: 'POST' };
+
+    DHCP_RESET = { path: 'dhcp/reset', method: 'POST' };
+
+    DHCP_LEASES_RESET = { path: 'dhcp/reset_leases', method: 'POST' };
+
     // Installation
-    INSTALL_GET_ADDRESSES = {path: 'install/get_addresses', method: 'GET'};
-    INSTALL_CONFIGURE = {path: 'install/configure', method: 'POST'};
-    INSTALL_CHECK_CONFIG = {path: 'install/check_config', method: 'POST'};
+    INSTALL_GET_ADDRESSES = { path: 'install/get_addresses', method: 'GET' };
+
+    INSTALL_CONFIGURE = { path: 'install/configure', method: 'POST' };
+
+    INSTALL_CHECK_CONFIG = { path: 'install/check_config', method: 'POST' };
+
     // DNS-over-HTTPS and DNS-over-TLS
-    TLS_STATUS = {path: 'tls/status', method: 'GET'};
-    TLS_CONFIG = {path: 'tls/configure', method: 'POST'};
-    TLS_VALIDATE = {path: 'tls/validate', method: 'POST'};
+    TLS_STATUS = { path: 'tls/status', method: 'GET' };
+
+    TLS_CONFIG = { path: 'tls/configure', method: 'POST' };
+
+    TLS_VALIDATE = { path: 'tls/validate', method: 'POST' };
+
     // Per-client settings
-    GET_CLIENTS = {path: 'clients', method: 'GET'};
-    SEARCH_CLIENTS = {path: 'clients/search', method: 'POST'};
-    ADD_CLIENT = {path: 'clients/add', method: 'POST'};
-    DELETE_CLIENT = {path: 'clients/delete', method: 'POST'};
-    UPDATE_CLIENT = {path: 'clients/update', method: 'POST'};
+    GET_CLIENTS = { path: 'clients', method: 'GET' };
+
+    SEARCH_CLIENTS = { path: 'clients/search', method: 'POST' };
+
+    ADD_CLIENT = { path: 'clients/add', method: 'POST' };
+
+    DELETE_CLIENT = { path: 'clients/delete', method: 'POST' };
+
+    UPDATE_CLIENT = { path: 'clients/update', method: 'POST' };
+
     // DNS access settings
-    ACCESS_LIST = {path: 'access/list', method: 'GET'};
+    ACCESS_LIST = { path: 'access/list', method: 'GET' };
 
     // enableSafesearch() {
     //     const { path, method } = this.SAFESEARCH_ENABLE;
@@ -72,39 +113,60 @@ class Api {
     // }
 
     // Language
-    ACCESS_SET = {path: 'access/set', method: 'POST'};
+    ACCESS_SET = { path: 'access/set', method: 'POST' };
 
     // Theme
     // DNS rewrites
-    REWRITES_LIST = {path: 'rewrite/list', method: 'GET'};
-    REWRITE_ADD = {path: 'rewrite/add', method: 'POST'};
-    REWRITE_UPDATE = {path: 'rewrite/update', method: 'PUT'};
-    REWRITE_DELETE = {path: 'rewrite/delete', method: 'POST'};
+    REWRITES_LIST = { path: 'rewrite/list', method: 'GET' };
+
+    REWRITE_ADD = { path: 'rewrite/add', method: 'POST' };
+
+    REWRITE_UPDATE = { path: 'rewrite/update', method: 'PUT' };
+
+    REWRITE_DELETE = { path: 'rewrite/delete', method: 'POST' };
+
     // Blocked services
-    BLOCKED_SERVICES_GET = {path: 'blocked_services/get', method: 'GET'};
-    BLOCKED_SERVICES_UPDATE = {path: 'blocked_services/update', method: 'PUT'};
-    BLOCKED_SERVICES_ALL = {path: 'blocked_services/all', method: 'GET'};
+    BLOCKED_SERVICES_GET = { path: 'blocked_services/get', method: 'GET' };
+
+    BLOCKED_SERVICES_UPDATE = { path: 'blocked_services/update', method: 'PUT' };
+
+    BLOCKED_SERVICES_ALL = { path: 'blocked_services/all', method: 'GET' };
+
     // Settings for statistics
-    GET_STATS = {path: 'stats', method: 'GET'};
-    GET_STATS_CONFIG = {path: 'stats/config', method: 'GET'};
-    UPDATE_STATS_CONFIG = {path: 'stats/config/update', method: 'PUT'};
-    STATS_RESET = {path: 'stats_reset', method: 'POST'};
+    GET_STATS = { path: 'stats', method: 'GET' };
+
+    GET_STATS_CONFIG = { path: 'stats/config', method: 'GET' };
+
+    UPDATE_STATS_CONFIG = { path: 'stats/config/update', method: 'PUT' };
+
+    STATS_RESET = { path: 'stats_reset', method: 'POST' };
+
     // Query log
-    GET_QUERY_LOG = {path: 'querylog', method: 'GET'};
-    UPDATE_QUERY_LOG_CONFIG = {path: 'querylog/config/update', method: 'PUT'};
-    GET_QUERY_LOG_CONFIG = {path: 'querylog/config', method: 'GET'};
-    QUERY_LOG_CLEAR = {path: 'querylog_clear', method: 'POST'};
+    GET_QUERY_LOG = { path: 'querylog', method: 'GET' };
+
+    UPDATE_QUERY_LOG_CONFIG = { path: 'querylog/config/update', method: 'PUT' };
+
+    GET_QUERY_LOG_CONFIG = { path: 'querylog/config', method: 'GET' };
+
+    QUERY_LOG_CLEAR = { path: 'querylog_clear', method: 'POST' };
+
     // Login
-    LOGIN = {path: 'login', method: 'POST'};
+    LOGIN = { path: 'login', method: 'POST' };
+
     // Profile
-    GET_PROFILE = {path: 'profile', method: 'GET'};
-    UPDATE_PROFILE = {path: 'profile/update', method: 'PUT'};
+    GET_PROFILE = { path: 'profile', method: 'GET' };
+
+    UPDATE_PROFILE = { path: 'profile/update', method: 'PUT' };
+
     // DNS config
-    GET_DNS_CONFIG = {path: 'dns_info', method: 'GET'};
-    SET_DNS_CONFIG = {path: 'dns_config', method: 'POST'};
-    SET_PROTECTION = {path: 'protection', method: 'POST'};
+    GET_DNS_CONFIG = { path: 'dns_info', method: 'GET' };
+
+    SET_DNS_CONFIG = { path: 'dns_config', method: 'POST' };
+
+    SET_PROTECTION = { path: 'protection', method: 'POST' };
+
     // Cache
-    CLEAR_CACHE = {path: 'cache_clear', method: 'POST'};
+    CLEAR_CACHE = { path: 'cache_clear', method: 'POST' };
 
     async makeRequest(path: any, method = 'POST', config: any = {}) {
         const url = `${this.baseUrl}/${path}`;
@@ -126,7 +188,7 @@ class Api {
             const errorPath = url;
 
             if (error.response) {
-                const {pathname} = document.location;
+                const { pathname } = document.location;
                 const shouldRedirect = pathname !== HTML_PAGES.LOGIN && pathname !== HTML_PAGES.INSTALL;
 
                 if (error.response.status === 403 && shouldRedirect) {
@@ -143,13 +205,13 @@ class Api {
     }
 
     getGlobalStatus() {
-        const {path, method} = this.GLOBAL_STATUS;
+        const { path, method } = this.GLOBAL_STATUS;
 
         return this.makeRequest(path, method);
     }
 
     testUpstream(servers: any) {
-        const {path, method} = this.GLOBAL_TEST_UPSTREAM_DNS;
+        const { path, method } = this.GLOBAL_TEST_UPSTREAM_DNS;
         const config = {
             data: servers,
         };
@@ -157,7 +219,7 @@ class Api {
     }
 
     getGlobalVersion(data: any) {
-        const {path, method} = this.GLOBAL_VERSION;
+        const { path, method } = this.GLOBAL_VERSION;
         const config = {
             data,
         };
@@ -165,19 +227,19 @@ class Api {
     }
 
     getUpdate() {
-        const {path, method} = this.GLOBAL_UPDATE;
+        const { path, method } = this.GLOBAL_UPDATE;
 
         return this.makeRequest(path, method);
     }
 
     getFilteringStatus() {
-        const {path, method} = this.FILTERING_STATUS;
+        const { path, method } = this.FILTERING_STATUS;
 
         return this.makeRequest(path, method);
     }
 
     refreshFilters(config: any) {
-        const {path, method} = this.FILTERING_REFRESH;
+        const { path, method } = this.FILTERING_REFRESH;
         const parameters = {
             data: config,
         };
@@ -186,7 +248,7 @@ class Api {
     }
 
     addFilter(config: any) {
-        const {path, method} = this.FILTERING_ADD_FILTER;
+        const { path, method } = this.FILTERING_ADD_FILTER;
         const parameters = {
             data: config,
         };
@@ -195,7 +257,7 @@ class Api {
     }
 
     removeFilter(config: any) {
-        const {path, method} = this.FILTERING_REMOVE_FILTER;
+        const { path, method } = this.FILTERING_REMOVE_FILTER;
         const parameters = {
             data: config,
         };
@@ -204,7 +266,7 @@ class Api {
     }
 
     setRules(rules: any) {
-        const {path, method} = this.FILTERING_SET_RULES;
+        const { path, method } = this.FILTERING_SET_RULES;
         const parameters = {
             data: rules,
         };
@@ -212,7 +274,7 @@ class Api {
     }
 
     setFiltersConfig(config: any) {
-        const {path, method} = this.FILTERING_CONFIG;
+        const { path, method } = this.FILTERING_CONFIG;
         const parameters = {
             data: config,
         };
@@ -220,7 +282,7 @@ class Api {
     }
 
     setFilterUrl(config: any) {
-        const {path, method} = this.FILTERING_SET_URL;
+        const { path, method } = this.FILTERING_SET_URL;
         const parameters = {
             data: config,
         };
@@ -228,50 +290,50 @@ class Api {
     }
 
     checkHost(params: any) {
-        const {path, method} = this.FILTERING_CHECK_HOST;
+        const { path, method } = this.FILTERING_CHECK_HOST;
         const url = getPathWithQueryString(path, params);
 
         return this.makeRequest(url, method);
     }
 
     getParentalStatus() {
-        const {path, method} = this.PARENTAL_STATUS;
+        const { path, method } = this.PARENTAL_STATUS;
 
         return this.makeRequest(path, method);
     }
 
     enableParentalControl() {
-        const {path, method} = this.PARENTAL_ENABLE;
+        const { path, method } = this.PARENTAL_ENABLE;
 
         return this.makeRequest(path, method);
     }
 
     disableParentalControl() {
-        const {path, method} = this.PARENTAL_DISABLE;
+        const { path, method } = this.PARENTAL_DISABLE;
 
         return this.makeRequest(path, method);
     }
 
     getSafebrowsingStatus() {
-        const {path, method} = this.SAFEBROWSING_STATUS;
+        const { path, method } = this.SAFEBROWSING_STATUS;
 
         return this.makeRequest(path, method);
     }
 
     enableSafebrowsing() {
-        const {path, method} = this.SAFEBROWSING_ENABLE;
+        const { path, method } = this.SAFEBROWSING_ENABLE;
 
         return this.makeRequest(path, method);
     }
 
     disableSafebrowsing() {
-        const {path, method} = this.SAFEBROWSING_DISABLE;
+        const { path, method } = this.SAFEBROWSING_DISABLE;
 
         return this.makeRequest(path, method);
     }
 
     getSafesearchStatus() {
-        const {path, method} = this.SAFESEARCH_STATUS;
+        const { path, method } = this.SAFESEARCH_STATUS;
 
         return this.makeRequest(path, method);
     }
@@ -290,8 +352,8 @@ class Api {
      * @returns 200 ok
      */
     updateSafesearch(data: any) {
-        const {path, method} = this.SAFESEARCH_UPDATE;
-        return this.makeRequest(path, method, {data});
+        const { path, method } = this.SAFESEARCH_UPDATE;
+        return this.makeRequest(path, method, { data });
     }
 
     async changeLanguage(config: any) {
@@ -309,19 +371,19 @@ class Api {
     }
 
     getDhcpStatus() {
-        const {path, method} = this.DHCP_STATUS;
+        const { path, method } = this.DHCP_STATUS;
 
         return this.makeRequest(path, method);
     }
 
     getDhcpInterfaces() {
-        const {path, method} = this.DHCP_INTERFACES;
+        const { path, method } = this.DHCP_INTERFACES;
 
         return this.makeRequest(path, method);
     }
 
     setDhcpConfig(config: any) {
-        const {path, method} = this.DHCP_SET_CONFIG;
+        const { path, method } = this.DHCP_SET_CONFIG;
         const parameters = {
             data: config,
         };
@@ -329,7 +391,7 @@ class Api {
     }
 
     findActiveDhcp(req: any) {
-        const {path, method} = this.DHCP_FIND_ACTIVE;
+        const { path, method } = this.DHCP_FIND_ACTIVE;
         const parameters = {
             data: req,
         };
@@ -337,7 +399,7 @@ class Api {
     }
 
     addStaticLease(config: any) {
-        const {path, method} = this.DHCP_ADD_STATIC_LEASE;
+        const { path, method } = this.DHCP_ADD_STATIC_LEASE;
         const parameters = {
             data: config,
         };
@@ -345,7 +407,7 @@ class Api {
     }
 
     removeStaticLease(config: any) {
-        const {path, method} = this.DHCP_REMOVE_STATIC_LEASE;
+        const { path, method } = this.DHCP_REMOVE_STATIC_LEASE;
         const parameters = {
             data: config,
         };
@@ -353,7 +415,7 @@ class Api {
     }
 
     updateStaticLease(config: any) {
-        const {path, method} = this.DHCP_UPDATE_STATIC_LEASE;
+        const { path, method } = this.DHCP_UPDATE_STATIC_LEASE;
         const parameters = {
             data: config,
         };
@@ -361,25 +423,25 @@ class Api {
     }
 
     resetDhcp() {
-        const {path, method} = this.DHCP_RESET;
+        const { path, method } = this.DHCP_RESET;
 
         return this.makeRequest(path, method);
     }
 
     resetDhcpLeases() {
-        const {path, method} = this.DHCP_LEASES_RESET;
+        const { path, method } = this.DHCP_LEASES_RESET;
 
         return this.makeRequest(path, method);
     }
 
     getDefaultAddresses() {
-        const {path, method} = this.INSTALL_GET_ADDRESSES;
+        const { path, method } = this.INSTALL_GET_ADDRESSES;
 
         return this.makeRequest(path, method);
     }
 
     setAllSettings(config: any) {
-        const {path, method} = this.INSTALL_CONFIGURE;
+        const { path, method } = this.INSTALL_CONFIGURE;
         const parameters = {
             data: config,
         };
@@ -387,7 +449,7 @@ class Api {
     }
 
     checkConfig(config: any) {
-        const {path, method} = this.INSTALL_CHECK_CONFIG;
+        const { path, method } = this.INSTALL_CHECK_CONFIG;
         const parameters = {
             data: config,
         };
@@ -395,13 +457,13 @@ class Api {
     }
 
     getTlsStatus() {
-        const {path, method} = this.TLS_STATUS;
+        const { path, method } = this.TLS_STATUS;
 
         return this.makeRequest(path, method);
     }
 
     setTlsConfig(config: any) {
-        const {path, method} = this.TLS_CONFIG;
+        const { path, method } = this.TLS_CONFIG;
         const parameters = {
             data: config,
         };
@@ -409,7 +471,7 @@ class Api {
     }
 
     validateTlsConfig(config: any) {
-        const {path, method} = this.TLS_VALIDATE;
+        const { path, method } = this.TLS_VALIDATE;
         const parameters = {
             data: config,
         };
@@ -417,13 +479,13 @@ class Api {
     }
 
     getClients() {
-        const {path, method} = this.GET_CLIENTS;
+        const { path, method } = this.GET_CLIENTS;
 
         return this.makeRequest(path, method);
     }
 
     addClient(config: any) {
-        const {path, method} = this.ADD_CLIENT;
+        const { path, method } = this.ADD_CLIENT;
         const parameters = {
             data: config,
         };
@@ -431,7 +493,7 @@ class Api {
     }
 
     deleteClient(config: any) {
-        const {path, method} = this.DELETE_CLIENT;
+        const { path, method } = this.DELETE_CLIENT;
         const parameters = {
             data: config,
         };
@@ -439,7 +501,7 @@ class Api {
     }
 
     updateClient(config: any) {
-        const {path, method} = this.UPDATE_CLIENT;
+        const { path, method } = this.UPDATE_CLIENT;
         const parameters = {
             data: config,
         };
@@ -447,7 +509,7 @@ class Api {
     }
 
     searchClients(config: any) {
-        const {path, method} = this.SEARCH_CLIENTS;
+        const { path, method } = this.SEARCH_CLIENTS;
         const parameters = {
             data: config,
         };
@@ -455,13 +517,13 @@ class Api {
     }
 
     getAccessList() {
-        const {path, method} = this.ACCESS_LIST;
+        const { path, method } = this.ACCESS_LIST;
 
         return this.makeRequest(path, method);
     }
 
     setAccessList(config: any) {
-        const {path, method} = this.ACCESS_SET;
+        const { path, method } = this.ACCESS_SET;
         const parameters = {
             data: config,
         };
@@ -469,13 +531,13 @@ class Api {
     }
 
     getRewritesList() {
-        const {path, method} = this.REWRITES_LIST;
+        const { path, method } = this.REWRITES_LIST;
 
         return this.makeRequest(path, method);
     }
 
     addRewrite(config: any) {
-        const {path, method} = this.REWRITE_ADD;
+        const { path, method } = this.REWRITE_ADD;
         const parameters = {
             data: config,
         };
@@ -483,7 +545,7 @@ class Api {
     }
 
     updateRewrite(config: any) {
-        const {path, method} = this.REWRITE_UPDATE;
+        const { path, method } = this.REWRITE_UPDATE;
         const parameters = {
             data: config,
         };
@@ -491,7 +553,7 @@ class Api {
     }
 
     deleteRewrite(config: any) {
-        const {path, method} = this.REWRITE_DELETE;
+        const { path, method } = this.REWRITE_DELETE;
         const parameters = {
             data: config,
         };
@@ -499,19 +561,19 @@ class Api {
     }
 
     getAllBlockedServices() {
-        const {path, method} = this.BLOCKED_SERVICES_ALL;
+        const { path, method } = this.BLOCKED_SERVICES_ALL;
 
         return this.makeRequest(path, method);
     }
 
     getBlockedServices() {
-        const {path, method} = this.BLOCKED_SERVICES_GET;
+        const { path, method } = this.BLOCKED_SERVICES_GET;
 
         return this.makeRequest(path, method);
     }
 
     updateBlockedServices(config: any) {
-        const {path, method} = this.BLOCKED_SERVICES_UPDATE;
+        const { path, method } = this.BLOCKED_SERVICES_UPDATE;
         const parameters = {
             data: config,
         };
@@ -519,19 +581,19 @@ class Api {
     }
 
     getStats() {
-        const {path, method} = this.GET_STATS;
+        const { path, method } = this.GET_STATS;
 
         return this.makeRequest(path, method);
     }
 
     getStatsConfig() {
-        const {path, method} = this.GET_STATS_CONFIG;
+        const { path, method } = this.GET_STATS_CONFIG;
 
         return this.makeRequest(path, method);
     }
 
     setStatsConfig(data: any) {
-        const {path, method} = this.UPDATE_STATS_CONFIG;
+        const { path, method } = this.UPDATE_STATS_CONFIG;
         const config = {
             data,
         };
@@ -539,13 +601,13 @@ class Api {
     }
 
     resetStats() {
-        const {path, method} = this.STATS_RESET;
+        const { path, method } = this.STATS_RESET;
 
         return this.makeRequest(path, method);
     }
 
     getQueryLog(params: any) {
-        const {path, method} = this.GET_QUERY_LOG;
+        const { path, method } = this.GET_QUERY_LOG;
         // eslint-disable-next-line no-param-reassign
         params.limit = QUERY_LOGS_PAGE_LIMIT;
         const url = getPathWithQueryString(path, params);
@@ -554,13 +616,13 @@ class Api {
     }
 
     getQueryLogConfig() {
-        const {path, method} = this.GET_QUERY_LOG_CONFIG;
+        const { path, method } = this.GET_QUERY_LOG_CONFIG;
 
         return this.makeRequest(path, method);
     }
 
     setQueryLogConfig(data: any) {
-        const {path, method} = this.UPDATE_QUERY_LOG_CONFIG;
+        const { path, method } = this.UPDATE_QUERY_LOG_CONFIG;
         const config = {
             data,
         };
@@ -568,13 +630,13 @@ class Api {
     }
 
     clearQueryLog() {
-        const {path, method} = this.QUERY_LOG_CLEAR;
+        const { path, method } = this.QUERY_LOG_CLEAR;
 
         return this.makeRequest(path, method);
     }
 
     login(data: any) {
-        const {path, method} = this.LOGIN;
+        const { path, method } = this.LOGIN;
         const config = {
             data,
         };
@@ -582,7 +644,7 @@ class Api {
     }
 
     getProfile() {
-        const {path, method} = this.GET_PROFILE;
+        const { path, method } = this.GET_PROFILE;
 
         return this.makeRequest(path, method);
     }
@@ -592,20 +654,20 @@ class Api {
         const defaultLanguage = i18n.language ? i18n.language : LANGUAGES.en;
         const language = data.language ? data.language : defaultLanguage;
 
-        const {path, method} = this.UPDATE_PROFILE;
-        const config = {data: {theme, language}};
+        const { path, method } = this.UPDATE_PROFILE;
+        const config = { data: { theme, language } };
 
         return this.makeRequest(path, method, config);
     }
 
     getDnsConfig() {
-        const {path, method} = this.GET_DNS_CONFIG;
+        const { path, method } = this.GET_DNS_CONFIG;
 
         return this.makeRequest(path, method);
     }
 
     setDnsConfig(data: any) {
-        const {path, method} = this.SET_DNS_CONFIG;
+        const { path, method } = this.SET_DNS_CONFIG;
         const config = {
             data,
         };
@@ -613,14 +675,14 @@ class Api {
     }
 
     setProtection(data: any) {
-        const {enabled, duration} = data;
-        const {path, method} = this.SET_PROTECTION;
+        const { enabled, duration } = data;
+        const { path, method } = this.SET_PROTECTION;
 
-        return this.makeRequest(path, method, {data: {enabled, duration}});
+        return this.makeRequest(path, method, { data: { enabled, duration } });
     }
 
     clearCache() {
-        const {path, method} = this.CLEAR_CACHE;
+        const { path, method } = this.CLEAR_CACHE;
 
         return this.makeRequest(path, method);
     }

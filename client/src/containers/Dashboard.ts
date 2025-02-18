@@ -1,15 +1,15 @@
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
-import {getClients, toggleProtection} from '../actions';
-import {getStats, getStatsConfig} from '../actions/stats';
-import {getAccessList} from '../actions/access';
+import { getClients, toggleProtection } from '../actions';
+import { getStats, getStatsConfig } from '../actions/stats';
+import { getAccessList } from '../actions/access';
 
 import Dashboard from '../components/Dashboard';
-import {RootState} from '../initialState';
+import { RootState } from '../initialState';
 
 const mapStateToProps = (state: RootState) => {
-    const {dashboard, stats, access} = state;
-    const props = {dashboard, stats, access};
+    const { dashboard, stats, access } = state;
+    const props = { dashboard, stats, access };
     return props;
 };
 

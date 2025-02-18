@@ -1,12 +1,12 @@
-import {connect} from 'react-redux';
-import {getAccessList, setAccessList} from '../actions/access';
-import {addRewrite, deleteRewrite, getRewritesList, toggleRewritesModal} from '../actions/rewrites';
-import {getDnsConfig, setDnsConfig} from '../actions/dnsConfig';
+import { connect } from 'react-redux';
+import { getAccessList, setAccessList } from '../actions/access';
+import { addRewrite, deleteRewrite, getRewritesList, toggleRewritesModal } from '../actions/rewrites';
+import { getDnsConfig, setDnsConfig } from '../actions/dnsConfig';
 
 import Dns from '../components/Settings/Dns';
 
 const mapStateToProps = (state: any) => {
-    const {dashboard, settings, access, rewrites, dnsConfig} = state;
+    const { dashboard, settings, access, rewrites, dnsConfig } = state;
     const props = {
         dashboard,
         settings,

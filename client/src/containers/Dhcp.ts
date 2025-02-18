@@ -1,4 +1,4 @@
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import {
     addStaticLease,
     findActiveDhcp,
@@ -14,7 +14,7 @@ import {
 import Dhcp from '../components/Settings/Dhcp';
 
 const mapStateToProps = (state: any) => {
-    const {dhcp} = state;
+    const { dhcp } = state;
     const props = {
         dhcp,
     };

@@ -1,13 +1,13 @@
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
-import {getClients} from '../actions';
-import {getStats} from '../actions/stats';
-import {addClient, deleteClient, toggleClientModal, updateClient} from '../actions/clients';
+import { getClients } from '../actions';
+import { getStats } from '../actions/stats';
+import { addClient, deleteClient, toggleClientModal, updateClient } from '../actions/clients';
 
 import Clients from '../components/Settings/Clients';
 
 const mapStateToProps = (state: any) => {
-    const {dashboard, clients, stats} = state;
+    const { dashboard, clients, stats } = state;
     const props = {
         dashboard,
         clients,
