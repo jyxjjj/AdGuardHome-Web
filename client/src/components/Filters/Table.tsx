@@ -1,16 +1,15 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 // @ts-expect-error FIXME: update react-table
 import ReactTable from 'react-table';
-import {Trans, withTranslation} from 'react-i18next';
+import { Trans, withTranslation } from 'react-i18next';
 
-import CellWrap from '../ui/CellWrap';
-import {MODAL_TYPE} from '../../helpers/constants';
+import { MODAL_TYPE } from '../../helpers/constants';
 
-import {formatDetailedDateTime} from '../../helpers/helpers';
+import { formatDetailedDateTime } from '../../helpers/helpers';
 
-import {isValidAbsolutePath} from '../../helpers/form';
-import {LOCAL_STORAGE_KEYS, LocalStorageHelper} from '../../helpers/localStorageHelper';
+import { isValidAbsolutePath } from '../../helpers/form';
+import { LOCAL_STORAGE_KEYS, LocalStorageHelper } from '../../helpers/localStorageHelper';
 
 interface TableProps {
     filters: unknown[];
@@ -23,13 +22,22 @@ interface TableProps {
     whitelist?: boolean;
 }
 
+interface CellWrapProps {
+    value?: string | number;
+    formatValue?: (...args: unknown[]) => unknown;
+}
+
+const CellWrap = ({ value }: CellWrapProps, formatValue?: any) => {
+    return typeof formatValue === 'function' ? formatValue(value) : value;
+};
+
 class Table extends Component<TableProps> {
     getDateCell = (row: any) => CellWrap(row, formatDetailedDateTime);
 
-    renderCheckbox = ({original}: any) => {
-        const {processingConfigFilter, toggleFilter} = this.props;
-        const {url, name, enabled} = original;
-        const data = {name, url, enabled: !enabled};
+    renderCheckbox = ({ original }: any) => {
+        const { processingConfigFilter, toggleFilter } = this.props;
+        const { url, name, enabled } = original;
+        const data = { name, url, enabled: !enabled };
 
         return (
             <label className="checkbox">
@@ -41,7 +49,7 @@ class Table extends Component<TableProps> {
                     disabled={processingConfigFilter}
                 />
 
-                <span className="checkbox__label"/>
+                <span className="checkbox__label" />
             </label>
         );
     };
@@ -51,22 +59,23 @@ class Table extends Component<TableProps> {
             Header: <Trans>enabled_table_header</Trans>,
             accessor: 'enabled',
             Cell: this.renderCheckbox,
-            width: 90,
+            width: 96,
             className: 'text-center',
             resizable: false,
         },
         {
             Header: <Trans>name_table_header</Trans>,
             accessor: 'name',
-            minWidth: 180,
+            minWidth: 256,
+            className: 'text-center',
             Cell: CellWrap,
         },
         {
             Header: <Trans>list_url_table_header</Trans>,
             accessor: 'url',
-            minWidth: 180,
+            minWidth: 512,
             // eslint-disable-next-line react/prop-types
-            Cell: ({value}: any) => (
+            Cell: ({ value }: any) => (
                 <div className="logs__row">
                     {isValidAbsolutePath(value) ? (
                         value
@@ -82,31 +91,31 @@ class Table extends Component<TableProps> {
             Header: <Trans>rules_count_table_header</Trans>,
             accessor: 'rulesCount',
             className: 'text-center',
-            minWidth: 100,
+            minWidth: 128,
             Cell: (props: any) => props.value.toLocaleString(),
         },
         {
             Header: <Trans>last_time_updated_table_header</Trans>,
             accessor: 'lastUpdated',
             className: 'text-center',
-            minWidth: 180,
+            minWidth: 256,
             Cell: this.getDateCell,
         },
         {
             Header: <Trans>actions_table_header</Trans>,
             accessor: 'actions',
             className: 'text-center',
-            width: 100,
+            width: 128,
             sortable: false,
             resizable: false,
             Cell: (row: any) => {
-                const {original} = row;
-                const {url} = original;
+                const { original } = row;
+                const { url } = original;
 
-                const {t, toggleFilteringModal, handleDelete} = this.props;
+                const { t, toggleFilteringModal, handleDelete } = this.props;
 
                 return (
-                    <div className="logs__row logs__row--center">
+                    <>
                         <button
                             type="button"
                             className="btn btn-icon btn-outline-primary btn-sm mr-2"
@@ -118,27 +127,26 @@ class Table extends Component<TableProps> {
                                 })
                             }>
                             <svg className="icons icon12">
-                                <use xlinkHref="#edit"/>
+                                <use xlinkHref="#edit" />
                             </svg>
                         </button>
-
                         <button
                             type="button"
                             className="btn btn-icon btn-outline-secondary btn-sm"
                             onClick={() => handleDelete(url)}
                             title={t('delete_table_action')}>
                             <svg className="icons icon12">
-                                <use xlinkHref="#delete"/>
+                                <use xlinkHref="#delete" />
                             </svg>
                         </button>
-                    </div>
+                    </>
                 );
             },
         },
     ];
 
     render() {
-        const {loading, filters, t, whitelist} = this.props;
+        const { loading, filters, t, whitelist } = this.props;
 
         const localStorageKey = whitelist
             ? LOCAL_STORAGE_KEYS.ALLOWLIST_PAGE_SIZE
