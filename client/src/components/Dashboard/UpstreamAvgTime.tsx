@@ -39,7 +39,7 @@ interface UpstreamAvgTimeProps {
 }
 
 const UpstreamAvgTime = ({t, refreshButton, topUpstreamsAvgTime, subtitle}: UpstreamAvgTimeProps) => (
-    <Card title={t('average_upstream_response_time')} subtitle={subtitle} bodyType="card-table" refresh={refreshButton}>
+    <Card title={t('average_upstream_response_time')} subtitle={subtitle} bodyType="card-table" refresh={refreshButton} type="card--full">
         <ReactTable
             data={topUpstreamsAvgTime.map(({name: domain, count}: { name: string; count: number }) => ({
                 domain,
@@ -62,7 +62,7 @@ const UpstreamAvgTime = ({t, refreshButton, topUpstreamsAvgTime, subtitle}: Upst
             noDataText={t('no_upstreams_data_found')}
             minRows={TABLES_MIN_ROWS}
             defaultPageSize={DASHBOARD_TABLES_DEFAULT_PAGE_SIZE}
-            className="-highlight card-table-overflow--limited stats__table"
+            className="-highlight card-table-overflow stats__table"
         />
     </Card>
 );

@@ -1,14 +1,14 @@
 import React from 'react';
 
-import {Link} from 'react-router-dom';
-import {Trans, withTranslation} from 'react-i18next';
+import { Link } from 'react-router-dom';
+import { Trans, withTranslation } from 'react-i18next';
 
 import StatsCard from './StatsCard';
 
-import {getPercent, normalizeHistory} from '../../helpers/helpers';
-import {RESPONSE_FILTER} from '../../helpers/constants';
+import { getPercent, normalizeHistory } from '../../helpers/helpers';
+import { RESPONSE_FILTER } from '../../helpers/constants';
 
-const getNormalizedHistory = (data: any, interval: any, id: any) => [{data: normalizeHistory(data), id}];
+const getNormalizedHistory = (data: any, interval: any, id: any) => [{ data: normalizeHistory(data), id }];
 
 interface StatisticsProps {
     interval: number;
@@ -24,18 +24,18 @@ interface StatisticsProps {
 }
 
 const Statistics = ({
-                        interval,
-                        dnsQueries,
-                        blockedFiltering,
-                        replacedSafebrowsing,
-                        replacedParental,
-                        numDnsQueries,
-                        numBlockedFiltering,
-                        numReplacedSafebrowsing,
-                        numReplacedParental,
-                    }: StatisticsProps) => (
+    interval,
+    dnsQueries,
+    blockedFiltering,
+    // replacedSafebrowsing,
+    // replacedParental,
+    numDnsQueries,
+    numBlockedFiltering,
+    // numReplacedSafebrowsing,
+    // numReplacedParental,
+}: StatisticsProps) => (
     <div className="row">
-        <div className="col-sm-6 col-lg-3">
+        <div className="col-sm-6">
             <StatsCard
                 total={numDnsQueries}
                 lineData={getNormalizedHistory(dnsQueries, interval, 'dnsQuery')}
@@ -48,7 +48,7 @@ const Statistics = ({
             />
         </div>
 
-        <div className="col-sm-6 col-lg-3">
+        <div className="col-sm-6">
             <StatsCard
                 total={numBlockedFiltering}
                 lineData={getNormalizedHistory(blockedFiltering, interval, 'blockedFiltering')}
@@ -66,8 +66,8 @@ const Statistics = ({
                 color="red"
             />
         </div>
-
-        <div className="col-sm-6 col-lg-3">
+        {/*
+        <div className="col-sm-6 col-lg-6">
             <StatsCard
                 total={numReplacedSafebrowsing}
                 lineData={getNormalizedHistory(replacedSafebrowsing, interval, 'replacedSafebrowsing')}
@@ -81,7 +81,7 @@ const Statistics = ({
             />
         </div>
 
-        <div className="col-sm-6 col-lg-3">
+        <div className="col-sm-6 col-lg-6">
             <StatsCard
                 total={numReplacedParental}
                 lineData={getNormalizedHistory(replacedParental, interval, 'replacedParental')}
@@ -94,6 +94,7 @@ const Statistics = ({
                 color="yellow"
             />
         </div>
+        */}
     </div>
 );
 

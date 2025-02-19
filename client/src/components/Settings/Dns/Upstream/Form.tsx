@@ -1,22 +1,20 @@
-import React, {useRef} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import React, { useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import {Field, reduxForm} from 'redux-form';
-import {Trans, useTranslation} from 'react-i18next';
+import { Field, reduxForm } from 'redux-form';
+import { Trans, useTranslation } from 'react-i18next';
 import classnames from 'classnames';
 
-import Examples from './Examples';
+import { CheckboxField, renderRadioField, renderTextareaField } from '../../../../helpers/form';
+import { DNS_REQUEST_OPTIONS, FORM_NAME, UPSTREAM_CONFIGURATION_WIKI_LINK } from '../../../../helpers/constants';
 
-import {CheckboxField, renderRadioField, renderTextareaField} from '../../../../helpers/form';
-import {DNS_REQUEST_OPTIONS, FORM_NAME, UPSTREAM_CONFIGURATION_WIKI_LINK} from '../../../../helpers/constants';
+import { testUpstreamWithFormValues } from '../../../../actions';
 
-import {testUpstreamWithFormValues} from '../../../../actions';
+import { removeEmptyLines, trimLinesAndRemoveEmpty } from '../../../../helpers/helpers';
 
-import {removeEmptyLines, trimLinesAndRemoveEmpty} from '../../../../helpers/helpers';
-
-import {getTextareaCommentsHighlight, syncScroll} from '../../../../helpers/highlightTextareaComments';
+import { getTextareaCommentsHighlight, syncScroll } from '../../../../helpers/highlightTextareaComments';
 import '../../../ui/texareaCommentsHighlight.css';
-import {RootState} from '../../../../initialState';
+import { RootState } from '../../../../initialState';
 
 const UPSTREAM_DNS_NAME = 'upstream_dns';
 const UPSTREAM_MODE_NAME = 'upstream_mode';
@@ -35,18 +33,18 @@ interface renderFieldProps {
 }
 
 const renderField = ({
-                         name,
-                         component,
-                         type,
-                         className,
-                         placeholder,
-                         subtitle,
-                         value,
-                         normalizeOnBlur,
-                         containerClass,
-                         onScroll,
-                     }: renderFieldProps) => {
-    const {t} = useTranslation();
+    name,
+    component,
+    type,
+    className,
+    placeholder,
+    subtitle,
+    value,
+    normalizeOnBlur,
+    containerClass,
+    onScroll,
+}: renderFieldProps) => {
+    const { t } = useTranslation();
 
     const processingTestUpstream = useSelector((state: RootState) => state.settings.processingTestUpstream);
 
@@ -142,9 +140,9 @@ interface FormProps {
     bootstrap_dns?: string;
 }
 
-const Form = ({submitting, invalid, handleSubmit}: FormProps) => {
+const Form = ({ submitting, invalid, handleSubmit }: FormProps) => {
     const dispatch = useDispatch();
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     const upstream_dns = useSelector((store: RootState) => store.form[FORM_NAME.UPSTREAM].values.upstream_dns);
 
@@ -160,7 +158,7 @@ const Form = ({submitting, invalid, handleSubmit}: FormProps) => {
     });
 
     const components = {
-        a: <a href={UPSTREAM_CONFIGURATION_WIKI_LINK} target="_blank" rel="noopener noreferrer"/>,
+        a: <a href={UPSTREAM_CONFIGURATION_WIKI_LINK} target="_blank" rel="noopener noreferrer" />,
     };
 
     return (
@@ -171,7 +169,7 @@ const Form = ({submitting, invalid, handleSubmit}: FormProps) => {
                     <Trans
                         components={[
                             <a
-                                href="https://link.adtidy.org/forward.html?action=dns_kb_providers&from=ui&app=home"
+                                href="https://adguard-dns.io/kb/general/dns-providers/"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 key="0">
@@ -180,6 +178,15 @@ const Form = ({submitting, invalid, handleSubmit}: FormProps) => {
                         ]}>
                         dns_providers
                     </Trans>
+                    <br />
+                    <div className="list leading-loose">
+                        <a
+                            href="https://github.com/AdguardTeam/AdGuardHome/wiki/Configuration#upstreams"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            <Trans>examples_title</Trans>
+                        </a>
+                    </div>
                 </label>
 
                 <div className="col-12 mb-4">
@@ -197,12 +204,6 @@ const Form = ({submitting, invalid, handleSubmit}: FormProps) => {
                     </div>
                 </div>
                 {INPUT_FIELDS.map(renderField)}
-
-                <div className="col-12">
-                    <Examples/>
-
-                    <hr/>
-                </div>
 
                 <div className="col-12">
                     <label className="form__label form__label--with-desc" htmlFor="fallback_dns">
@@ -226,7 +227,7 @@ const Form = ({submitting, invalid, handleSubmit}: FormProps) => {
                 </div>
 
                 <div className="col-12">
-                    <hr/>
+                    <hr />
                 </div>
 
                 <div className="col-12 mb-2">
@@ -251,7 +252,7 @@ const Form = ({submitting, invalid, handleSubmit}: FormProps) => {
                 </div>
 
                 <div className="col-12">
-                    <hr/>
+                    <hr />
                 </div>
 
                 <div className="col-12">
@@ -266,7 +267,7 @@ const Form = ({submitting, invalid, handleSubmit}: FormProps) => {
                     <div className="form__desc form__desc--top">
                         {/** TODO: Add internazionalization for "" */}
                         {defaultLocalPtrUpstreams?.length > 0 ? (
-                            <Trans values={{ip: defaultLocalPtrUpstreams.map((s: any) => `"${s}"`).join(', ')}}>
+                            <Trans values={{ ip: defaultLocalPtrUpstreams.map((s: any) => `"${s}"`).join(', ') }}>
                                 local_ptr_default_resolver
                             </Trans>
                         ) : (
@@ -298,7 +299,7 @@ const Form = ({submitting, invalid, handleSubmit}: FormProps) => {
                 </div>
 
                 <div className="col-12">
-                    <hr/>
+                    <hr />
                 </div>
 
                 <div className="col-12 mb-4">
@@ -335,4 +336,4 @@ const Form = ({submitting, invalid, handleSubmit}: FormProps) => {
     );
 };
 
-export default reduxForm({form: FORM_NAME.UPSTREAM})(Form);
+export default reduxForm({ form: FORM_NAME.UPSTREAM })(Form);

@@ -40,7 +40,7 @@ interface QueriedDomainsProps {
 }
 
 const QueriedDomains = ({t, refreshButton, topQueriedDomains, subtitle, dnsQueries}: QueriedDomainsProps) => (
-    <Card title={t('stats_query_domain')} subtitle={subtitle} bodyType="card-table" refresh={refreshButton}>
+    <Card title={t('stats_query_domain')} subtitle={subtitle} bodyType="card-table" refresh={refreshButton} type="card--full">
         <ReactTable
             data={topQueriedDomains.map(({name: domain, count}: any) => ({
                 domain,

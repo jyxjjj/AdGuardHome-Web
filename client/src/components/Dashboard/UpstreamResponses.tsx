@@ -39,7 +39,7 @@ interface UpstreamResponsesProps {
 }
 
 const UpstreamResponses = ({t, refreshButton, topUpstreamsResponses, subtitle}: UpstreamResponsesProps) => (
-    <Card title={t('top_upstreams')} subtitle={subtitle} bodyType="card-table" refresh={refreshButton}>
+    <Card title={t('top_upstreams')} subtitle={subtitle} bodyType="card-table" refresh={refreshButton} type="card--full">
         <ReactTable
             data={topUpstreamsResponses.map(({name: domain, count}: { name: string; count: number }) => ({
                 domain,
@@ -62,7 +62,7 @@ const UpstreamResponses = ({t, refreshButton, topUpstreamsResponses, subtitle}: 
             noDataText={t('no_upstreams_data_found')}
             minRows={TABLES_MIN_ROWS}
             defaultPageSize={DASHBOARD_TABLES_DEFAULT_PAGE_SIZE}
-            className="-highlight card-table-overflow--limited stats__table"
+            className="-highlight card-table-overflow stats__table"
         />
     </Card>
 );

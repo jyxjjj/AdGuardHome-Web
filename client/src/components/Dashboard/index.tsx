@@ -216,27 +216,6 @@ const Dashboard = ({
                     </div>
 
                     <div className="col-lg-6">
-                        <QueriedDomains
-                            subtitle={subtitle}
-                            dnsQueries={stats.numDnsQueries}
-                            topQueriedDomains={stats.topQueriedDomains}
-                            refreshButton={refreshButton}
-                        />
-                    </div>
-
-                    <div className="col-lg-6">
-                        <BlockedDomains
-                            subtitle={subtitle}
-                            topBlockedDomains={stats.topBlockedDomains}
-                            blockedFiltering={stats.numBlockedFiltering}
-                            replacedSafebrowsing={stats.numReplacedSafebrowsing}
-                            replacedSafesearch={stats.numReplacedSafesearch}
-                            replacedParental={stats.numReplacedParental}
-                            refreshButton={refreshButton}
-                        />
-                    </div>
-
-                    <div className="col-lg-6">
                         <UpstreamResponses
                             subtitle={subtitle}
                             topUpstreamsResponses={stats.topUpstreamsResponses}
@@ -248,6 +227,27 @@ const Dashboard = ({
                         <UpstreamAvgTime
                             subtitle={subtitle}
                             topUpstreamsAvgTime={stats.topUpstreamsAvgTime}
+                            refreshButton={refreshButton}
+                        />
+                    </div>
+
+                    <div className="col-lg-12">
+                        <QueriedDomains
+                            subtitle={subtitle}
+                            dnsQueries={stats.numDnsQueries}
+                            topQueriedDomains={stats.topQueriedDomains}
+                            refreshButton={refreshButton}
+                        />
+                    </div>
+
+                    <div className="col-lg-12">
+                        <BlockedDomains
+                            subtitle={subtitle}
+                            topBlockedDomains={stats.topBlockedDomains}
+                            blockedFiltering={stats.numBlockedFiltering}
+                            replacedSafebrowsing={stats.numReplacedSafebrowsing}
+                            replacedSafesearch={stats.numReplacedSafesearch}
+                            replacedParental={stats.numReplacedParental}
                             refreshButton={refreshButton}
                         />
                     </div>

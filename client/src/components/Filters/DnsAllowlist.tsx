@@ -109,7 +109,7 @@ class DnsAllowlist extends Component<DnsAllowlistProps> {
                 <div className="content">
                     <div className="row">
                         <div className="col-md-12">
-                            <Card subtitle={t('filters_and_hosts_hint')}>
+                            <Card subtitle={t('filters_and_hosts_hint')} type="card--full">
                                 <Table
                                     filters={whitelistFilters}
                                     loading={loading}

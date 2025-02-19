@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
-import {connect, useSelector} from 'react-redux';
-import {Field, FieldArray, FormErrors, formValueSelector, reduxForm} from 'redux-form';
-import {Trans, withTranslation} from 'react-i18next';
+import React, { useState } from 'react';
+import { connect, useSelector } from 'react-redux';
+import { Field, FieldArray, FormErrors, formValueSelector, reduxForm } from 'redux-form';
+import { Trans, withTranslation } from 'react-i18next';
 import flow from 'lodash/flow';
 
 import Select from 'react-select';
@@ -10,10 +10,8 @@ import i18n from '../../../i18n';
 
 import Tabs from '../../ui/Tabs';
 
-import Examples from '../Dns/Upstream/Examples';
-
-import {ScheduleForm} from '../../Filters/Services/ScheduleForm';
-import {captitalizeWords, toggleAllServices, trimLinesAndRemoveEmpty} from '../../../helpers/helpers';
+import { ScheduleForm } from '../../Filters/Services/ScheduleForm';
+import { captitalizeWords, toggleAllServices, trimLinesAndRemoveEmpty } from '../../../helpers/helpers';
 import {
     CheckboxField,
     renderGroupField,
@@ -22,10 +20,10 @@ import {
     renderTextareaField,
     toNumber,
 } from '../../../helpers/form';
-import {validateClientId, validateRequiredValue} from '../../../helpers/validators';
-import {CLIENT_ID_LINK, FORM_NAME, UINT32_RANGE} from '../../../helpers/constants';
+import { validateClientId, validateRequiredValue } from '../../../helpers/validators';
+import { CLIENT_ID_LINK, FORM_NAME, UINT32_RANGE } from '../../../helpers/constants';
 import './Service.css';
-import {RootState} from '../../../initialState';
+import { RootState } from '../../../initialState';
 
 const settingsCheckboxes = [
     {
@@ -61,7 +59,7 @@ const validate = (values: any): FormErrors<any, string> => {
         name?: string;
         ids?: string[];
     } = {};
-    const {name, ids} = values;
+    const { name, ids } = values;
 
     errors.name = validateRequiredValue(name);
 
@@ -81,7 +79,7 @@ const validate = (values: any): FormErrors<any, string> => {
 
 const renderFieldsWrapper = (placeholder: any, buttonTitle: any) =>
     function cell(row: any) {
-        const {fields} = row;
+        const { fields } = row;
         return (
             <div className="form__group">
                 {fields.map((ip: any, index: any) => (
@@ -105,7 +103,7 @@ const renderFieldsWrapper = (placeholder: any, buttonTitle: any) =>
                     onClick={() => fields.push()}
                     title={buttonTitle}>
                     <svg className="icon icon--24">
-                        <use xlinkHref="#plus"/>
+                        <use xlinkHref="#plus" />
                     </svg>
                 </button>
             </div>
@@ -128,7 +126,7 @@ interface renderMultiselectProps {
 }
 
 const renderMultiselect = (props: renderMultiselectProps) => {
-    const {input, placeholder, options} = props;
+    const { input, placeholder, options } = props;
 
     return (
         <Select
@@ -186,14 +184,14 @@ let Form = (props: FormProps) => {
     } = props;
 
     const services = useSelector((store: RootState) => store?.services);
-    const {safe_search} = initialValues;
-    const safeSearchServices = {...safe_search};
+    const { safe_search } = initialValues;
+    const safeSearchServices = { ...safe_search };
     delete safeSearchServices.enabled;
 
     const [activeTabLabel, setActiveTabLabel] = useState('settings');
 
     const handleScheduleSubmit = (values: any) => {
-        change('blocked_services_schedule', {...values});
+        change('blocked_services_schedule', { ...values });
     };
 
     const tabs = {
@@ -339,6 +337,15 @@ let Form = (props: FormProps) => {
                             ]}>
                             upstream_dns_client_desc
                         </Trans>
+                        <br />
+                        <div className="list leading-loose">
+                            <a
+                                href="https://github.com/AdguardTeam/AdGuardHome/wiki/Configuration#upstreams"
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                <Trans>examples_title</Trans>
+                            </a>
+                        </div>
                     </div>
 
                     <Field
@@ -350,8 +357,6 @@ let Form = (props: FormProps) => {
                         placeholder={t('upstream_dns')}
                         normalizeOnBlur={trimLinesAndRemoveEmpty}
                     />
-
-                    <Examples/>
 
                     <div className="form__label--bold mt-5 mb-3">{t('upstream_dns_cache_configuration')}</div>
 
@@ -453,7 +458,7 @@ let Form = (props: FormProps) => {
                     </div>
 
                     <div className="form__group">
-                        <FieldArray name="ids" component={renderFields}/>
+                        <FieldArray name="ids" component={renderFields} />
                     </div>
                 </div>
 

@@ -46,7 +46,7 @@ const BlockedDomains = ({
     const totalBlocked = blockedFiltering + replacedSafebrowsing + replacedParental + replacedSafesearch;
 
     return (
-        <Card title={t('top_blocked_domains')} subtitle={subtitle} bodyType="card-table" refresh={refreshButton}>
+        <Card title={t('top_blocked_domains')} subtitle={subtitle} bodyType="card-table" refresh={refreshButton} type="card--full">
             <ReactTable
                 data={topBlockedDomains.map(({name: domain, count}: any) => ({
                     domain,

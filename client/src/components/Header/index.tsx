@@ -15,7 +15,7 @@ const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const {t} = useTranslation();
 
-    const {protectionEnabled, processing, isCoreRunning, processingProfile, name} = useSelector(
+    const {protectionEnabled, processing, isCoreRunning} = useSelector(
         (state: RootState) => state.dashboard,
         shallowEqual,
     );
@@ -57,16 +57,6 @@ const Header = () => {
                     </div>
 
                     <Menu pathname={pathname} isMenuOpen={isMenuOpen} closeMenu={closeMenu}/>
-
-                    <div className="header__column">
-                        <div className="header__right">
-                            {!processingProfile && name && (
-                                <a href="control/logout" className="btn btn-sm btn-outline-secondary">
-                                    {t('sign_out')}
-                                </a>
-                            )}
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
