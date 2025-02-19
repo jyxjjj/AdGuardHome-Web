@@ -2,15 +2,15 @@ import React from 'react';
 
 // @ts-expect-error FIXME: update react-table
 import ReactTable from 'react-table';
-import {Trans, withTranslation} from 'react-i18next';
+import { Trans, withTranslation } from 'react-i18next';
 
 import Card from '../ui/Card';
 import Cell from '../ui/Cell';
 import DomainCell from './DomainCell';
 
-import {DASHBOARD_TABLES_DEFAULT_PAGE_SIZE, STATUS_COLORS, TABLES_MIN_ROWS} from '../../helpers/constants';
+import { DASHBOARD_TABLES_DEFAULT_PAGE_SIZE, STATUS_COLORS, TABLES_MIN_ROWS } from '../../helpers/constants';
 
-import {getPercent} from '../../helpers/helpers';
+import { getPercent } from '../../helpers/helpers';
 
 const getQueriedPercentColor = (percent: any) => {
     if (percent > 10) {
@@ -24,11 +24,11 @@ const getQueriedPercentColor = (percent: any) => {
 
 const countCell = (dnsQueries: any) =>
     function cell(row: any) {
-        const {value} = row;
+        const { value } = row;
         const percent = getPercent(dnsQueries, value);
         const percentColor = getQueriedPercentColor(percent);
 
-        return <Cell value={value} percent={percent} color={percentColor} search={row.original.domain}/>;
+        return <Cell value={value} percent={percent} color={percentColor} search={row.original.domain} />;
     };
 
 interface QueriedDomainsProps {
@@ -39,10 +39,10 @@ interface QueriedDomainsProps {
     t: (...args: unknown[]) => string;
 }
 
-const QueriedDomains = ({t, refreshButton, topQueriedDomains, subtitle, dnsQueries}: QueriedDomainsProps) => (
+const QueriedDomains = ({ t, refreshButton, topQueriedDomains, subtitle, dnsQueries }: QueriedDomainsProps) => (
     <Card title={t('stats_query_domain')} subtitle={subtitle} bodyType="card-table" refresh={refreshButton} type="card--full">
         <ReactTable
-            data={topQueriedDomains.map(({name: domain, count}: any) => ({
+            data={topQueriedDomains.map(({ name: domain, count }: any) => ({
                 domain,
                 count,
             }))}
@@ -64,6 +64,7 @@ const QueriedDomains = ({t, refreshButton, topQueriedDomains, subtitle, dnsQueri
             minRows={TABLES_MIN_ROWS}
             defaultPageSize={DASHBOARD_TABLES_DEFAULT_PAGE_SIZE}
             className="-highlight card-table-overflow--limited stats__table"
+            style={{ maxHeight: '512px' }}
         />
     </Card>
 );

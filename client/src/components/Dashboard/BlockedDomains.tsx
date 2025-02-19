@@ -70,6 +70,7 @@ const BlockedDomains = ({
                 minRows={TABLES_MIN_ROWS}
                 defaultPageSize={DASHBOARD_TABLES_DEFAULT_PAGE_SIZE}
                 className="-highlight card-table-overflow--limited stats__table"
+                style={{ maxHeight: '512px' }}
             />
         </Card>
     );
