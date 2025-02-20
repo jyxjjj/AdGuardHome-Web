@@ -4,9 +4,11 @@ import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 import * as url from 'url';
-// eslint-disable-next-line import/extensions
-import { BUILD_ENVS } from './constants.js';
 
+const BUILD_ENVS = {
+    dev: 'development',
+    prod: 'production',
+};
 // eslint-disable-next-line no-underscore-dangle
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
