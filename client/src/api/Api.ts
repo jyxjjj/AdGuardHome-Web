@@ -1,14 +1,11 @@
 import axios from 'axios';
-
-import { BASE_URL } from '../../constants';
-
 import { getPathWithQueryString } from '../helpers/helpers';
 import { HTML_PAGES, QUERY_LOGS_PAGE_LIMIT, R_PATH_LAST_PART, THEMES } from '../helpers/constants';
 import i18n from '../i18n';
 import { LANGUAGES } from '../helpers/twosky';
 
 class Api {
-    baseUrl = BASE_URL;
+    baseUrl = 'control';
 
     // Global methods
     GLOBAL_STATUS = { path: 'status', method: 'GET' };

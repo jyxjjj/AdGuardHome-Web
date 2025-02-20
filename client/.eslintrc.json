@@ -11,7 +11,6 @@
     ],
     "parser": "@typescript-eslint/parser",
     "env": {
-        "jest": true,
         "node": true,
         "browser": true,
         "commonjs": true
@@ -33,6 +32,7 @@
         }
     },
     "rules": {
+        "no-debugger": "error",
         "@typescript-eslint/no-explicit-any": "off",
         "import/extensions": [
             "error",
