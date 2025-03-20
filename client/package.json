@@ -12,7 +12,7 @@
     "type": "module",
     "dependencies": {
         "@nivo/line": "^0.88.0",
-        "axios": "^1.7.9",
+        "axios": "^1.8.2",
         "classnames": "^2.5.1",
         "countries-and-timezones": "^3.6.0",
         "date-fns": "^4.1.0",
