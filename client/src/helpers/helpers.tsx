@@ -42,7 +42,11 @@ export const formatTime = dateFormat;
  * @returns {string} Returns the date and time in the specified format
  */
 export const formatDateTime = (dateTime: string, options: Intl.DateTimeFormatOptions = DEFAULT_DATE_FORMAT_OPTIONS) => {
-    const parsedTime = new Date(dateTime);
+    let localDateTime = dateTime;
+    if (!localDateTime) {
+        localDateTime = '1970-01-01 00:00:00';
+    }
+    const parsedTime = new Date(localDateTime);
     if (options === DEFAULT_DATE_FORMAT_OPTIONS || options === DETAILED_DATE_FORMAT_OPTIONS) {
         return dateFormat(parsedTime, 'yyyy-MM-dd HH:mm:ss');
     }
