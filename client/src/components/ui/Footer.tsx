@@ -42,7 +42,7 @@ const Footer = () => {
                             {/* eslint-disable-next-line react/jsx-no-target-blank */}
                             <a
                                 key='Privacy'
-                                href='https://www.desmg.com/#/policies/privacy'
+                                href='https://www.desmg.com/policies/privacy'
                                 className={cn('footer__link', '')}
                                 target="_blank">
                                 Privacy
@@ -50,7 +50,7 @@ const Footer = () => {
                             {/* eslint-disable-next-line react/jsx-no-target-blank */}
                             <a
                                 key='Terms'
-                                href='https://www.desmg.com/#/policies/terms'
+                                href='https://www.desmg.com/policies/terms'
                                 className={cn('footer__link', '')}
                                 target="_blank">
                                 Terms
