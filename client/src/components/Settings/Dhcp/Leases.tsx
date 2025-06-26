@@ -1,14 +1,14 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 // @ts-expect-error FIXME: update react-table
 import ReactTable from 'react-table';
-import {Trans, withTranslation} from 'react-i18next';
-import {LEASES_TABLE_DEFAULT_PAGE_SIZE, MODAL_TYPE} from '../../../helpers/constants';
+import { Trans, withTranslation } from 'react-i18next';
+import { LEASES_TABLE_DEFAULT_PAGE_SIZE, MODAL_TYPE } from '../../../helpers/constants';
 
-import {sortIp} from '../../../helpers/helpers';
+import { sortIp } from '../../../helpers/helpers';
 
-import {toggleLeaseModal} from '../../../actions';
+import { toggleLeaseModal } from '../../../actions';
 
 interface LeasesProps {
     leases?: unknown[];
@@ -18,7 +18,7 @@ interface LeasesProps {
 }
 
 class Leases extends Component<LeasesProps> {
-    cellWrap = ({value}: any) => (
+    cellWrap = ({ value }: any) => (
         <div className="logs__row o-hidden">
             <span className="logs__text" title={value}>
                 {value}
@@ -27,7 +27,7 @@ class Leases extends Component<LeasesProps> {
     );
 
     convertToStatic = (data: any) => () => {
-        const {dispatch} = this.props;
+        const { dispatch } = this.props;
         dispatch(
             toggleLeaseModal({
                 type: MODAL_TYPE.ADD_LEASE,
@@ -36,8 +36,8 @@ class Leases extends Component<LeasesProps> {
         );
     };
 
-    makeStatic = ({row}: any) => {
-        const {t, disabledLeasesButton} = this.props;
+    makeStatic = ({ row }: any) => {
+        const { t, disabledLeasesButton } = this.props;
         return (
             <div className="logs__row logs__row--center">
                 <button
@@ -47,7 +47,7 @@ class Leases extends Component<LeasesProps> {
                     onClick={this.convertToStatic(row)}
                     disabled={disabledLeasesButton}>
                     <svg className="icons icon12">
-                        <use xlinkHref="#plus"/>
+                        <use xlinkHref="#plus" />
                     </svg>
                 </button>
             </div>
@@ -55,7 +55,7 @@ class Leases extends Component<LeasesProps> {
     };
 
     render() {
-        const {leases, t} = this.props;
+        const { leases, t } = this.props;
         return (
             <ReactTable
                 data={leases || []}
@@ -104,6 +104,6 @@ class Leases extends Component<LeasesProps> {
 export default withTranslation()(
     connect(
         () => ({}),
-        (dispatch) => ({dispatch}),
+        (dispatch) => ({ dispatch }),
     )(Leases),
 );

@@ -1,7 +1,7 @@
 import React from 'react';
-import {Trans} from 'react-i18next';
+import { Trans } from 'react-i18next';
 
-import {HashLink as Link} from 'react-router-hash-link';
+import { HashLink as Link } from 'react-router-hash-link';
 
 const AnonymizerNotification = () => (
     <div className="alert alert-primary mt-6">

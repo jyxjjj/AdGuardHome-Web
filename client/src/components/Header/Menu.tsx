@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import enhanceWithClickOutside from 'react-click-outside';
 import classnames from 'classnames';
-import {Trans, withTranslation} from 'react-i18next';
-import {FILTERS_URLS, MENU_URLS, SETTINGS_URLS} from '../../helpers/constants';
+import { Trans, withTranslation } from 'react-i18next';
+import { SETTINGS_URLS, FILTERS_URLS, MENU_URLS } from '../../helpers/constants';
 
 import Dropdown from '../ui/Dropdown';
 
@@ -106,7 +106,7 @@ class Menu extends Component<MenuProps> {
         return isActivePage ? 'active' : '';
     };
 
-    getNavLink = ({route, exact, text, order, className, icon}: any) => (
+    getNavLink = ({ route, exact, text, order, className, icon }: any) => (
         <NavLink
             to={route}
             key={route}
@@ -115,7 +115,7 @@ class Menu extends Component<MenuProps> {
             onClick={this.closeMenu}>
             {icon && (
                 <svg className="nav-icon">
-                    <use xlinkHref={`#${icon}`}/>
+                    <use xlinkHref={`#${icon}`} />
                 </svg>
             )}
 
@@ -123,7 +123,7 @@ class Menu extends Component<MenuProps> {
         </NavLink>
     );
 
-    getDropdown = ({label, order, URLS, icon, ITEMS}: any) => (
+    getDropdown = ({ label, order, URLS, icon, ITEMS }: any) => (
         <Dropdown
             label={this.props.t(label)}
             baseClassName="dropdown"

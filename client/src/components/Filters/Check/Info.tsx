@@ -1,28 +1,28 @@
 import React from 'react';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 
 import i18next from 'i18next';
-import {shallowEqual, useDispatch, useSelector} from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import {
     checkFiltered,
-    checkParental,
     checkRewrite,
     checkRewriteHosts,
-    checkSafeBrowsing,
-    checkSafeSearch,
     checkWhiteList,
+    checkSafeSearch,
+    checkSafeBrowsing,
+    checkParental,
     getRulesToFilterList,
 } from '../../../helpers/helpers';
-import {BLOCK_ACTIONS, FILTERED, FILTERED_STATUS} from '../../../helpers/constants';
+import { BLOCK_ACTIONS, FILTERED, FILTERED_STATUS } from '../../../helpers/constants';
 
-import {toggleBlocking} from '../../../actions';
-import {RootState} from '../../../initialState';
+import { toggleBlocking } from '../../../actions';
+import { RootState } from '../../../initialState';
 
 const renderBlockingButton = (isFiltered: any, domain: any) => {
     const processingRules = useSelector((state: RootState) => state.filtering.processingRules);
     const dispatch = useDispatch();
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     const buttonType = isFiltered ? BLOCK_ACTIONS.UNBLOCK : BLOCK_ACTIONS.BLOCK;
 
@@ -45,7 +45,7 @@ const renderBlockingButton = (isFiltered: any, domain: any) => {
 };
 
 const getTitle = () => {
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     const filters = useSelector((state: RootState) => state.filtering.filters, shallowEqual);
 
@@ -57,7 +57,7 @@ const getTitle = () => {
 
     const getReasonFiltered = (reason: any) => {
         const filterKey = reason.replace(FILTERED, '');
-        return i18next.t('query_log_filtered', {filter: filterKey});
+        return i18next.t('query_log_filtered', { filter: filterKey });
     };
 
     const ruleAndFilterNames = getRulesToFilterList(rules, filters, whitelistFilters);
@@ -79,7 +79,7 @@ const getTitle = () => {
 
     return (
         <>
-            <div>{t('check_reason', {reason})}</div>
+            <div>{t('check_reason', { reason })}</div>
 
             <div>
                 {t('rule_label')}: &nbsp;
@@ -90,11 +90,11 @@ const getTitle = () => {
 };
 
 const Info = () => {
-    const {hostname, reason, service_name, cname, ip_addrs} = useSelector(
+    const { hostname, reason, service_name, cname, ip_addrs } = useSelector(
         (state: RootState) => state.filtering.check,
         shallowEqual,
     );
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     const title = getTitle();
 
@@ -117,11 +117,11 @@ const Info = () => {
             <div>{title}</div>
             {!onlyFiltered && (
                 <>
-                    {service_name && <div>{t('check_service', {service: service_name})}</div>}
+                    {service_name && <div>{t('check_service', { service: service_name })}</div>}
 
-                    {cname && <div>{t('check_cname', {cname})}</div>}
+                    {cname && <div>{t('check_cname', { cname })}</div>}
 
-                    {ip_addrs && <div>{t('check_ip', {ip: ip_addrs.join(', ')})}</div>}
+                    {ip_addrs && <div>{t('check_ip', { ip: ip_addrs.join(', ') })}</div>}
                     {renderBlockingButton(isFiltered, hostname)}
                 </>
             )}

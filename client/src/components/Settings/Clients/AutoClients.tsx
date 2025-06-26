@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {withTranslation} from 'react-i18next';
+import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
 
 // @ts-expect-error FIXME: update react-table
 import ReactTable from 'react-table';
@@ -12,9 +12,9 @@ import whoisCell from './whoisCell';
 
 import LogsSearchLink from '../../ui/LogsSearchLink';
 
-import {sortIp} from '../../../helpers/helpers';
-import {LOCAL_STORAGE_KEYS, LocalStorageHelper} from '../../../helpers/localStorageHelper';
-import {TABLES_MIN_ROWS} from '../../../helpers/constants';
+import { sortIp, formatNumber } from '../../../helpers/helpers';
+import { LocalStorageHelper, LOCAL_STORAGE_KEYS } from '../../../helpers/localStorageHelper';
+import { TABLES_MIN_ROWS } from '../../../helpers/constants';
 
 const COLUMN_MIN_WIDTH = 200;
 
@@ -60,13 +60,13 @@ class AutoClients extends Component<AutoClientsProps> {
             id: 'statistics',
             minWidth: COLUMN_MIN_WIDTH,
             Cell: (row: any) => {
-                const {value: clientStats} = row;
+                const { value: clientStats } = row;
 
                 if (clientStats) {
                     return (
                         <div className="logs__row">
                             <div className="logs__text" title={clientStats}>
-                                <LogsSearchLink search={row.original.ip}>{clientStats}</LogsSearchLink>
+                                <LogsSearchLink search={row.original.ip}>{formatNumber(clientStats)}</LogsSearchLink>
                             </div>
                         </div>
                     );
@@ -78,7 +78,7 @@ class AutoClients extends Component<AutoClientsProps> {
     ];
 
     render() {
-        const {t, autoClients} = this.props;
+        const { t, autoClients } = this.props;
 
         return (
             <Card

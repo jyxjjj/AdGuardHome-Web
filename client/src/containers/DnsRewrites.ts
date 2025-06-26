@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { addRewrite, deleteRewrite, getRewritesList, toggleRewritesModal, updateRewrite } from '../actions/rewrites';
+import { getRewritesList, addRewrite, deleteRewrite, updateRewrite, toggleRewritesModal } from '../actions/rewrites';
 
 import Rewrites from '../components/Filters/Rewrites';
 import { RootState } from '../initialState';

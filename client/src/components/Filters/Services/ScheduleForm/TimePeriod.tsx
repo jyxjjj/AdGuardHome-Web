@@ -1,13 +1,13 @@
 import React from 'react';
 
-import {getTimeFromMs} from './helpers';
+import { getTimeFromMs } from './helpers';
 
 interface TimePeriodProps {
     startTimeMs: number;
     endTimeMs: number;
 }
 
-export const TimePeriod = ({startTimeMs, endTimeMs}: TimePeriodProps) => {
+export const TimePeriod = ({ startTimeMs, endTimeMs }: TimePeriodProps) => {
     const startTime = getTimeFromMs(startTimeMs);
     const endTime = getTimeFromMs(endTimeMs);
 

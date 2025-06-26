@@ -1,21 +1,21 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
-import {convertTimeToMs, getTimeFromMs} from './helpers';
+import { getTimeFromMs, convertTimeToMs } from './helpers';
 
 interface TimeSelectProps {
     value: number;
     onChange: (time: number) => void;
 }
 
-export const TimeSelect = ({value, onChange}: TimeSelectProps) => {
-    const {hours: initialHours, minutes: initialMinutes} = getTimeFromMs(value);
+export const TimeSelect = ({ value, onChange }: TimeSelectProps) => {
+    const { hours: initialHours, minutes: initialMinutes } = getTimeFromMs(value);
 
     const [hours, setHours] = useState(initialHours);
     const [minutes, setMinutes] = useState(initialMinutes);
 
-    const hourOptions = Array.from({length: 24}, (_, i) => i.toString().padStart(2, '0'));
+    const hourOptions = Array.from({ length: 24 }, (_, i) => i.toString().padStart(2, '0'));
 
-    const minuteOptions = Array.from({length: 60}, (_, i) => i.toString().padStart(2, '0'));
+    const minuteOptions = Array.from({ length: 60 }, (_, i) => i.toString().padStart(2, '0'));
 
     const onHourChange = (event: any) => {
         setHours(event.target.value);

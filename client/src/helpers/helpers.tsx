@@ -27,7 +27,7 @@ import {
     THEMES,
 } from './constants';
 import { LOCAL_STORAGE_KEYS, LocalStorageHelper } from './localStorageHelper';
-import { DhcpInterface } from '../initialState';
+import { DhcpInterface, InstallInterface } from '../initialState';
 
 /**
  * @param time {string} The time to format
@@ -222,9 +222,9 @@ export const getInterfaceIp = (option: any) => {
     return interfaceIP;
 };
 
-export const getIpList = (interfaces: DhcpInterface[]) =>
+export const getIpList = (interfaces: InstallInterface[]) =>
     Object.values(interfaces)
-        .reduce((acc: string[], curr: DhcpInterface) => acc.concat(curr.ip_addresses), [] as string[])
+        .reduce((acc: string[], curr: InstallInterface) => acc.concat(curr.ip_addresses), [] as string[])
         .sort();
 
 /**
@@ -473,8 +473,6 @@ export const getParamsForClientsSearch = (data: any, param: any, additionalParam
  * @param {function} [normalizeOnBlur]
  * @returns {function}
  */
-export const createOnBlurHandler = (event: any, input: any, normalizeOnBlur: any) =>
-    normalizeOnBlur ? input.onBlur(normalizeOnBlur(event.target.value)) : input.onBlur();
 
 export const checkFiltered = (reason: any) => reason.indexOf(FILTERED) === 0;
 export const checkRewrite = (reason: any) => reason === FILTERED_STATUS.REWRITE;
@@ -658,7 +656,7 @@ export const countClientsStatistics = (ids: any, autoClients: any) => {
     const cidrsCount = Object.entries(autoClients).reduce((acc: any, curr: any) => {
         const [id, count] = curr;
         if (!ipaddr.isValid(id)) {
-            return false;
+            return acc;
         }
         if (cidrs.some((cidr: any) => isIpInCidr(id, cidr))) {
             // eslint-disable-next-line no-param-reassign
@@ -758,7 +756,7 @@ export const getObjectKeysSorted = <
     K extends keyof NestedObject
 >(
     object: T,
-    sortKey: K
+    sortKey: K,
 ): string[] => {
     return Object.entries(object)
         .sort(([, a], [, b]) => (a[sortKey] as number) - (b[sortKey] as number))

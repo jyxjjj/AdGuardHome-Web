@@ -1,15 +1,15 @@
 import React from 'react';
-import {useTranslation} from 'react-i18next';
-import {shallowEqual, useDispatch, useSelector} from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import Card from '../../../ui/Card';
 
 import Form from './Form';
-import {setDnsConfig} from '../../../../actions/dnsConfig';
-import {RootState} from '../../../../initialState';
+import { setDnsConfig } from '../../../../actions/dnsConfig';
+import { RootState } from '../../../../initialState';
 
 const Config = () => {
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const {
         blocking_mode,

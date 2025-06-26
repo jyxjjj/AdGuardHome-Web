@@ -1,9 +1,9 @@
 import React from 'react';
 
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import {normalizeWhois} from './helpers';
-import {WHOIS_ICONS} from './constants';
+import { normalizeWhois } from './helpers';
+import { WHOIS_ICONS } from './constants';
 
 const getFormattedWhois = (whois: any) => {
     const whoisInfo = normalizeWhois(whois);
@@ -14,7 +14,7 @@ const getFormattedWhois = (whois: any) => {
                 {icon && (
                     <>
                         <svg className="logs__whois-icon icons icon--18">
-                            <use xlinkHref={`#${icon}`}/>
+                            <use xlinkHref={`#${icon}`} />
                         </svg>
                         &nbsp;
                     </>
@@ -39,7 +39,7 @@ export const renderFormattedClientCell = (value: any, info: any, isDetailed = fa
     let nameContainer = value;
 
     if (info) {
-        const {name, whois_info} = info;
+        const { name, whois_info } = info;
         const whoisAvailable = whois_info && Object.keys(whois_info).length > 0;
 
         if (name) {

@@ -3,24 +3,25 @@ import React from 'react';
 // @ts-expect-error FIXME: update react-table
 import ReactTable from 'react-table';
 import round from 'lodash/round';
-import {Trans, withTranslation} from 'react-i18next';
+import { withTranslation, Trans } from 'react-i18next';
 
-import {TFunction} from 'i18next';
+import { TFunction } from 'i18next';
 import Card from '../ui/Card';
 
 import DomainCell from './DomainCell';
-import {DASHBOARD_TABLES_DEFAULT_PAGE_SIZE, TABLES_MIN_ROWS} from '../../helpers/constants';
+import { DASHBOARD_TABLES_DEFAULT_PAGE_SIZE, TABLES_MIN_ROWS } from '../../helpers/constants';
+import { formatNumber } from '../../helpers/helpers';
 
 interface TimeCellProps {
     value?: string | number;
 }
 
-const TimeCell = ({value}: TimeCellProps) => {
+const TimeCell = ({ value }: TimeCellProps) => {
     if (!value) {
         return '–';
     }
 
-    const valueInMilliseconds = round(Number(value) * 1000);
+    const valueInMilliseconds = formatNumber(round(Number(value) * 1000));
 
     return (
         <div className="logs__row o-hidden">
@@ -38,10 +39,10 @@ interface UpstreamAvgTimeProps {
     t: TFunction;
 }
 
-const UpstreamAvgTime = ({t, refreshButton, topUpstreamsAvgTime, subtitle}: UpstreamAvgTimeProps) => (
+const UpstreamAvgTime = ({ t, refreshButton, topUpstreamsAvgTime, subtitle }: UpstreamAvgTimeProps) => (
     <Card title={t('average_upstream_response_time')} subtitle={subtitle} bodyType="card-table" refresh={refreshButton} type="card--full">
         <ReactTable
-            data={topUpstreamsAvgTime.map(({name: domain, count}: { name: string; count: number }) => ({
+            data={topUpstreamsAvgTime.map(({ name: domain, count }: { name: string; count: number }) => ({
                 domain,
                 count,
             }))}

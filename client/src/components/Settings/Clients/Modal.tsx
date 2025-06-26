@@ -1,15 +1,22 @@
 import React from 'react';
-import {Trans, withTranslation} from 'react-i18next';
+import { Trans, withTranslation } from 'react-i18next';
 
 import ReactModal from 'react-modal';
 
-import {MODAL_TYPE} from '../../../helpers/constants';
+import { MODAL_TYPE } from '../../../helpers/constants';
+import { Form } from './Form';
 
-import Form from './Form';
+const normalizeIds = (initialIds?: string[]): { name: string }[] => {
+    if (!initialIds || initialIds.length === 0) {
+        return [{ name: '' }];
+    }
 
-const getInitialData = ({initial, modalType, clientId, clientName}: any) => {
+    return initialIds.map((id: string) => ({ name: id }));
+};
+
+const getInitialData = ({ initial, modalType, clientId, clientName }: any) => {
     if (initial && initial.blocked_services) {
-        const {blocked_services} = initial;
+        const { blocked_services } = initial;
         const blocked = {};
 
         blocked_services.forEach((service: any) => {
@@ -19,6 +26,7 @@ const getInitialData = ({initial, modalType, clientId, clientName}: any) => {
         return {
             ...initial,
             blocked_services: blocked,
+            ids: normalizeIds(initial.ids),
         };
     }
 
@@ -26,11 +34,14 @@ const getInitialData = ({initial, modalType, clientId, clientName}: any) => {
         return {
             ...initial,
             name: clientName,
-            ids: [clientId],
+            ids: [{ name: clientId }],
         };
     }
 
-    return initial;
+    return {
+        ...initial,
+        ids: normalizeIds(initial.ids),
+    };
 };
 
 interface ModalProps {
@@ -41,28 +52,28 @@ interface ModalProps {
     handleClose: (...args: unknown[]) => unknown;
     processingAdding: boolean;
     processingUpdating: boolean;
-    tagsOptions: unknown[];
+    tagsOptions: { label: string; value: string }[];
     t: (...args: unknown[]) => string;
     clientId?: string;
 }
 
 const Modal = ({
-                   isModalOpen,
-                   modalType,
-                   currentClientData,
-                   handleSubmit,
-                   handleClose,
-                   processingAdding,
-                   processingUpdating,
-                   tagsOptions,
-                   clientId,
-                   t,
-               }: ModalProps) => {
+    isModalOpen,
+    modalType,
+    currentClientData,
+    handleSubmit,
+    handleClose,
+    processingAdding,
+    processingUpdating,
+    tagsOptions,
+    clientId,
+    t,
+}: ModalProps) => {
     const initialData = getInitialData({
         initial: currentClientData,
         modalType,
         clientId,
-        clientName: t('client_name', {id: clientId}),
+        clientName: t('client_name', { id: clientId }),
     });
 
     return (
@@ -83,9 +94,9 @@ const Modal = ({
                 </div>
 
                 <Form
-                    initialValues={{...initialData}}
+                    initialValues={{ ...initialData }}
                     onSubmit={handleSubmit}
-                    handleClose={handleClose}
+                    onClose={handleClose}
                     processingAdding={processingAdding}
                     processingUpdating={processingUpdating}
                     tagsOptions={tagsOptions}

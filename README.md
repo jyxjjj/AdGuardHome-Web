@@ -2,4 +2,4 @@
 
 Based on [AdGuardHome](https://github.com/AdguardTeam/AdGuardHome/tree/master/client)
 
-Version: `v0.107.56`
+Version: `v0.107.62`

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { checkHost, getFilteringStatus, handleRulesChange, setRules } from '../actions/filtering';
+import { setRules, getFilteringStatus, handleRulesChange, checkHost } from '../actions/filtering';
 
 import CustomRules from '../components/Filters/CustomRules';
 import { RootState } from '../initialState';

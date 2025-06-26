@@ -1,15 +1,15 @@
 import React from 'react';
-import {Trans} from 'react-i18next';
-import {shallowEqual, useDispatch, useSelector} from 'react-redux';
+import { Trans } from 'react-i18next';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import Topline from './Topline';
 
-import {getUpdate} from '../../actions';
-import {MANUAL_UPDATE_LINK} from '../../helpers/constants';
-import {RootState} from '../../initialState';
+import { getUpdate } from '../../actions';
+import { MANUAL_UPDATE_LINK } from '../../helpers/constants';
+import { RootState } from '../../initialState';
 
 const UpdateTopline = () => {
-    const {announcementUrl, newVersion, canAutoUpdate, processingUpdate} = useSelector(
+    const { announcementUrl, newVersion, canAutoUpdate, processingUpdate } = useSelector(
         (state: RootState) => state.dashboard,
         shallowEqual,
     );
@@ -23,7 +23,7 @@ const UpdateTopline = () => {
         <Topline type="info">
             <>
                 <Trans
-                    values={{version: newVersion}}
+                    values={{ version: newVersion }}
                     components={[
                         <a href={announcementUrl} target="_blank" rel="noopener noreferrer" key="0">
                             Click here

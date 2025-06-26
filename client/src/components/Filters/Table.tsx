@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 
 // @ts-expect-error FIXME: update react-table
 import ReactTable from 'react-table';
-import { Trans, withTranslation } from 'react-i18next';
+import { withTranslation, Trans } from 'react-i18next';
 
+import CellWrap from '../ui/CellWrap';
 import { MODAL_TYPE } from '../../helpers/constants';
 
 import { formatDetailedDateTime } from '../../helpers/helpers';
@@ -21,15 +22,6 @@ interface TableProps {
     t: (...args: unknown[]) => string;
     whitelist?: boolean;
 }
-
-interface CellWrapProps {
-    value?: string | number;
-    formatValue?: (...args: unknown[]) => unknown;
-}
-
-const CellWrap = ({ value }: CellWrapProps, formatValue?: any) => {
-    return typeof formatValue === 'function' ? formatValue(value) : value;
-};
 
 class Table extends Component<TableProps> {
     getDateCell = (row: any) => CellWrap(row, formatDetailedDateTime);
@@ -130,6 +122,7 @@ class Table extends Component<TableProps> {
                                 <use xlinkHref="#edit" />
                             </svg>
                         </button>
+
                         <button
                             type="button"
                             className="btn btn-icon btn-outline-secondary btn-sm"

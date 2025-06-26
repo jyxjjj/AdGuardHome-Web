@@ -1,14 +1,14 @@
-import {useTranslation} from 'react-i18next';
-import {useDispatch, useSelector} from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import React from 'react';
-import {toggleDetailedLogs} from '../../../actions/queryLogs';
+import { toggleDetailedLogs } from '../../../actions/queryLogs';
 
 import HeaderCell from './HeaderCell';
-import {RootState} from '../../../initialState';
+import { RootState } from '../../../initialState';
 
 const Header = () => {
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const dispatch = useDispatch();
 
     const isDetailed = useSelector((state: RootState) => state.queryLogs.isDetailed);
@@ -44,7 +44,7 @@ const Header = () => {
                                 onClick={disableDetailedMode}>
                                 <title>{t('compact')}</title>
 
-                                <use xlinkHref="#list"/>
+                                <use xlinkHref="#list" />
                             </svg>
 
                             <svg
@@ -54,7 +54,7 @@ const Header = () => {
                                 onClick={enableDetailedMode}>
                                 <title>{t('default')}</title>
 
-                                <use xlinkHref="#detailed_list"/>
+                                <use xlinkHref="#detailed_list" />
                             </svg>
                         </span>
                     }

@@ -1,19 +1,19 @@
 /* eslint-disable react/display-name */
 /* eslint-disable react/prop-types */
-import React, {useEffect} from 'react';
-import {Trans, useTranslation} from 'react-i18next';
-import {useDispatch, useSelector} from 'react-redux';
+import React, { useEffect } from 'react';
+import { Trans, useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 
-import {useHistory, useLocation} from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 // @ts-expect-error FIXME: update react-table
 import ReactTable from 'react-table';
 
-import {getAllBlockedServices, getBlockedServices} from '../../../../actions/services';
+import { getAllBlockedServices, getBlockedServices } from '../../../../actions/services';
 
-import {initSettings} from '../../../../actions';
-import {countClientsStatistics, getService, sortIp, splitByNewLine} from '../../../../helpers/helpers';
-import {LOCAL_TIMEZONE_VALUE, MODAL_TYPE, TABLES_MIN_ROWS} from '../../../../helpers/constants';
+import { initSettings } from '../../../../actions';
+import { splitByNewLine, countClientsStatistics, sortIp, getService, formatNumber } from '../../../../helpers/helpers';
+import { MODAL_TYPE, LOCAL_TIMEZONE_VALUE, TABLES_MIN_ROWS } from '../../../../helpers/constants';
 
 import Card from '../../../ui/Card';
 
@@ -22,8 +22,8 @@ import CellWrap from '../../../ui/CellWrap';
 import LogsSearchLink from '../../../ui/LogsSearchLink';
 
 import Modal from '../Modal';
-import {LOCAL_STORAGE_KEYS, LocalStorageHelper} from '../../../../helpers/localStorageHelper';
-import {Client, NormalizedTopClients, RootState} from '../../../../initialState';
+import { LocalStorageHelper, LOCAL_STORAGE_KEYS } from '../../../../helpers/localStorageHelper';
+import { Client, NormalizedTopClients, RootState } from '../../../../initialState';
 
 interface ClientsTableProps {
     clients: Client[];
@@ -43,21 +43,21 @@ interface ClientsTableProps {
 }
 
 const ClientsTable = ({
-                          clients,
-                          normalizedTopClients,
-                          isModalOpen,
-                          modalClientName,
-                          modalType,
-                          addClient,
-                          updateClient,
-                          deleteClient,
-                          toggleClientModal,
-                          processingAdding,
-                          processingDeleting,
-                          processingUpdating,
-                          getStats,
-                          supportedTags,
-                      }: ClientsTableProps) => {
+    clients,
+    normalizedTopClients,
+    isModalOpen,
+    modalClientName,
+    modalType,
+    addClient,
+    updateClient,
+    deleteClient,
+    toggleClientModal,
+    processingAdding,
+    processingDeleting,
+    processingUpdating,
+    getStats,
+    supportedTags,
+}: ClientsTableProps) => {
     const [t] = useTranslation();
     const dispatch = useDispatch();
     const location = useLocation();
@@ -90,7 +90,7 @@ const ClientsTable = ({
     };
 
     const handleSubmit = (values: any) => {
-        const config = {...values};
+        const config = { ...values };
 
         if (values) {
             if (values.blocked_services) {
@@ -109,6 +109,12 @@ const ClientsTable = ({
                 config.tags = values.tags.map((tag: any) => tag.value);
             } else {
                 config.tags = [];
+            }
+
+            if (values.ids) {
+                config.ids = values.ids.map((id) => id.name);
+            } else {
+                config.ids = [];
             }
 
             if (typeof values.upstreams_cache_size === 'string') {
@@ -137,7 +143,7 @@ const ClientsTable = ({
         const client = clients.find((item: any) => name === item.name);
 
         if (client) {
-            const {upstreams, tags, ...values} = client;
+            const { upstreams, tags, ...values } = client;
             return {
                 upstreams: (upstreams && upstreams.join('\n')) || '',
                 tags: (tags && getOptionsWithLabels(tags)) || [],
@@ -153,13 +159,13 @@ const ClientsTable = ({
             blocked_services_schedule: {
                 time_zone: LOCAL_TIMEZONE_VALUE,
             },
-            safe_search: {...(globalSettings?.safesearch || {})},
+            safe_search: { ...(globalSettings?.safesearch || {}) },
         };
     };
 
     const handleDelete = (data: any) => {
         // eslint-disable-next-line no-alert
-        if (window.confirm(t('client_confirm_delete', {key: data.name}))) {
+        if (window.confirm(t('client_confirm_delete', { key: data.name }))) {
             deleteClient(data);
             getStats();
         }
@@ -179,7 +185,7 @@ const ClientsTable = ({
             accessor: 'ids',
             minWidth: 150,
             Cell: (row: any) => {
-                const {value} = row;
+                const { value } = row;
 
                 return (
                     <div className="logs__row o-hidden">
@@ -205,7 +211,7 @@ const ClientsTable = ({
             Header: t('settings'),
             accessor: 'use_global_settings',
             minWidth: 120,
-            Cell: ({value}: any) => {
+            Cell: ({ value }: any) => {
                 const title = value ? <Trans>settings_global</Trans> : <Trans>settings_custom</Trans>;
 
                 return (
@@ -220,7 +226,7 @@ const ClientsTable = ({
             accessor: 'blocked_services',
             minWidth: 180,
             Cell: (row: any) => {
-                const {value, original} = row;
+                const { value, original } = row;
 
                 if (original.use_global_blocked_services) {
                     return <Trans>settings_global</Trans>;
@@ -258,7 +264,7 @@ const ClientsTable = ({
             Header: t('upstreams'),
             accessor: 'upstreams',
             minWidth: 120,
-            Cell: ({value}: any) => {
+            Cell: ({ value }: any) => {
                 const title =
                     value && value.length > 0 ? <Trans>settings_custom</Trans> : <Trans>settings_global</Trans>;
 
@@ -274,7 +280,7 @@ const ClientsTable = ({
             accessor: 'tags',
             minWidth: 140,
             Cell: (row: any) => {
-                const {value} = row;
+                const { value } = row;
 
                 if (!value || value.length < 1) {
                     return '–';
@@ -300,12 +306,15 @@ const ClientsTable = ({
             sortMethod: (a: any, b: any) => b - a,
             minWidth: 120,
             Cell: (row: any) => {
-                const content = CellWrap(row);
-
-                if (!row.value) {
+                let content = row.value;
+                if (typeof content === "number") {
+                    content = formatNumber(content);
+                } else {
+                    content = CellWrap(row);
+                }
+                if (!content) {
                     return content;
                 }
-
                 return <LogsSearchLink search={row.original.name}>{content}</LogsSearchLink>;
             },
         },
@@ -332,18 +341,18 @@ const ClientsTable = ({
                             disabled={processingUpdating}
                             title={t('edit_table_action')}>
                             <svg className="icons icon12">
-                                <use xlinkHref="#edit"/>
+                                <use xlinkHref="#edit" />
                             </svg>
                         </button>
 
                         <button
                             type="button"
                             className="btn btn-icon btn-outline-secondary btn-sm"
-                            onClick={() => handleDelete({name: clientName})}
+                            onClick={() => handleDelete({ name: clientName })}
                             disabled={processingDeleting}
                             title={t('delete_table_action')}>
                             <svg className="icons icon12">
-                                <use xlinkHref="#delete"/>
+                                <use xlinkHref="#delete" />
                             </svg>
                         </button>
                     </div>

@@ -1,12 +1,12 @@
-import {useTranslation} from 'react-i18next';
-import {shallowEqual, useSelector} from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { shallowEqual, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import React from 'react';
-import {formatElapsedMs, getFilterNames, getRulesToFilterList, getServiceName} from '../../../helpers/helpers';
-import {FILTERED_STATUS, FILTERED_STATUS_TO_META_MAP} from '../../../helpers/constants';
+import { getRulesToFilterList, formatElapsedMs, getFilterNames, getServiceName } from '../../../helpers/helpers';
+import { FILTERED_STATUS, FILTERED_STATUS_TO_META_MAP } from '../../../helpers/constants';
 
 import IconTooltip from './IconTooltip';
-import {RootState} from '../../../initialState';
+import { RootState } from '../../../initialState';
 
 interface ResponseCellProps {
     elapsedMs: string;
@@ -24,17 +24,17 @@ interface ResponseCellProps {
 }
 
 const ResponseCell = ({
-                          elapsedMs,
-                          originalResponse,
-                          reason,
-                          response,
-                          status,
-                          upstream,
-                          rules,
-                          service_name,
-                          cached,
-                      }: ResponseCellProps) => {
-    const {t} = useTranslation();
+    elapsedMs,
+    originalResponse,
+    reason,
+    response,
+    status,
+    upstream,
+    rules,
+    service_name,
+    cached,
+}: ResponseCellProps) => {
+    const { t } = useTranslation();
 
     const filters = useSelector((state: RootState) => state.filtering.filters, shallowEqual);
 
@@ -81,15 +81,15 @@ const ResponseCell = ({
         ...(cached && {
             served_from_cache_label: (
                 <svg className="icons icon--20 icon--green mb-1">
-                    <use xlinkHref="#check"/>
+                    <use xlinkHref="#check" />
                 </svg>
             ),
         }),
         elapsed: formattedElapsedMs,
         response_code: status,
         ...(service_name &&
-            services.allServices && {service_name: getServiceName(services.allServices, service_name)}),
-        ...(rules.length > 0 && {rule_label: getRulesToFilterList(rules, filters, whitelistFilters)}),
+            services.allServices && { service_name: getServiceName(services.allServices, service_name) }),
+        ...(rules.length > 0 && { rule_label: getRulesToFilterList(rules, filters, whitelistFilters) }),
         response_table_header: renderResponses(response),
         original_response: renderResponses(originalResponse),
     };
@@ -98,9 +98,9 @@ const ResponseCell = ({
         rules.length > 0
             ? Object.entries(COMMON_CONTENT)
             : Object.entries({
-                ...COMMON_CONTENT,
-                filter: '',
-            });
+                  ...COMMON_CONTENT,
+                  filter: '',
+              });
 
     const getDetailedInfo = (reason: any) => {
         switch (reason) {
@@ -122,7 +122,7 @@ const ResponseCell = ({
     return (
         <div className="logs__cell logs__cell--response" role="gridcell">
             <IconTooltip
-                className={classNames('icons mr-4 icon--24 icon--lightgray logs__question', {'my-3': isDetailed})}
+                className={classNames('icons mr-4 icon--24 icon--lightgray logs__question', { 'my-3': isDetailed })}
                 columnClass="grid grid--limited"
                 tooltipClass="px-5 pb-5 pt-4 mw-75 custom-tooltip__response-details"
                 contentItemClass="text-truncate key-colon o-hidden"

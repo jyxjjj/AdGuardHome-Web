@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import { Trans, withTranslation } from 'react-i18next';
 import { format } from 'date-fns';
+import { withTranslation, Trans } from 'react-i18next';
 
 import { EMPTY_DATE } from '../../../helpers/constants';
 

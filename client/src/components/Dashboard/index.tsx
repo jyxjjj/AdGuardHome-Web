@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 
-import {HashLink as Link} from 'react-router-hash-link';
-import {Trans, useTranslation} from 'react-i18next';
+import { HashLink as Link } from 'react-router-hash-link';
+import { Trans, useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 
 import Statistics from './Statistics';
@@ -9,8 +9,8 @@ import Counters from './Counters';
 import Clients from './Clients';
 import QueriedDomains from './QueriedDomains';
 import BlockedDomains from './BlockedDomains';
-import {DISABLE_PROTECTION_TIMINGS, ONE_SECOND_IN_MS, SETTINGS_URLS, TIME_UNITS} from '../../helpers/constants';
-import {msToDays, msToHours, msToMinutes, msToSeconds} from '../../helpers/helpers';
+import { DISABLE_PROTECTION_TIMINGS, ONE_SECOND_IN_MS, SETTINGS_URLS, TIME_UNITS } from '../../helpers/constants';
+import { msToSeconds, msToMinutes, msToHours, msToDays } from '../../helpers/helpers';
 
 import PageTitle from '../ui/PageTitle';
 
@@ -21,7 +21,7 @@ import Dropdown from '../ui/Dropdown';
 import UpstreamResponses from './UpstreamResponses';
 
 import UpstreamAvgTime from './UpstreamAvgTime';
-import {AccessData, DashboardData, StatsData} from '../../initialState';
+import { AccessData, DashboardData, StatsData } from '../../initialState';
 
 interface DashboardProps {
     dashboard: DashboardData;
@@ -35,15 +35,15 @@ interface DashboardProps {
 }
 
 const Dashboard = ({
-                       getAccessList,
-                       getStats,
-                       getStatsConfig,
-                       dashboard: {protectionEnabled, processingProtection, protectionDisabledDuration},
-                       toggleProtection,
-                       stats,
-                       access,
-                   }: DashboardProps) => {
-    const {t} = useTranslation();
+    getAccessList,
+    getStats,
+    getStatsConfig,
+    dashboard: { protectionEnabled, processingProtection, protectionDisabledDuration },
+    toggleProtection,
+    stats,
+    access,
+}: DashboardProps) => {
+    const { t } = useTranslation();
 
     const getAllStats = () => {
         getAccessList();
@@ -62,12 +62,12 @@ const Dashboard = ({
         const msIn7Days = 604800000;
 
         if (stats.timeUnits === TIME_UNITS.HOURS && stats.interval === msIn7Days) {
-            return t('for_last_days', {count: msToDays(stats.interval)});
+            return t('for_last_days', { count: msToDays(stats.interval) });
         }
 
         return stats.timeUnits === TIME_UNITS.HOURS
-            ? t('for_last_hours', {count: msToHours(stats.interval)})
-            : t('for_last_days', {count: msToDays(stats.interval)});
+            ? t('for_last_hours', { count: msToHours(stats.interval) })
+            : t('for_last_days', { count: msToDays(stats.interval) });
     };
 
     const buttonClass = classNames('btn btn-sm dashboard-protection-button', {
@@ -82,7 +82,7 @@ const Dashboard = ({
             title={t('refresh_btn')}
             onClick={() => getAllStats()}>
             <svg className="icons icon12">
-                <use xlinkHref="#refresh"/>
+                <use xlinkHref="#refresh" />
             </svg>
         </button>
     );
@@ -93,19 +93,19 @@ const Dashboard = ({
 
     const DISABLE_PROTECTION_ITEMS = [
         {
-            text: t('disable_for_seconds', {count: msToSeconds(DISABLE_PROTECTION_TIMINGS.HALF_MINUTE)}),
+            text: t('disable_for_seconds', { count: msToSeconds(DISABLE_PROTECTION_TIMINGS.HALF_MINUTE) }),
             disableTime: DISABLE_PROTECTION_TIMINGS.HALF_MINUTE,
         },
         {
-            text: t('disable_for_minutes', {count: msToMinutes(DISABLE_PROTECTION_TIMINGS.MINUTE)}),
+            text: t('disable_for_minutes', { count: msToMinutes(DISABLE_PROTECTION_TIMINGS.MINUTE) }),
             disableTime: DISABLE_PROTECTION_TIMINGS.MINUTE,
         },
         {
-            text: t('disable_for_minutes', {count: msToMinutes(DISABLE_PROTECTION_TIMINGS.TEN_MINUTES)}),
+            text: t('disable_for_minutes', { count: msToMinutes(DISABLE_PROTECTION_TIMINGS.TEN_MINUTES) }),
             disableTime: DISABLE_PROTECTION_TIMINGS.TEN_MINUTES,
         },
         {
-            text: t('disable_for_hours', {count: msToHours(DISABLE_PROTECTION_TIMINGS.HOUR)}),
+            text: t('disable_for_hours', { count: msToHours(DISABLE_PROTECTION_TIMINGS.HOUR) }),
             disableTime: DISABLE_PROTECTION_TIMINGS.HOUR,
         },
         {
@@ -154,7 +154,7 @@ const Dashboard = ({
                         }}
                         disabled={processingProtection}>
                         {protectionDisabledDuration
-                            ? `${t('enable_protection_timer')} ${getRemaningTimeText(protectionDisabledDuration)}`
+                            ? `${t('enable_protection_timer', { time: getRemaningTimeText(protectionDisabledDuration) })}`
                             : getProtectionBtnText(protectionEnabled)}
                     </button>
 
@@ -175,7 +175,7 @@ const Dashboard = ({
                 </button>
             </PageTitle>
 
-            {statsProcessing && <Loading/>}
+            {statsProcessing && <Loading />}
 
             {!statsProcessing && (
                 <div className="row row-cards dashboard">
@@ -197,22 +197,18 @@ const Dashboard = ({
                             interval={msToDays(stats.interval)}
                             dnsQueries={stats.dnsQueries}
                             blockedFiltering={stats.blockedFiltering}
-                            replacedSafebrowsing={stats.replacedSafebrowsing}
-                            replacedParental={stats.replacedParental}
                             numDnsQueries={stats.numDnsQueries}
                             numBlockedFiltering={stats.numBlockedFiltering}
-                            numReplacedSafebrowsing={stats.numReplacedSafebrowsing}
-                            numReplacedParental={stats.numReplacedParental}
                             refreshButton={refreshButton}
                         />
                     </div>
 
                     <div className="col-lg-6">
-                        <Counters subtitle={subtitle} refreshButton={refreshButton}/>
+                        <Counters subtitle={subtitle} refreshButton={refreshButton} />
                     </div>
 
                     <div className="col-lg-6">
-                        <Clients subtitle={subtitle} refreshButton={refreshButton}/>
+                        <Clients subtitle={subtitle} refreshButton={refreshButton} />
                     </div>
 
                     <div className="col-lg-6">
@@ -231,7 +227,7 @@ const Dashboard = ({
                         />
                     </div>
 
-                    <div className="col-lg-12">
+                    <div className="col-lg-6">
                         <QueriedDomains
                             subtitle={subtitle}
                             dnsQueries={stats.numDnsQueries}
@@ -240,7 +236,7 @@ const Dashboard = ({
                         />
                     </div>
 
-                    <div className="col-lg-12">
+                    <div className="col-lg-6">
                         <BlockedDomains
                             subtitle={subtitle}
                             topBlockedDomains={stats.topBlockedDomains}

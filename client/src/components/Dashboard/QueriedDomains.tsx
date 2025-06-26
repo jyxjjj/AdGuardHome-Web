@@ -2,7 +2,7 @@ import React from 'react';
 
 // @ts-expect-error FIXME: update react-table
 import ReactTable from 'react-table';
-import { Trans, withTranslation } from 'react-i18next';
+import { withTranslation, Trans } from 'react-i18next';
 
 import Card from '../ui/Card';
 import Cell from '../ui/Cell';

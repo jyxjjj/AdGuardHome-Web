@@ -1,14 +1,14 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import ReactModal from 'react-modal';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
-import {MODAL_TYPE} from '../../helpers/constants';
+import { MODAL_TYPE } from '../../helpers/constants';
 
-import Form from './Form';
+import { Form } from './Form';
 import '../ui/Modal.css';
 
-import {getMap} from '../../helpers/helpers';
+import { getMap } from '../../helpers/helpers';
 
 ReactModal.setAppElement('#root');
 
@@ -37,7 +37,7 @@ const getTitle = (modalType: any, whitelist: any) => {
 
 const getSelectedValues = (filters: any, catalogSourcesToIdMap: any) =>
     filters.reduce(
-        (acc: any, {url}: any) => {
+        (acc: any, { url }: any) => {
             if (Object.prototype.hasOwnProperty.call(catalogSourcesToIdMap, url)) {
                 const fieldId = `filter${catalogSourcesToIdMap[url]}`;
                 acc.selectedFilterIds[fieldId] = true;
@@ -75,25 +75,15 @@ class Modal extends Component<ModalProps> {
     render() {
         const {
             isOpen,
-
             processingAddFilter,
-
             processingConfigFilter,
-
             handleSubmit,
-
             modalType,
-
             currentFilterData,
-
             whitelist,
-
             toggleFilteringModal,
-
             filters,
-
             t,
-
             filtersCatalog,
         } = this.props;
 

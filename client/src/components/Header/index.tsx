@@ -1,26 +1,26 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
-import {Link, useLocation} from 'react-router-dom';
-import {shallowEqual, useSelector} from 'react-redux';
-import {useTranslation} from 'react-i18next';
+import { Link, useLocation } from 'react-router-dom';
+import { shallowEqual, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import classnames from 'classnames';
 
 import Menu from './Menu';
 
-import {Logo} from '../ui/svg/logo';
+import { Logo } from '../ui/svg/logo';
 import './Header.css';
-import {RootState} from '../../initialState';
+import { RootState } from '../../initialState';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
-    const {protectionEnabled, processing, isCoreRunning} = useSelector(
+    const { protectionEnabled, processing, isCoreRunning } = useSelector(
         (state: RootState) => state.dashboard,
         shallowEqual,
     );
 
-    const {pathname} = useLocation();
+    const { pathname } = useLocation();
 
     const toggleMenuOpen = () => {
         setIsMenuOpen((isMenuOpen) => !isMenuOpen);
@@ -40,7 +40,7 @@ const Header = () => {
             <div className="header__container">
                 <div className="header__row">
                     <div className="header-toggler d-lg-none ml-lg-0 collapsed" onClick={toggleMenuOpen}>
-                        <span className="header-toggler-icon"/>
+                        <span className="header-toggler-icon" />
                     </div>
 
                     <div className="header__column">
@@ -56,7 +56,7 @@ const Header = () => {
                         </div>
                     </div>
 
-                    <Menu pathname={pathname} isMenuOpen={isMenuOpen} closeMenu={closeMenu}/>
+                    <Menu pathname={pathname} isMenuOpen={isMenuOpen} closeMenu={closeMenu} />
                 </div>
             </div>
         </div>

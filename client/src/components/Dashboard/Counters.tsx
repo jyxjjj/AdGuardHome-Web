@@ -1,17 +1,17 @@
 import React from 'react';
-import {Trans, useTranslation} from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import round from 'lodash/round';
-import {shallowEqual, useSelector} from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 
 import Card from '../ui/Card';
 
-import {formatNumber, msToDays, msToHours} from '../../helpers/helpers';
+import { formatNumber, msToDays, msToHours } from '../../helpers/helpers';
 
 import LogsSearchLink from '../ui/LogsSearchLink';
-import {RESPONSE_FILTER, TIME_UNITS} from '../../helpers/constants';
+import { RESPONSE_FILTER, TIME_UNITS } from '../../helpers/constants';
 
 import Tooltip from '../ui/Tooltip';
-import {RootState} from '../../initialState';
+import { RootState } from '../../initialState';
 
 interface RowProps {
     label: string;
@@ -21,7 +21,7 @@ interface RowProps {
     translationComponents?: React.ReactElement[];
 }
 
-const Row = ({label, count, response_status, tooltipTitle, translationComponents}: RowProps) => {
+const Row = ({ label, count, response_status, tooltipTitle, translationComponents }: RowProps) => {
     const content = response_status ? (
         <LogsSearchLink response_status={response_status}>{count}</LogsSearchLink>
     ) : (
@@ -41,7 +41,7 @@ const Row = ({label, count, response_status, tooltipTitle, translationComponents
                         placement="top"
                         className="tooltip-container tooltip-custom--narrow text-center">
                         <svg className="icons icon--20 icon--lightgray ml-2">
-                            <use xlinkHref="#question"/>
+                            <use xlinkHref="#question" />
                         </svg>
                     </Tooltip>
                 </span>
@@ -59,7 +59,7 @@ interface CountersProps {
     subtitle: string;
 }
 
-const Counters = ({refreshButton, subtitle}: CountersProps) => {
+const Counters = ({ refreshButton, subtitle }: CountersProps) => {
     const {
         interval,
         numDnsQueries,
@@ -70,12 +70,12 @@ const Counters = ({refreshButton, subtitle}: CountersProps) => {
         avgProcessingTime,
         timeUnits,
     } = useSelector<RootState, RootState['stats']>((state) => state.stats, shallowEqual);
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     const dnsQueryTooltip =
         timeUnits === TIME_UNITS.HOURS
-            ? t('number_of_dns_query_hours', {count: msToHours(interval)})
-            : t('number_of_dns_query_days', {count: msToDays(interval)});
+            ? t('number_of_dns_query_hours', { count: msToHours(interval) })
+            : t('number_of_dns_query_days', { count: msToDays(interval) });
 
     const rows: RowProps[] = [
         {
@@ -125,7 +125,7 @@ const Counters = ({refreshButton, subtitle}: CountersProps) => {
         <Card title={t('general_statistics')} subtitle={subtitle} bodyType="card-table" refresh={refreshButton}>
             <div className="counters">
                 {rows.map((row, index) => {
-                    return <Row {...row} key={index}/>;
+                    return <Row {...row} key={index} />;
                 })}
             </div>
         </Card>

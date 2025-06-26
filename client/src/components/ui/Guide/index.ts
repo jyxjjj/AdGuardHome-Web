@@ -1,3 +1,1 @@
-import Guide from './Guide';
-
-export default Guide;
+export * from './Guide';

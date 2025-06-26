@@ -1,5 +1,5 @@
 import React from 'react';
-import {Trans, withTranslation} from 'react-i18next';
+import { withTranslation, Trans } from 'react-i18next';
 
 interface ActionsProps {
     handleAdd: (...args: unknown[]) => unknown;
@@ -8,7 +8,7 @@ interface ActionsProps {
     whitelist?: boolean;
 }
 
-const Actions = ({handleAdd, handleRefresh, processingRefreshFilters, whitelist}: ActionsProps) => (
+const Actions = ({ handleAdd, handleRefresh, processingRefreshFilters, whitelist }: ActionsProps) => (
     <div className="card-actions">
         <button className="btn btn-success btn-standard mr-2 btn-large mb-2" type="submit" onClick={handleAdd}>
             {whitelist ? <Trans>add_allowlist</Trans> : <Trans>add_blocklist</Trans>}

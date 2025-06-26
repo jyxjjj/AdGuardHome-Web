@@ -14,7 +14,7 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const RESOURCES_PATH = path.resolve(__dirname);
 const ENTRY_REACT = path.resolve(RESOURCES_PATH, 'src/index.tsx');
-const HTML_PATH = path.resolve(RESOURCES_PATH, 'src/index.html');
+const HTML_PATH = path.resolve(RESOURCES_PATH, 'public/index.html');
 
 const PUBLIC_PATH = path.resolve(__dirname, '../build/static');
 

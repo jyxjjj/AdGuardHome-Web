@@ -1,9 +1,9 @@
 import React from 'react';
 import PopperJS from 'popper.js';
-import TooltipTrigger, {TriggerTypes} from 'react-popper-tooltip';
-import {useTranslation} from 'react-i18next';
+import TooltipTrigger, { TriggerTypes } from 'react-popper-tooltip';
+import { useTranslation } from 'react-i18next';
 
-import {HIDE_TOOLTIP_DELAY, MEDIUM_SCREEN_SIZE, SHOW_TOOLTIP_DELAY} from '../../helpers/constants';
+import { HIDE_TOOLTIP_DELAY, MEDIUM_SCREEN_SIZE, SHOW_TOOLTIP_DELAY } from '../../helpers/constants';
 import 'react-popper-tooltip/dist/styles.css';
 import './Tooltip.css';
 
@@ -31,18 +31,18 @@ interface renderTriggerProps {
 }
 
 const Tooltip = ({
-                     children,
-                     content,
-                     triggerClass = 'tooltip-custom__trigger',
-                     className = 'tooltip-container',
-                     placement = 'bottom',
-                     trigger = 'hover',
-                     delayShow = SHOW_TOOLTIP_DELAY,
-                     delayHide = HIDE_TOOLTIP_DELAY,
-                     onVisibilityChange,
-                     defaultTooltipShown,
-                 }: TooltipProps) => {
-    const {t} = useTranslation();
+    children,
+    content,
+    triggerClass = 'tooltip-custom__trigger',
+    className = 'tooltip-container',
+    placement = 'bottom',
+    trigger = 'hover',
+    delayShow = SHOW_TOOLTIP_DELAY,
+    delayHide = HIDE_TOOLTIP_DELAY,
+    onVisibilityChange,
+    defaultTooltipShown,
+}: TooltipProps) => {
+    const { t } = useTranslation();
     const touchEventsAvailable = 'ontouchstart' in window;
 
     let triggerValue = trigger;
@@ -55,7 +55,7 @@ const Tooltip = ({
         delayShowValue = 0;
     }
 
-    const renderTooltip = ({tooltipRef, getTooltipProps}: renderTooltipProps) => (
+    const renderTooltip = ({ tooltipRef, getTooltipProps }: renderTooltipProps) => (
         <div
             {...getTooltipProps({
                 ref: tooltipRef,
@@ -65,7 +65,7 @@ const Tooltip = ({
         </div>
     );
 
-    const renderTrigger = ({getTriggerProps, triggerRef}: renderTriggerProps) => (
+    const renderTrigger = ({ getTriggerProps, triggerRef }: renderTriggerProps) => (
         <span
             {...getTriggerProps({
                 ref: triggerRef,

@@ -1,21 +1,21 @@
-import React, {useState} from 'react';
-import {Trans, useTranslation} from 'react-i18next';
+import React, { useState } from 'react';
+import { Trans, useTranslation } from 'react-i18next';
 import i18next from 'i18next';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import {MOBILE_CONFIG_LINKS} from '../../../helpers/constants';
+import { MOBILE_CONFIG_LINKS } from '../../../helpers/constants';
 
 import Tabs from '../Tabs';
 
-import MobileConfigForm from './MobileConfigForm';
-import {RootState} from '../../../initialState';
+import { MobileConfigForm } from './MobileConfigForm';
+import { RootState } from '../../../initialState';
 
 interface renderLiProps {
     label?: string;
     components?: JSX.Element[];
 }
 
-const renderLi = ({label, components}: renderLiProps) => (
+const renderLi = ({ label, components }: renderLiProps) => (
     <li key={label}>
         <Trans
             components={components?.map((props: any) => {
@@ -164,21 +164,21 @@ interface renderDnsPrivacyListProps {
     renderList?: (...args: unknown[]) => string;
 }
 
-const renderDnsPrivacyList = ({title, list}: renderDnsPrivacyListProps) => (
+const renderDnsPrivacyList = ({ title, list }: renderDnsPrivacyListProps) => (
     <div className="tab__paragraph" key={title}>
         <strong>
             <Trans>{title}</Trans>
         </strong>
 
         <ul>
-            {list.map(({label, components, renderComponent = renderLi}: any) =>
-                renderComponent({label, components}),
+            {list.map(({ label, components, renderComponent = renderLi }: any) =>
+                renderComponent({ label, components }),
             )}
         </ul>
     </div>
 );
 
-const getTabs = ({tlsAddress, httpsAddress, showDnsPrivacyNotice, serverName, portHttps, t}: any) => ({
+const getTabs = ({ tlsAddress, httpsAddress, showDnsPrivacyNotice, serverName, portHttps, t }: any) => ({
     Router: {
         // eslint-disable-next-line react/display-name
         getTitle: () => (
@@ -251,7 +251,7 @@ const getTabs = ({tlsAddress, httpsAddress, showDnsPrivacyNotice, serverName, po
                         {tlsAddress?.length > 0 && (
                             <div className="tab__paragraph">
                                 <Trans
-                                    values={{address: tlsAddress[0]}}
+                                    values={{ address: tlsAddress[0] }}
                                     components={[<strong key="0">text</strong>, <code key="1">text</code>]}>
                                     setup_dns_privacy_1
                                 </Trans>
@@ -260,7 +260,7 @@ const getTabs = ({tlsAddress, httpsAddress, showDnsPrivacyNotice, serverName, po
                         {httpsAddress?.length > 0 && (
                             <div className="tab__paragraph">
                                 <Trans
-                                    values={{address: httpsAddress[0]}}
+                                    values={{ address: httpsAddress[0] }}
                                     components={[<strong key="0">text</strong>, <code key="1">text</code>]}>
                                     setup_dns_privacy_2
                                 </Trans>
@@ -297,7 +297,7 @@ const getTabs = ({tlsAddress, httpsAddress, showDnsPrivacyNotice, serverName, po
                                 </div>
 
                                 <div className="mb-3">
-                                    <Trans components={{highlight: <code/>}}>setup_dns_privacy_4</Trans>
+                                    <Trans components={{ highlight: <code /> }}>setup_dns_privacy_4</Trans>
                                 </div>
 
                                 <MobileConfigForm
@@ -323,7 +323,7 @@ interface renderContentProps {
     getTitle?: (...args: unknown[]) => unknown;
 }
 
-const renderContent = ({title, list, getTitle}: renderContentProps) => (
+const renderContent = ({ title, list, getTitle }: renderContentProps) => (
     <div title={i18next.t(title)}>
         <div className="tab__title">{i18next.t(title)}</div>
 
@@ -346,8 +346,8 @@ interface GuideProps {
     dnsAddresses?: unknown[];
 }
 
-const Guide = ({dnsAddresses}: GuideProps) => {
-    const {t} = useTranslation();
+export const Guide = ({ dnsAddresses }: GuideProps) => {
+    const { t } = useTranslation();
 
     const serverName = useSelector((state: RootState) => state.encryption?.server_name);
 
@@ -381,5 +381,3 @@ const Guide = ({dnsAddresses}: GuideProps) => {
 Guide.defaultProps = {
     dnsAddresses: [],
 };
-
-export default Guide;

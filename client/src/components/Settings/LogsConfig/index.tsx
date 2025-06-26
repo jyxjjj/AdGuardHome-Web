@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
-import {withTranslation} from 'react-i18next';
+import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
 
 import Card from '../../ui/Card';
 
-import Form from './Form';
-import {HOUR} from '../../../helpers/constants';
+import { Form, FormValues } from './Form';
+import { HOUR } from '../../../helpers/constants';
 
 interface LogsConfigProps {
     interval: number;
@@ -20,9 +20,9 @@ interface LogsConfigProps {
 }
 
 class LogsConfig extends Component<LogsConfigProps> {
-    handleFormSubmit = (values: any) => {
-        const {t, interval: prevInterval} = this.props;
-        const {interval, customInterval, ...rest} = values;
+    handleFormSubmit = (values: FormValues) => {
+        const { t, interval: prevInterval } = this.props;
+        const { interval, customInterval, ...rest } = values;
 
         const newInterval = customInterval ? customInterval * HOUR : interval;
 
@@ -43,7 +43,7 @@ class LogsConfig extends Component<LogsConfigProps> {
     };
 
     handleClear = () => {
-        const {t, clearLogs} = this.props;
+        const { t, clearLogs } = this.props;
         // eslint-disable-next-line no-alert
         if (window.confirm(t('query_log_confirm_clear'))) {
             clearLogs();
@@ -53,19 +53,12 @@ class LogsConfig extends Component<LogsConfigProps> {
     render() {
         const {
             t,
-
             enabled,
-
             interval,
-
             processing,
-
             processingClear,
-
             anonymize_client_ip,
-
             ignored,
-
             customInterval,
         } = this.props;
 
@@ -80,10 +73,10 @@ class LogsConfig extends Component<LogsConfigProps> {
                             anonymize_client_ip,
                             ignored: ignored?.join('\n'),
                         }}
-                        onSubmit={this.handleFormSubmit}
                         processing={processing}
-                        processingClear={processingClear}
-                        handleClear={this.handleClear}
+                        processingReset={processingClear}
+                        onSubmit={this.handleFormSubmit}
+                        onReset={this.handleClear}
                     />
                 </div>
             </Card>

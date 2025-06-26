@@ -1,16 +1,16 @@
-import React, {Dispatch, memo, SetStateAction} from 'react';
+import React, { Dispatch, memo, SetStateAction } from 'react';
 import classNames from 'classnames';
-import {useTranslation} from 'react-i18next';
-import {shallowEqual, useDispatch, useSelector} from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import {
     captitalizeWords,
     checkFiltered,
+    getRulesToFilterList,
     formatDateTime,
     formatElapsedMs,
     formatTime,
     getBlockingClientName,
-    getRulesToFilterList,
     getServiceName,
     processContent,
 } from '../../../helpers/helpers';
@@ -23,9 +23,9 @@ import {
     QUERY_STATUS_COLORS,
     SCHEME_TO_PROTOCOL_MAP,
 } from '../../../helpers/constants';
-import {getSourceData} from '../../../helpers/trackers/trackers';
+import { getSourceData } from '../../../helpers/trackers/trackers';
 
-import {toggleBlocking, toggleBlockingForClient} from '../../../actions';
+import { toggleBlocking, toggleBlockingForClient } from '../../../actions';
 
 import DateCell from './DateCell';
 
@@ -34,12 +34,12 @@ import DomainCell from './DomainCell';
 import ResponseCell from './ResponseCell';
 
 import ClientCell from './ClientCell';
-import {toggleClientBlock} from '../../../actions/access';
-import {BUTTON_PREFIX, getBlockClientInfo} from './helpers';
-import {updateLogs} from '../../../actions/queryLogs';
+import { toggleClientBlock } from '../../../actions/access';
+import { getBlockClientInfo, BUTTON_PREFIX } from './helpers';
+import { updateLogs } from '../../../actions/queryLogs';
 
 import '../Logs.css';
-import {RootState} from '../../../initialState';
+import { RootState } from '../../../initialState';
 
 interface RowProps {
     style?: object;
@@ -87,16 +87,16 @@ interface RowProps {
 
 const Row = memo(
     ({
-         style,
-         rowProps,
-         rowProps: {reason},
-         isSmallScreen,
-         setDetailedDataCurrent,
-         setButtonType,
-         setModalOpened,
-     }: RowProps) => {
+        style,
+        rowProps,
+        rowProps: { reason },
+        isSmallScreen,
+        setDetailedDataCurrent,
+        setButtonType,
+        setModalOpened,
+    }: RowProps) => {
         const dispatch = useDispatch();
-        const {t} = useTranslation();
+        const { t } = useTranslation();
 
         const dnssec_enabled = useSelector((state: RootState) => state.dnsConfig.dnssec_enabled);
 
@@ -194,14 +194,14 @@ const Row = memo(
 
             const blockButton = (
                 <>
-                    <div className="title--border"/>
+                    <div className="title--border" />
 
                     <button
                         type="button"
                         className={classNames(
                             'button-action--arrow-option mb-1',
-                            {'bg--danger': !isBlocked},
-                            {'bg--green': isFiltered},
+                            { 'bg--danger': !isBlocked },
+                            { 'bg--green': isFiltered },
                         )}
                         onClick={onToggleBlock}>
                         {t(buttonType)}
@@ -233,7 +233,7 @@ const Row = memo(
                 encryption_status: isBlocked ? <div className="bg--danger">{requestStatus}</div> : requestStatus,
                 ...(FILTERED_STATUS.FILTERED_BLOCKED_SERVICE &&
                     service_name &&
-                    services.allServices && {service_name: getServiceName(services.allServices, service_name)}),
+                    services.allServices && { service_name: getServiceName(services.allServices, service_name) }),
                 domain,
                 type_table_header: type,
                 protocol,
@@ -250,12 +250,12 @@ const Row = memo(
                 ...(cached && {
                     served_from_cache_label: (
                         <svg className="icons icon--20 icon--green">
-                            <use xlinkHref="#check"/>
+                            <use xlinkHref="#check" />
                         </svg>
                     ),
                 }),
                 elapsed: formattedElapsedMs,
-                ...(rules.length > 0 && {rule_label: getRulesToFilterList(rules, filters, whitelistFilters)}),
+                ...(rules.length > 0 && { rule_label: getRulesToFilterList(rules, filters, whitelistFilters) }),
                 response_table_header: response?.join('\n'),
                 response_code: status,
                 client_details: 'title',
@@ -288,7 +288,7 @@ const Row = memo(
         );
 
         return (
-            <div style={style} className={className} onClick={onClick} role="row">
+            <div style={style} className={className} onClick={onClick} role="row" data-testid="querylog_cell">
                 <DateCell {...rowProps} />
 
                 <DomainCell {...rowProps} />

@@ -1,15 +1,15 @@
 import React from 'react';
 import ct from 'countries-and-timezones';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
-import {LOCAL_TIMEZONE_VALUE} from '../../../../helpers/constants';
+import { LOCAL_TIMEZONE_VALUE } from '../../../../helpers/constants';
 
 interface TimezoneProps {
     timezone: string;
     setTimezone: (...args: unknown[]) => unknown;
 }
 
-export const Timezone = ({timezone, setTimezone}: TimezoneProps) => {
+export const Timezone = ({ timezone, setTimezone }: TimezoneProps) => {
     const [t] = useTranslation();
 
     const onTimeZoneChange = (event: any) => {

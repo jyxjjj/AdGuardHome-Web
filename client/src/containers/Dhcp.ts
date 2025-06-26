@@ -1,14 +1,14 @@
 import { connect } from 'react-redux';
 import {
-    addStaticLease,
-    findActiveDhcp,
-    getDhcpInterfaces,
+    toggleDhcp,
     getDhcpStatus,
+    getDhcpInterfaces,
+    setDhcpConfig,
+    findActiveDhcp,
+    toggleLeaseModal,
+    addStaticLease,
     removeStaticLease,
     resetDhcp,
-    setDhcpConfig,
-    toggleDhcp,
-    toggleLeaseModal,
 } from '../actions';
 
 import Dhcp from '../components/Settings/Dhcp';

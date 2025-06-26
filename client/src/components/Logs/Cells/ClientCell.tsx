@@ -1,24 +1,24 @@
-import React, {useState} from 'react';
-import {shallowEqual, useDispatch, useSelector} from 'react-redux';
-import {nanoid} from 'nanoid';
+import React, { useState } from 'react';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { nanoid } from 'nanoid';
 import classNames from 'classnames';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
-import {Link, useHistory} from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
-import {checkFiltered, getBlockingClientName} from '../../../helpers/helpers';
-import {BLOCK_ACTIONS} from '../../../helpers/constants';
+import { checkFiltered, getBlockingClientName } from '../../../helpers/helpers';
+import { BLOCK_ACTIONS } from '../../../helpers/constants';
 
-import {toggleBlocking, toggleBlockingForClient} from '../../../actions';
+import { toggleBlocking, toggleBlockingForClient } from '../../../actions';
 
 import IconTooltip from './IconTooltip';
 
-import {renderFormattedClientCell} from '../../../helpers/renderFormattedClientCell';
-import {toggleClientBlock} from '../../../actions/access';
-import {getBlockClientInfo} from './helpers';
-import {getStats} from '../../../actions/stats';
-import {updateLogs} from '../../../actions/queryLogs';
-import {RootState} from '../../../initialState';
+import { renderFormattedClientCell } from '../../../helpers/renderFormattedClientCell';
+import { toggleClientBlock } from '../../../actions/access';
+import { getBlockClientInfo } from './helpers';
+import { getStats } from '../../../actions/stats';
+import { updateLogs } from '../../../actions/queryLogs';
+import { RootState } from '../../../initialState';
 
 interface ClientCellProps {
     client: string;
@@ -37,8 +37,8 @@ interface ClientCellProps {
     reason: string;
 }
 
-const ClientCell = ({client, client_id, client_info, domain, reason}: ClientCellProps) => {
-    const {t} = useTranslation();
+const ClientCell = ({ client, client_id, client_info, domain, reason }: ClientCellProps) => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -158,7 +158,7 @@ const ClientCell = ({client, client_id, client_info, domain, reason}: ClientCell
 
             return (
                 <>
-                    {options.map(({name, onClick, disabled, className}: any) => (
+                    {options.map(({ name, onClick, disabled, className }: any) => (
                         <button
                             key={name}
                             className={classNames('button-action--arrow-option px-4 py-1', className)}
@@ -181,7 +181,7 @@ const ClientCell = ({client, client_id, client_info, domain, reason}: ClientCell
             <div className={containerClass}>
                 <button type="button" className="btn btn-icon btn-sm px-0" onClick={() => setOptionsOpened(true)}>
                     <svg className="icon24 icon--lightgray button-action__icon">
-                        <use xlinkHref="#bullets"/>
+                        <use xlinkHref="#bullets" />
                     </svg>
                 </button>
                 {isOptionsOpened && (

@@ -1,19 +1,19 @@
 import React from 'react';
-import {useTranslation} from 'react-i18next';
-import {shallowEqual, useDispatch, useSelector} from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import Card from '../../../ui/Card';
 
 import Form from './Form';
-import {setDnsConfig} from '../../../../actions/dnsConfig';
+import { setDnsConfig } from '../../../../actions/dnsConfig';
 
-import {replaceEmptyStringsWithZeroes, replaceZeroWithEmptyString} from '../../../../helpers/helpers';
-import {RootState} from '../../../../initialState';
+import { replaceEmptyStringsWithZeroes, replaceZeroWithEmptyString } from '../../../../helpers/helpers';
+import { RootState } from '../../../../initialState';
 
 const CacheConfig = () => {
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const dispatch = useDispatch();
-    const {cache_size, cache_ttl_max, cache_ttl_min, cache_optimistic} = useSelector(
+    const { cache_size, cache_ttl_max, cache_ttl_min, cache_optimistic } = useSelector(
         (state: RootState) => state.dnsConfig,
         shallowEqual,
     );

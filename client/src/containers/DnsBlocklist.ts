@@ -1,14 +1,14 @@
 import { connect } from 'react-redux';
 import {
-    addFilter,
-    editFilter,
-    getFilteringStatus,
-    handleRulesChange,
-    refreshFilters,
-    removeFilter,
     setRules,
-    toggleFilteringModal,
+    getFilteringStatus,
+    addFilter,
+    removeFilter,
     toggleFilterStatus,
+    toggleFilteringModal,
+    refreshFilters,
+    handleRulesChange,
+    editFilter,
 } from '../actions/filtering';
 
 import DnsBlocklist from '../components/Filters/DnsBlocklist';

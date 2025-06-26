@@ -13,7 +13,7 @@ interface TabsProps {
 }
 
 const Tabs = (props: TabsProps) => {
-    const {tabs, controlClass, activeTabLabel, setActiveTabLabel, children: activeTab} = props;
+    const { tabs, controlClass, activeTabLabel, setActiveTabLabel, children: activeTab } = props;
 
     const onClickTabControl = (tabLabel: any) => setActiveTabLabel(tabLabel);
 
@@ -27,7 +27,7 @@ const Tabs = (props: TabsProps) => {
             <div className={getControlClass}>
                 {Object.values(tabs).map((props: any) => {
                     // eslint-disable-next-line react/prop-types
-                    const {title, label = title} = props;
+                    const { title, label = title } = props;
                     return (
                         <Tab
                             key={label}

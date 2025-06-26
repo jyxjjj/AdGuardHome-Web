@@ -1,7 +1,7 @@
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 
-import {normalizeWhois} from '../../../helpers/helpers';
-import {WHOIS_ICONS} from '../../../helpers/constants';
+import { normalizeWhois } from '../../../helpers/helpers';
+import { WHOIS_ICONS } from '../../../helpers/constants';
 
 const getFormattedWhois = (value: any, t: any) => {
     const whoisInfo = normalizeWhois(value);
@@ -15,7 +15,7 @@ const getFormattedWhois = (value: any, t: any) => {
                     {icon && (
                         <Fragment>
                             <svg className="logs__whois-icon text-muted-dark icons icon--24">
-                                <use xlinkHref={`#${icon}`}/>
+                                <use xlinkHref={`#${icon}`} />
                             </svg>
                             &nbsp;
                         </Fragment>
@@ -31,7 +31,7 @@ const getFormattedWhois = (value: any, t: any) => {
 
 const whoisCell = (t: any) =>
     function cell(row: any) {
-        const {value} = row;
+        const { value } = row;
 
         return (
             <div className="logs__row o-hidden">

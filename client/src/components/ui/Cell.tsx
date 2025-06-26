@@ -2,7 +2,7 @@ import React from 'react';
 
 import LogsSearchLink from './LogsSearchLink';
 
-import {formatNumber} from '../../helpers/helpers';
+import { formatNumber } from '../../helpers/helpers';
 
 interface CellProps {
     value: number;
@@ -12,7 +12,7 @@ interface CellProps {
     onSearchRedirect?: (...args: unknown[]) => string;
 }
 
-const Cell = ({value, percent, color, search}: CellProps) => (
+const Cell = ({ value, percent, color, search }: CellProps) => (
     <div className="stats__row">
         <div className="stats__row-value mb-1">
             <strong>

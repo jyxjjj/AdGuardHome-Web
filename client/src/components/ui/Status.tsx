@@ -1,5 +1,5 @@
 import React from 'react';
-import {Trans, withTranslation} from 'react-i18next';
+import { withTranslation, Trans } from 'react-i18next';
 
 import Card from './Card';
 
@@ -9,7 +9,7 @@ interface StatusProps {
     reloadPage?: (...args: unknown[]) => unknown;
 }
 
-const Status = ({message, buttonMessage, reloadPage}: StatusProps) => (
+const Status = ({ message, buttonMessage, reloadPage }: StatusProps) => (
     <div className="status">
         <Card bodyType="card-body card-body--status">
             <div className="h4 font-weight-light mb-4">

@@ -6,7 +6,7 @@ interface CellWrapProps {
     formatTitle?: (...args: unknown[]) => unknown;
 }
 
-const CellWrap = ({value}: CellWrapProps, formatValue?: any, formatTitle = formatValue) => {
+const CellWrap = ({ value }: CellWrapProps, formatValue?: any, formatTitle = formatValue) => {
     if (!value) {
         return '–';
     }

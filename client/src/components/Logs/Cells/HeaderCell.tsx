@@ -1,14 +1,14 @@
 import classNames from 'classnames';
 import React from 'react';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 interface HeaderCellProps {
     content: string | React.ReactElement;
     className?: string;
 }
 
-const HeaderCell = ({content, className}: HeaderCellProps, idx: any) => {
-    const {t} = useTranslation();
+const HeaderCell = ({ content, className }: HeaderCellProps, idx: any) => {
+    const { t } = useTranslation();
 
     return (
         <div

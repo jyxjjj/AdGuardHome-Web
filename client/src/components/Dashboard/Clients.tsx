@@ -1,29 +1,29 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 // @ts-expect-error FIXME: update react-table
 import ReactTable from 'react-table';
-import {Trans, useTranslation} from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 
-import {shallowEqual, useDispatch, useSelector} from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 
 import Card from '../ui/Card';
 import Cell from '../ui/Cell';
 
-import {getPercent, sortIp} from '../../helpers/helpers';
+import { getPercent, sortIp } from '../../helpers/helpers';
 import {
     BLOCK_ACTIONS,
     DASHBOARD_TABLES_DEFAULT_PAGE_SIZE,
     STATUS_COLORS,
     TABLES_MIN_ROWS,
 } from '../../helpers/constants';
-import {toggleClientBlock} from '../../actions/access';
+import { toggleClientBlock } from '../../actions/access';
 
-import {renderFormattedClientCell} from '../../helpers/renderFormattedClientCell';
-import {getStats} from '../../actions/stats';
+import { renderFormattedClientCell } from '../../helpers/renderFormattedClientCell';
+import { getStats } from '../../actions/stats';
 
 import IconTooltip from '../Logs/Cells/IconTooltip';
-import {RootState} from '../../initialState';
+import { RootState } from '../../initialState';
 
 const getClientsPercentColor = (percent: any) => {
     if (percent > 50) {
@@ -38,7 +38,7 @@ const getClientsPercentColor = (percent: any) => {
 const CountCell = (row: any) => {
     const {
         value,
-        original: {ip},
+        original: { ip },
     } = row;
 
     const numDnsQueries = useSelector<RootState>((state) => state.stats.numDnsQueries, shallowEqual);
@@ -46,12 +46,12 @@ const CountCell = (row: any) => {
     const percent = getPercent(numDnsQueries, value);
     const percentColor = getClientsPercentColor(percent);
 
-    return <Cell value={value} percent={percent} color={percentColor} search={ip}/>;
+    return <Cell value={value} percent={percent} color={percentColor} search={ip} />;
 };
 
 const renderBlockingButton = (ip: any, disallowed: any, disallowed_rule: any) => {
     const dispatch = useDispatch();
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     const processingSet = useSelector<RootState, RootState['access']['processingSet']>(
         (state) => state.access.processingSet,
@@ -68,11 +68,11 @@ const renderBlockingButton = (ip: any, disallowed: any, disallowed_rule: any) =>
         let confirmMessage;
 
         if (disallowed) {
-            confirmMessage = t('client_confirm_unblock', {ip: disallowed_rule || ip});
+            confirmMessage = t('client_confirm_unblock', { ip: disallowed_rule || ip });
         } else {
-            confirmMessage = `${t('adg_will_drop_dns_queries')} ${t('client_confirm_block', {ip})}`;
+            confirmMessage = `${t('adg_will_drop_dns_queries')} ${t('client_confirm_block', { ip })}`;
             if (allowedClients.length > 0) {
-                confirmMessage = confirmMessage.concat(`\n\n${t('filter_allowlist', {disallowed_rule})}`);
+                confirmMessage = confirmMessage.concat(`\n\n${t('filter_allowlist', { disallowed_rule })}`);
             }
         }
 
@@ -95,7 +95,7 @@ const renderBlockingButton = (ip: any, disallowed: any, disallowed_rule: any) =>
         <div className="table__action">
             <button type="button" className="btn btn-icon btn-sm px-0" onClick={() => setOptionsOpened(true)}>
                 <svg className="icon24 icon--lightgray button-action__icon">
-                    <use xlinkHref="#bullets"/>
+                    <use xlinkHref="#bullets" />
                 </svg>
             </button>
             {isOptionsOpened && (
@@ -112,7 +112,7 @@ const renderBlockingButton = (ip: any, disallowed: any, disallowed_rule: any) =>
                             )}
                             onClick={onClick}
                             disabled={disabled}
-                            title={lastRuleInAllowlist ? t('last_rule_in_allowlist', {disallowed_rule}) : ''}>
+                            title={lastRuleInAllowlist ? t('last_rule_in_allowlist', { disallowed_rule }) : ''}>
                             <Trans>{text}</Trans>
                         </button>
                     }
@@ -132,7 +132,7 @@ const ClientCell = (row: any) => {
         value,
         original: {
             info,
-            info: {disallowed, disallowed_rule},
+            info: { disallowed, disallowed_rule },
         },
     } = row;
 
@@ -151,8 +151,8 @@ interface ClientsProps {
     subtitle: string;
 }
 
-const Clients = ({refreshButton, subtitle}: ClientsProps) => {
-    const {t} = useTranslation();
+const Clients = ({ refreshButton, subtitle }: ClientsProps) => {
+    const { t } = useTranslation();
 
     const topClients = useSelector<RootState, RootState['stats']['topClients']>(
         (state) => state.stats.topClients,
@@ -162,7 +162,7 @@ const Clients = ({refreshButton, subtitle}: ClientsProps) => {
     return (
         <Card title={t('top_clients')} subtitle={subtitle} bodyType="card-table" refresh={refreshButton}>
             <ReactTable
-                data={topClients.map(({name: ip, count, info, blocked}: any) => ({
+                data={topClients.map(({ name: ip, count, info, blocked }: any) => ({
                     ip,
                     count,
                     info,
@@ -194,10 +194,10 @@ const Clients = ({refreshButton, subtitle}: ClientsProps) => {
                     }
 
                     const {
-                        info: {disallowed},
+                        info: { disallowed },
                     } = rowInfo.original;
 
-                    return disallowed ? {className: 'logs__row--red'} : {};
+                    return disallowed ? { className: 'logs__row--red' } : {};
                 }}
             />
         </Card>

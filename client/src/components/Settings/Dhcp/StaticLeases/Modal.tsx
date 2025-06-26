@@ -1,14 +1,14 @@
 import React from 'react';
-import {Trans, withTranslation} from 'react-i18next';
+import { Trans, withTranslation } from 'react-i18next';
 
 import ReactModal from 'react-modal';
-import {shallowEqual, useDispatch, useSelector} from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
-import Form from './Form';
+import { Form } from './Form';
 
-import {toggleLeaseModal} from '../../../../actions';
-import {MODAL_TYPE} from '../../../../helpers/constants';
-import {RootState} from '../../../../initialState';
+import { toggleLeaseModal } from '../../../../actions';
+import { MODAL_TYPE } from '../../../../helpers/constants';
+import { RootState } from '../../../../initialState';
 
 interface ModalProps {
     isModalOpen: boolean;
@@ -20,13 +20,13 @@ interface ModalProps {
 }
 
 const Modal = ({
-                   isModalOpen,
-                   modalType,
-                   handleSubmit,
-                   processingAdding,
-                   cidr,
-                   gatewayIp,
-               }: ModalProps) => {
+    isModalOpen,
+    modalType,
+    handleSubmit,
+    processingAdding,
+    cidr,
+    gatewayIp,
+}: ModalProps) => {
     const dispatch = useDispatch();
 
     const toggleModal = () => dispatch(toggleLeaseModal());

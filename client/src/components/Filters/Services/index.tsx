@@ -1,27 +1,27 @@
-import React, {useEffect} from 'react';
-import {useTranslation} from 'react-i18next';
+import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import Form from './Form';
+import { Form } from './Form';
 
 import Card from '../../ui/Card';
-import {getAllBlockedServices, getBlockedServices, updateBlockedServices} from '../../../actions/services';
+import { getBlockedServices, getAllBlockedServices, updateBlockedServices } from '../../../actions/services';
 
 import PageTitle from '../../ui/PageTitle';
 
-import {ScheduleForm} from './ScheduleForm';
-import {RootState} from '../../../initialState';
+import { ScheduleForm } from './ScheduleForm';
+import { RootState } from '../../../initialState';
 
 const getInitialDataForServices = (initial: any) =>
     initial
         ? initial.reduce(
-            (acc: any, service: any) => {
-                acc.blocked_services[service] = true;
-                return acc;
-            },
-            {blocked_services: {}},
-        )
+              (acc: any, service: any) => {
+                  acc.blocked_services[service] = true;
+                  return acc;
+              },
+              { blocked_services: {} },
+          )
         : initial;
 
 const Services = () => {
@@ -69,7 +69,7 @@ const Services = () => {
 
     return (
         <>
-            <PageTitle title={t('blocked_services')} subtitle={t('blocked_services_desc')}/>
+            <PageTitle title={t('blocked_services')} subtitle={t('blocked_services_desc')} />
 
             <Card bodyType="card-body box-body--settings">
                 <div className="form">
@@ -86,8 +86,9 @@ const Services = () => {
             <Card
                 title={t('schedule_services')}
                 subtitle={t('schedule_services_desc')}
-                bodyType="card-body box-body--settings">
-                <ScheduleForm schedule={services.list.schedule} onScheduleSubmit={handleScheduleSubmit}/>
+                bodyType="card-body box-body--settings"
+            >
+                <ScheduleForm schedule={services.list.schedule} onScheduleSubmit={handleScheduleSubmit} />
             </Card>
         </>
     );

@@ -1,15 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import {useTranslation} from 'react-i18next';
+import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import ReactModal from 'react-modal';
 
-import {Timezone} from './Timezone';
+import { Timezone } from './Timezone';
 
-import {TimeSelect} from './TimeSelect';
+import { TimeSelect } from './TimeSelect';
 
-import {TimePeriod} from './TimePeriod';
-import {getFullDayName, getShortDayName} from './helpers';
-import {LOCAL_TIMEZONE_VALUE} from '../../../../helpers/constants';
+import { TimePeriod } from './TimePeriod';
+import { getFullDayName, getShortDayName } from './helpers';
+import { LOCAL_TIMEZONE_VALUE } from '../../../../helpers/constants';
 
 export const DAYS_OF_WEEK = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
 
@@ -26,7 +26,7 @@ interface ModalProps {
     onSubmit: (values: any) => void;
 }
 
-export const Modal = ({isOpen, currentDay, schedule, onClose, onSubmit}: ModalProps) => {
+export const Modal = ({ isOpen, currentDay, schedule, onClose, onSubmit }: ModalProps) => {
     const [t] = useTranslation();
 
     const intialTimezone =
@@ -112,7 +112,7 @@ export const Modal = ({isOpen, currentDay, schedule, onClose, onSubmit}: ModalPr
 
                 <form onSubmit={onFormSubmit}>
                     <div className="modal-body">
-                        <Timezone timezone={timezone} setTimezone={setTimezone}/>
+                        <Timezone timezone={timezone} setTimezone={setTimezone} />
 
                         <div className="schedule__days">
                             {DAYS_OF_WEEK.map((day) => (
@@ -129,9 +129,9 @@ export const Modal = ({isOpen, currentDay, schedule, onClose, onSubmit}: ModalPr
 
                         <div className="schedule__time-wrap">
                             <div className="schedule__time-row">
-                                <TimeSelect value={startTime} onChange={(v) => setStartTime(v)}/>
+                                <TimeSelect value={startTime} onChange={(v) => setStartTime(v)} />
 
-                                <TimeSelect value={endTime} onChange={(v) => setEndTime(v)}/>
+                                <TimeSelect value={endTime} onChange={(v) => setEndTime(v)} />
                             </div>
 
                             {wrongPeriod && <div className="schedule__error">{t('schedule_invalid_select')}</div>}
@@ -142,7 +142,7 @@ export const Modal = ({isOpen, currentDay, schedule, onClose, onSubmit}: ModalPr
 
                             <div className="schedule__info-row">
                                 <svg className="icons schedule__info-icon">
-                                    <use xlinkHref="#calendar"/>
+                                    <use xlinkHref="#calendar" />
                                 </svg>
                                 {days.size ? (
                                     Array.from(days)
@@ -155,12 +155,12 @@ export const Modal = ({isOpen, currentDay, schedule, onClose, onSubmit}: ModalPr
 
                             <div className="schedule__info-row">
                                 <svg className="icons schedule__info-icon">
-                                    <use xlinkHref="#watch"/>
+                                    <use xlinkHref="#watch" />
                                 </svg>
                                 {wrongPeriod ? (
                                     <span>—</span>
                                 ) : (
-                                    <TimePeriod startTimeMs={startTime} endTimeMs={endTime}/>
+                                    <TimePeriod startTimeMs={startTime} endTimeMs={endTime} />
                                 )}
                             </div>
                         </div>

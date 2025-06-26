@@ -1,25 +1,22 @@
 import React from 'react';
-import {Trans, withTranslation} from 'react-i18next';
+import { Trans, withTranslation } from 'react-i18next';
 
-import Guide from '../ui/Guide';
+import { Guide } from '../ui/Guide';
 
 import Card from '../ui/Card';
 
 import PageTitle from '../ui/PageTitle';
 import './Guide.css';
-import {DashboardData} from '../../initialState';
+import { DashboardData } from '../../initialState';
 
 interface SetupGuideProps {
     dashboard: DashboardData;
     t: (id: string) => string;
 }
 
-const SetupGuide = ({
-                        t,
-                        dashboard: {dnsAddresses},
-                    }: SetupGuideProps) => (
+const SetupGuide = ({ t, dashboard: { dnsAddresses } }: SetupGuideProps) => (
     <div className="guide">
-        <PageTitle title={t('setup_guide')}/>
+        <PageTitle title={t('setup_guide')} />
 
         <Card>
             <div className="guide__title">
@@ -42,7 +39,7 @@ const SetupGuide = ({
                 </ul>
             </div>
 
-            <Guide dnsAddresses={dnsAddresses}/>
+            <Guide dnsAddresses={dnsAddresses} />
         </Card>
     </div>
 );

@@ -1,5 +1,5 @@
-import React, {Component, Fragment} from 'react';
-import {Trans, withTranslation} from 'react-i18next';
+import React, { Component, Fragment } from 'react';
+import { Trans, withTranslation } from 'react-i18next';
 
 import Table from './Table';
 
@@ -8,8 +8,8 @@ import Modal from './Modal';
 import Card from '../../ui/Card';
 
 import PageTitle from '../../ui/PageTitle';
-import {MODAL_TYPE} from '../../../helpers/constants';
-import {RewritesData} from '../../../initialState';
+import { MODAL_TYPE } from '../../../helpers/constants';
+import { RewritesData } from '../../../initialState';
 
 interface RewritesProps {
     t: (...args: unknown[]) => string;
@@ -28,13 +28,13 @@ class Rewrites extends Component<RewritesProps> {
 
     handleDelete = (values: any) => {
         // eslint-disable-next-line no-alert
-        if (window.confirm(this.props.t('rewrite_confirm_delete', {key: values.domain}))) {
+        if (window.confirm(this.props.t('rewrite_confirm_delete', { key: values.domain }))) {
             this.props.deleteRewrite(values);
         }
     };
 
     handleSubmit = (values: any) => {
-        const {modalType, currentRewrite} = this.props.rewrites;
+        const { modalType, currentRewrite } = this.props.rewrites;
 
         if (modalType === MODAL_TYPE.EDIT_REWRITE && currentRewrite) {
             this.props.updateRewrite({
@@ -68,7 +68,7 @@ class Rewrites extends Component<RewritesProps> {
 
         return (
             <Fragment>
-                <PageTitle title={t('dns_rewrites')} subtitle={t('rewrite_desc')}/>
+                <PageTitle title={t('dns_rewrites')} subtitle={t('rewrite_desc')} />
 
                 <Card id="rewrites" bodyType="card-body box-body--settings">
                     <Fragment>
@@ -85,7 +85,7 @@ class Rewrites extends Component<RewritesProps> {
                         <button
                             type="button"
                             className="btn btn-success btn-standard mt-3"
-                            onClick={() => toggleRewritesModal({type: MODAL_TYPE.ADD_REWRITE})}
+                            onClick={() => toggleRewritesModal({ type: MODAL_TYPE.ADD_REWRITE })}
                             disabled={processingAdd}>
                             <Trans>rewrite_add</Trans>
                         </button>

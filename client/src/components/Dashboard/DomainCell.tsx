@@ -1,11 +1,11 @@
 import React from 'react';
 
-import {Trans} from 'react-i18next';
-import {getSourceData, getTrackerData} from '../../helpers/trackers/trackers';
+import { Trans } from 'react-i18next';
+import { getSourceData, getTrackerData } from '../../helpers/trackers/trackers';
 
 import Tooltip from '../ui/Tooltip';
 
-import {captitalizeWords} from '../../helpers/helpers';
+import { captitalizeWords } from '../../helpers/helpers';
 
 const renderLabel = (value: any) => (
     <strong>
@@ -18,7 +18,7 @@ interface renderLinkProps {
     name: string;
 }
 
-const renderLink = ({url, name}: renderLinkProps) => (
+const renderLink = ({ url, name }: renderLinkProps) => (
     <a className="tooltip-custom__content-link" target="_blank" rel="noopener noreferrer" href={url}>
         <strong>{name}</strong>
     </a>
@@ -46,7 +46,7 @@ interface DomainCellProps {
     value: string;
 }
 
-const DomainCell = ({value}: DomainCellProps) => {
+const DomainCell = ({ value }: DomainCellProps) => {
     const trackerData = getTrackerData(value);
 
     const content = trackerData && (
@@ -54,7 +54,7 @@ const DomainCell = ({value}: DomainCellProps) => {
             <div className="tooltip-custom__content-title mb-1">
                 <Trans>found_in_known_domain_db</Trans>
             </div>
-            {getTrackerInfo(trackerData).map(({key, value, render}) => (
+            {getTrackerInfo(trackerData).map(({ key, value, render }) => (
                 <div key={key} className="tooltip-custom__content-item">
                     <Trans>{key}</Trans>: {render(value)}
                 </div>
@@ -70,7 +70,7 @@ const DomainCell = ({value}: DomainCellProps) => {
             {trackerData && (
                 <Tooltip content={content} placement="top" className="tooltip-container tooltip-custom--wide">
                     <svg className="icons icon--24 icon--green ml-1">
-                        <use xlinkHref="#privacy"/>
+                        <use xlinkHref="#privacy" />
                     </svg>
                 </Tooltip>
             )}

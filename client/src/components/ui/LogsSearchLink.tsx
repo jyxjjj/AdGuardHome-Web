@@ -1,10 +1,10 @@
 import React from 'react';
 
-import {Link} from 'react-router-dom';
-import {useTranslation} from 'react-i18next';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
-import {getLogsUrlParams} from '../../helpers/helpers';
-import {MENU_URLS} from '../../helpers/constants';
+import { getLogsUrlParams } from '../../helpers/helpers';
+import { MENU_URLS } from '../../helpers/constants';
 
 interface LogsSearchLinkProps {
     children: string | number | React.ReactElement;
@@ -14,12 +14,12 @@ interface LogsSearchLinkProps {
 }
 
 const LogsSearchLink = ({
-                            search = '',
-                            response_status = '',
-                            children,
-                            link = MENU_URLS.logs,
-                        }: LogsSearchLinkProps) => {
-    const {t} = useTranslation();
+    search = '',
+    response_status = '',
+    children,
+    link = MENU_URLS.logs,
+}: LogsSearchLinkProps) => {
+    const { t } = useTranslation();
 
     const to =
         link === MENU_URLS.logs

@@ -1,4 +1,4 @@
-import { applyMiddleware, compose, createStore, Reducer } from 'redux';
+import { createStore, applyMiddleware, compose, Reducer } from 'redux';
 import thunk from 'redux-thunk';
 
 const middlewares = [thunk];

@@ -5,14 +5,12 @@ import langDetect from 'i18next-browser-languagedetector';
 import { BASE_LOCALE, LANGUAGES } from './helpers/twosky';
 
 import en from './__locales/en.json';
-import nl from './__locales/nl.json';
 import zhCN from './__locales/zh-cn.json';
 
 import { setHtmlLangAttr } from './helpers/helpers';
 
 const resources = {
     en: { translation: en },
-    nl: { translation: nl },
     'zh-cn': { translation: zhCN },
 };
 
@@ -32,7 +30,7 @@ i18n.use(langDetect)
                 escapeValue: false,
             },
             react: {
-                useSuspense: true,
+                wait: true,
             },
             whitelist: availableLanguages,
         },

@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {withTranslation} from 'react-i18next';
+import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
 
 import PageTitle from '../ui/PageTitle';
 import Card from '../ui/Card';
@@ -7,9 +7,9 @@ import Modal from './Modal';
 import Actions from './Actions';
 import Table from './Table';
 
-import {MODAL_TYPE} from '../../helpers/constants';
+import { MODAL_TYPE } from '../../helpers/constants';
 
-import {getCurrentFilter} from '../../helpers/helpers';
+import { getCurrentFilter } from '../../helpers/helpers';
 
 interface DnsAllowlistProps {
     getFilteringStatus: (...args: unknown[]) => unknown;
@@ -41,9 +41,9 @@ class DnsAllowlist extends Component<DnsAllowlistProps> {
     }
 
     handleSubmit = (values: any) => {
-        const {name, url} = values;
+        const { name, url } = values;
 
-        const {filtering} = this.props;
+        const { filtering } = this.props;
         const whitelist = true;
 
         if (filtering.modalType === MODAL_TYPE.EDIT_FILTERS) {
@@ -68,11 +68,11 @@ class DnsAllowlist extends Component<DnsAllowlistProps> {
     };
 
     handleRefresh = () => {
-        this.props.refreshFilters({whitelist: true});
+        this.props.refreshFilters({ whitelist: true });
     };
 
     openAddFiltersModal = () => {
-        this.props.toggleFilteringModal({type: MODAL_TYPE.ADD_FILTERS});
+        this.props.toggleFilteringModal({ type: MODAL_TYPE.ADD_FILTERS });
     };
 
     render() {
@@ -105,11 +105,11 @@ class DnsAllowlist extends Component<DnsAllowlistProps> {
 
         return (
             <>
-                <PageTitle title={t('dns_allowlists')} subtitle={t('dns_allowlists_desc')}/>
+                <PageTitle title={t('dns_allowlists')} subtitle={t('dns_allowlists_desc')} />
                 <div className="content">
                     <div className="row">
                         <div className="col-md-12">
-                            <Card subtitle={t('filters_and_hosts_hint')} type="card--full">
+                            <Card subtitle={t('filters_and_hosts_hint')}>
                                 <Table
                                     filters={whitelistFilters}
                                     loading={loading}

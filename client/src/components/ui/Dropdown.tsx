@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import classnames from 'classnames';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
 import enhanceWithClickOutside from 'react-click-outside';
 
@@ -25,11 +25,11 @@ class Dropdown extends Component<DropdownProps, DropdownState> {
     };
 
     toggleDropdown = () => {
-        this.setState((prevState) => ({isOpen: !prevState.isOpen}));
+        this.setState((prevState) => ({ isOpen: !prevState.isOpen }));
     };
 
     hideDropdown = () => {
-        this.setState({isOpen: false});
+        this.setState({ isOpen: false });
     };
 
     handleClickOutside = () => {
@@ -48,7 +48,7 @@ class Dropdown extends Component<DropdownProps, DropdownState> {
             children,
         } = this.props;
 
-        const {isOpen} = this.state;
+        const { isOpen } = this.state;
 
         const dropdownClass = classnames({
             [baseClassName]: true,
@@ -67,7 +67,7 @@ class Dropdown extends Component<DropdownProps, DropdownState> {
                 <a className={controlClassName} aria-expanded={ariaSettings} onClick={this.toggleDropdown}>
                     {icon && (
                         <svg className="nav-icon">
-                            <use xlinkHref={`#${icon}`}/>
+                            <use xlinkHref={`#${icon}`} />
                         </svg>
                     )}
                     {label}

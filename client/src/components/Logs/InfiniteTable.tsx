@@ -1,37 +1,39 @@
-import React, {Dispatch, SetStateAction, useCallback, useEffect, useRef} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {useTranslation} from 'react-i18next';
+import React, { Dispatch, SetStateAction, useCallback, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import throttle from 'lodash/throttle';
 
 import Loading from '../ui/Loading';
 
 import Header from './Cells/Header';
-import {getLogs} from '../../actions/queryLogs';
+import { getLogs } from '../../actions/queryLogs';
 
 import Row from './Cells';
 
-import {isScrolledIntoView} from '../../helpers/helpers';
-import {QUERY_LOGS_PAGE_LIMIT} from '../../helpers/constants';
-import {RootState} from '../../initialState';
+import { isScrolledIntoView } from '../../helpers/helpers';
+import { QUERY_LOGS_PAGE_LIMIT } from '../../helpers/constants';
+import { RootState } from '../../initialState';
 
 interface InfiniteTableProps {
     isLoading: boolean;
     items: unknown[];
     isSmallScreen: boolean;
+    currentQuery: string;
     setDetailedDataCurrent: Dispatch<SetStateAction<any>>;
     setButtonType: (...args: unknown[]) => unknown;
     setModalOpened: (...args: unknown[]) => unknown;
 }
 
 const InfiniteTable = ({
-                           isLoading,
-                           items,
-                           isSmallScreen,
-                           setDetailedDataCurrent,
-                           setButtonType,
-                           setModalOpened,
-                       }: InfiniteTableProps) => {
-    const {t} = useTranslation();
+    isLoading,
+    items,
+    isSmallScreen,
+    currentQuery,
+    setDetailedDataCurrent,
+    setButtonType,
+    setModalOpened,
+}: InfiniteTableProps) => {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const loader = useRef(null);
     const loadingRef = useRef(null);
@@ -43,7 +45,7 @@ const InfiniteTable = ({
 
     const listener = useCallback(() => {
         if (!loadingRef.current && loader.current && isScrolledIntoView(loader.current)) {
-            dispatch(getLogs());
+            dispatch(getLogs(currentQuery));
         }
     }, []);
 
@@ -80,9 +82,9 @@ const InfiniteTable = ({
 
     return (
         <div className="logs__table" role="grid">
-            {loading && <Loading/>}
+            {loading && <Loading />}
 
-            <Header/>
+            <Header />
             {isNothingFound ? (
                 <label className="logs__no-data">{t('nothing_found')}</label>
             ) : (

@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 // @ts-expect-error FIXME: update react-table
 import ReactTable from 'react-table';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 
-import {sortIp} from '../../../helpers/helpers';
-import {MODAL_TYPE, TABLES_MIN_ROWS} from '../../../helpers/constants';
-import {LOCAL_STORAGE_KEYS, LocalStorageHelper} from '../../../helpers/localStorageHelper';
+import { sortIp } from '../../../helpers/helpers';
+import { MODAL_TYPE, TABLES_MIN_ROWS } from '../../../helpers/constants';
+import { LocalStorageHelper, LOCAL_STORAGE_KEYS } from '../../../helpers/localStorageHelper';
 
 interface TableProps {
     t: (...args: unknown[]) => string;
@@ -20,7 +20,7 @@ interface TableProps {
 }
 
 class Table extends Component<TableProps> {
-    cellWrap = ({value}: any) => (
+    cellWrap = ({ value }: any) => (
         <div className="logs__row o-hidden">
             <span className="logs__text" title={value}>
                 {value}
@@ -66,7 +66,7 @@ class Table extends Component<TableProps> {
                             disabled={this.props.processingUpdate}
                             title={this.props.t('edit_table_action')}>
                             <svg className="icons icon12">
-                                <use xlinkHref="#edit"/>
+                                <use xlinkHref="#edit" />
                             </svg>
                         </button>
 
@@ -76,7 +76,7 @@ class Table extends Component<TableProps> {
                             onClick={() => this.props.handleDelete(currentRewrite)}
                             title={this.props.t('delete_table_action')}>
                             <svg className="icons">
-                                <use xlinkHref="#delete"/>
+                                <use xlinkHref="#delete" />
                             </svg>
                         </button>
                     </div>
@@ -86,7 +86,7 @@ class Table extends Component<TableProps> {
     ];
 
     render() {
-        const {t, list, processing, processingAdd, processingDelete} = this.props;
+        const { t, list, processing, processingAdd, processingDelete } = this.props;
 
         return (
             <ReactTable

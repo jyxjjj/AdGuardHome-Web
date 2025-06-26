@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 interface TabProps {
     activeTabLabel: string;
@@ -9,7 +9,7 @@ interface TabProps {
     title?: string;
 }
 
-const Tab = ({activeTabLabel, label, title, onClick}: TabProps) => {
+const Tab = ({ activeTabLabel, label, title, onClick }: TabProps) => {
     const [t] = useTranslation();
     const handleClick = () => onClick(label);
 
@@ -21,7 +21,7 @@ const Tab = ({activeTabLabel, label, title, onClick}: TabProps) => {
     return (
         <div className={tabClass} onClick={handleClick}>
             <svg className="tab__icon">
-                <use xlinkHref={`#${label.toLowerCase()}`}/>
+                <use xlinkHref={`#${label.toLowerCase()}`} />
             </svg>
             {t(title || label)}
         </div>

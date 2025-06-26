@@ -1,35 +1,41 @@
-import React, {useEffect, useState} from 'react';
-import {Trans} from 'react-i18next';
+import React, { useEffect, useState } from 'react';
+import { Trans } from 'react-i18next';
 
 import Modal from 'react-modal';
-import {shallowEqual, useDispatch, useSelector} from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import queryString from 'query-string';
 import classNames from 'classnames';
-import {BLOCK_ACTIONS, MEDIUM_SCREEN_SIZE} from '../../helpers/constants';
+import { FormProvider, useForm } from 'react-hook-form';
+import { BLOCK_ACTIONS, DEFAULT_LOGS_FILTER, MEDIUM_SCREEN_SIZE } from '../../helpers/constants';
 
 import Loading from '../ui/Loading';
 
 import Filters from './Filters';
 
 import Disabled from './Disabled';
-import {getFilteringStatus} from '../../actions/filtering';
+import { getFilteringStatus } from '../../actions/filtering';
 
-import {getClients} from '../../actions';
-import {getDnsConfig} from '../../actions/dnsConfig';
-import {getAccessList} from '../../actions/access';
-import {getAllBlockedServices} from '../../actions/services';
-import {getLogsConfig, resetFilteredLogs, setFilteredLogs, toggleDetailedLogs} from '../../actions/queryLogs';
+import { getClients } from '../../actions';
+import { getDnsConfig } from '../../actions/dnsConfig';
+import { getAccessList } from '../../actions/access';
+import { getAllBlockedServices } from '../../actions/services';
+import { getLogsConfig, resetFilteredLogs, setFilteredLogs, toggleDetailedLogs } from '../../actions/queryLogs';
 
 import InfiniteTable from './InfiniteTable';
 import './Logs.css';
-import {BUTTON_PREFIX} from './Cells/helpers';
+import { BUTTON_PREFIX } from './Cells/helpers';
 
 import AnonymizerNotification from './AnonymizerNotification';
-import {RootState} from '../../initialState';
+import { RootState } from '../../initialState';
 
-const processContent = (data: any, buttonType: string) =>
+export type SearchFormValues = {
+    search: string;
+    response_status: string;
+};
+
+const processContent = (data: any, _buttonType: string) =>
     Object.entries(data).map(([key, value]) => {
         if (!value) {
             return null;
@@ -69,14 +75,13 @@ const Logs = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const {response_status: response_status_url_param, search: search_url_param} = queryString.parse(
+    const { response_status: response_status_url_param, search: search_url_param } = queryString.parse(
         history.location.search,
     );
 
     const {
         enabled,
         processingGetConfig,
-        // processingAdditionalLogs,
         processingGetLogs,
         anonymize_client_ip: anonymizeClientIp,
     } = useSelector((state: RootState) => state.queryLogs, shallowEqual);
@@ -87,6 +92,17 @@ const Logs = () => {
 
     const search = search_url_param || filter?.search || '';
     const response_status = response_status_url_param || filter?.response_status || '';
+
+    const formMethods = useForm<SearchFormValues>({
+        mode: 'onBlur',
+        defaultValues: {
+            search: search || DEFAULT_LOGS_FILTER.search,
+            response_status: response_status || DEFAULT_LOGS_FILTER.response_status,
+        },
+    });
+
+    const { watch } = formMethods;
+    const currentQuery = watch('search');
 
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= MEDIUM_SCREEN_SIZE);
     const [detailedDataCurrent, setDetailedDataCurrent] = useState({});
@@ -174,15 +190,12 @@ const Logs = () => {
 
     const renderPage = () => (
         <>
-            <Filters
-                filter={{
-                    response_status,
-                    search,
-                }}
-                setIsLoading={setIsLoading}
-                processingGetLogs={processingGetLogs}
-                // processingAdditionalLogs={processingAdditionalLogs}
-            />
+            <FormProvider {...formMethods}>
+                <Filters
+                    setIsLoading={setIsLoading}
+                    processingGetLogs={processingGetLogs}
+                />
+            </FormProvider>
 
             <InfiniteTable
                 isLoading={isLoading}
@@ -191,6 +204,7 @@ const Logs = () => {
                 setDetailedDataCurrent={setDetailedDataCurrent}
                 setButtonType={setButtonType}
                 setModalOpened={setModalOpened}
+                currentQuery={currentQuery}
             />
 
             <Modal
@@ -213,7 +227,7 @@ const Logs = () => {
                 }}>
                 <div className="logs__modal-wrap">
                     <svg className="icon icon--24 icon-cross d-block cursor--pointer" onClick={closeModal}>
-                        <use xlinkHref="#cross"/>
+                        <use xlinkHref="#cross" />
                     </svg>
 
                     {processContent(detailedDataCurrent, buttonType)}
@@ -226,14 +240,14 @@ const Logs = () => {
         <>
             {enabled && (
                 <>
-                    {processingGetConfig && <Loading/>}
+                    {processingGetConfig && <Loading />}
 
-                    {anonymizeClientIp && <AnonymizerNotification/>}
+                    {anonymizeClientIp && <AnonymizerNotification />}
                     {!processingGetConfig && renderPage()}
                 </>
             )}
 
-            {!enabled && !processingGetConfig && <Disabled/>}
+            {!enabled && !processingGetConfig && <Disabled />}
         </>
     );
 };

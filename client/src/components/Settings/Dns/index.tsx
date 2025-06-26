@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
-import {useTranslation} from 'react-i18next';
+import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Upstream from './Upstream';
 
@@ -14,12 +14,12 @@ import PageTitle from '../../ui/PageTitle';
 import Loading from '../../ui/Loading';
 
 import CacheConfig from './Cache';
-import {getDnsConfig} from '../../../actions/dnsConfig';
-import {getAccessList} from '../../../actions/access';
-import {RootState} from '../../../initialState';
+import { getDnsConfig } from '../../../actions/dnsConfig';
+import { getAccessList } from '../../../actions/access';
+import { RootState } from '../../../initialState';
 
 const Dns = () => {
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const dispatch = useDispatch();
 
     const processing = useSelector((state: RootState) => state.access.processing);
@@ -35,18 +35,18 @@ const Dns = () => {
 
     return (
         <>
-            <PageTitle title={t('dns_settings')}/>
+            <PageTitle title={t('dns_settings')} />
             {isDataLoading ? (
-                <Loading/>
+                <Loading />
             ) : (
                 <>
-                    <Upstream/>
+                    <Upstream />
 
-                    <Config/>
+                    <Config />
 
-                    <CacheConfig/>
+                    <CacheConfig />
 
-                    <Access/>
+                    <Access />
                 </>
             )}
         </>

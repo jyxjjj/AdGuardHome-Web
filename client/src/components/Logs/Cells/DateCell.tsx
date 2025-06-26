@@ -1,15 +1,15 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import {formatDateTime, formatTime} from '../../../helpers/helpers';
-import {DEFAULT_SHORT_DATE_FORMAT_OPTIONS, DEFAULT_TIME_FORMAT} from '../../../helpers/constants';
-import {RootState} from '../../../initialState';
+import { formatDateTime, formatTime } from '../../../helpers/helpers';
+import { DEFAULT_SHORT_DATE_FORMAT_OPTIONS, DEFAULT_TIME_FORMAT } from '../../../helpers/constants';
+import { RootState } from '../../../initialState';
 
 interface DateCellProps {
     time: string;
 }
 
-const DateCell = ({time}: DateCellProps) => {
+const DateCell = ({ time }: DateCellProps) => {
     const isDetailed = useSelector((state: RootState) => state.queryLogs.isDetailed);
 
     if (!time) {

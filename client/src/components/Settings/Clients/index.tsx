@@ -1,14 +1,14 @@
-import React, {Component, Fragment} from 'react';
-import {withTranslation} from 'react-i18next';
+import React, { Component, Fragment } from 'react';
+import { withTranslation } from 'react-i18next';
 
-import {ClientsTable} from './ClientsTable';
+import { ClientsTable } from './ClientsTable';
 
 import AutoClients from './AutoClients';
 
 import PageTitle from '../../ui/PageTitle';
 
 import Loading from '../../ui/Loading';
-import {ClientsData, DashboardData, StatsData} from '../../../initialState';
+import { ClientsData, DashboardData, StatsData } from '../../../initialState';
 
 interface ClientsProps {
     t: (...args: unknown[]) => string;
@@ -53,9 +53,9 @@ class Clients extends Component<ClientsProps> {
 
         return (
             <Fragment>
-                <PageTitle title={t('client_settings')}/>
+                <PageTitle title={t('client_settings')} />
 
-                {(stats.processingStats || dashboard.processingClients) && <Loading/>}
+                {(stats.processingStats || dashboard.processingClients) && <Loading />}
                 {!stats.processingStats && !dashboard.processingClients && (
                     <Fragment>
                         <ClientsTable

@@ -1,7 +1,7 @@
-import React, {Fragment} from 'react';
-import {Trans} from 'react-i18next';
+import React, { Fragment } from 'react';
+import { Trans } from 'react-i18next';
 
-import {HashLink as Link} from 'react-router-hash-link';
+import { HashLink as Link } from 'react-router-hash-link';
 
 import Card from '../ui/Card';
 

@@ -2,29 +2,29 @@ import React from 'react';
 
 // @ts-expect-error FIXME: update react-table
 import ReactTable from 'react-table';
-import {Trans, withTranslation} from 'react-i18next';
+import { withTranslation, Trans } from 'react-i18next';
 
-import {TFunction} from 'i18next';
+import { TFunction } from 'i18next';
 import Card from '../ui/Card';
 
 import Cell from '../ui/Cell';
 
 import DomainCell from './DomainCell';
 
-import {getPercent} from '../../helpers/helpers';
-import {DASHBOARD_TABLES_DEFAULT_PAGE_SIZE, STATUS_COLORS, TABLES_MIN_ROWS} from '../../helpers/constants';
+import { getPercent } from '../../helpers/helpers';
+import { DASHBOARD_TABLES_DEFAULT_PAGE_SIZE, STATUS_COLORS, TABLES_MIN_ROWS } from '../../helpers/constants';
 
 const CountCell = (totalBlocked: any) =>
     function cell(row: any) {
-        const {value} = row;
+        const { value } = row;
         const percent = getPercent(totalBlocked, value);
 
-        return <Cell value={value} percent={percent} color={STATUS_COLORS.green}/>;
+        return <Cell value={value} percent={percent} color={STATUS_COLORS.green} />;
     };
 
 const getTotalUpstreamRequests = (stats: any) => {
     let total = 0;
-    stats.forEach(({count}: any) => {
+    stats.forEach(({ count }: any) => {
         total += count;
     });
 
@@ -38,10 +38,10 @@ interface UpstreamResponsesProps {
     t: TFunction;
 }
 
-const UpstreamResponses = ({t, refreshButton, topUpstreamsResponses, subtitle}: UpstreamResponsesProps) => (
+const UpstreamResponses = ({ t, refreshButton, topUpstreamsResponses, subtitle }: UpstreamResponsesProps) => (
     <Card title={t('top_upstreams')} subtitle={subtitle} bodyType="card-table" refresh={refreshButton} type="card--full">
         <ReactTable
-            data={topUpstreamsResponses.map(({name: domain, count}: { name: string; count: number }) => ({
+            data={topUpstreamsResponses.map(({ name: domain, count }: { name: string; count: number }) => ({
                 domain,
                 count,
             }))}

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { getAccessList, setAccessList } from '../actions/access';
-import { addRewrite, deleteRewrite, getRewritesList, toggleRewritesModal } from '../actions/rewrites';
+import { getRewritesList, addRewrite, deleteRewrite, toggleRewritesModal } from '../actions/rewrites';
 import { getDnsConfig, setDnsConfig } from '../actions/dnsConfig';
 
 import Dns from '../components/Settings/Dns';

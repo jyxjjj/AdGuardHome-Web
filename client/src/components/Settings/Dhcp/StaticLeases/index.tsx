@@ -2,20 +2,20 @@ import React from 'react';
 
 // @ts-expect-error FIXME: update react-table
 import ReactTable from 'react-table';
-import {Trans, useTranslation} from 'react-i18next';
-import {useDispatch} from 'react-redux';
-import {LEASES_TABLE_DEFAULT_PAGE_SIZE, MODAL_TYPE} from '../../../../helpers/constants';
+import { Trans, useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { LEASES_TABLE_DEFAULT_PAGE_SIZE, MODAL_TYPE } from '../../../../helpers/constants';
 
-import {sortIp} from '../../../../helpers/helpers';
+import { sortIp } from '../../../../helpers/helpers';
 
 import Modal from './Modal';
-import {addStaticLease, removeStaticLease, toggleLeaseModal, updateStaticLease} from '../../../../actions';
+import { addStaticLease, removeStaticLease, toggleLeaseModal, updateStaticLease } from '../../../../actions';
 
 interface cellWrapProps {
     value: string;
 }
 
-const cellWrap = ({value}: cellWrapProps) => (
+const cellWrap = ({ value }: cellWrapProps) => (
     <div className="logs__row o-hidden">
         <span className="logs__text" title={value}>
             {value}
@@ -35,32 +35,32 @@ interface StaticLeasesProps {
 }
 
 const StaticLeases = ({
-                          isModalOpen,
-                          modalType,
-                          processingAdding,
-                          processingDeleting,
-                          processingUpdating,
-                          staticLeases,
-                          cidr,
-                          gatewayIp,
-                      }: StaticLeasesProps) => {
+    isModalOpen,
+    modalType,
+    processingAdding,
+    processingDeleting,
+    processingUpdating,
+    staticLeases,
+    cidr,
+    gatewayIp,
+}: StaticLeasesProps) => {
     const [t] = useTranslation();
     const dispatch = useDispatch();
 
     const handleSubmit = (data: any) => {
-        const {mac, ip, hostname} = data;
+        const { mac, ip, hostname } = data;
 
         if (modalType === MODAL_TYPE.EDIT_LEASE) {
-            dispatch(updateStaticLease({mac, ip, hostname}));
+            dispatch(updateStaticLease({ mac, ip, hostname }));
         } else {
-            dispatch(addStaticLease({mac, ip, hostname}));
+            dispatch(addStaticLease({ mac, ip, hostname }));
         }
     };
 
     const handleDelete = (ip: any, mac: any, hostname = '') => {
         const name = hostname || ip;
         // eslint-disable-next-line no-alert
-        if (window.confirm(t('delete_confirm', {key: name}))) {
+        if (window.confirm(t('delete_confirm', { key: name }))) {
             dispatch(
                 removeStaticLease({
                     ip,
@@ -103,7 +103,7 @@ const StaticLeases = ({
                         resizable: false,
                         // eslint-disable-next-line react/display-name
                         Cell: (row: any) => {
-                            const {ip, mac, hostname} = row.original;
+                            const { ip, mac, hostname } = row.original;
 
                             return (
                                 <div className="logs__row logs__row--center">
@@ -114,14 +114,14 @@ const StaticLeases = ({
                                             dispatch(
                                                 toggleLeaseModal({
                                                     type: MODAL_TYPE.EDIT_LEASE,
-                                                    config: {ip, mac, hostname},
+                                                    config: { ip, mac, hostname },
                                                 }),
                                             )
                                         }
                                         disabled={processingUpdating}
                                         title={t('edit_table_action')}>
                                         <svg className="icons icon12">
-                                            <use xlinkHref="#edit"/>
+                                            <use xlinkHref="#edit" />
                                         </svg>
                                     </button>
 
@@ -132,7 +132,7 @@ const StaticLeases = ({
                                         disabled={processingDeleting}
                                         title={t('delete_table_action')}>
                                         <svg className="icons icon12">
-                                            <use xlinkHref="#delete"/>
+                                            <use xlinkHref="#delete" />
                                         </svg>
                                     </button>
                                 </div>

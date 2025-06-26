@@ -1,14 +1,18 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import classNames from 'classnames';
-import {useTranslation} from 'react-i18next';
-import {DEFAULT_SHORT_DATE_FORMAT_OPTIONS, LONG_TIME_FORMAT, SCHEME_TO_PROTOCOL_MAP,} from '../../../helpers/constants';
+import { useTranslation } from 'react-i18next';
+import {
+    DEFAULT_SHORT_DATE_FORMAT_OPTIONS,
+    LONG_TIME_FORMAT,
+    SCHEME_TO_PROTOCOL_MAP,
+} from '../../../helpers/constants';
 
-import {captitalizeWords, formatDateTime, formatTime} from '../../../helpers/helpers';
-import {getSourceData} from '../../../helpers/trackers/trackers';
+import { captitalizeWords, formatDateTime, formatTime } from '../../../helpers/helpers';
+import { getSourceData } from '../../../helpers/trackers/trackers';
 
 import IconTooltip from './IconTooltip';
-import {RootState} from '../../../initialState';
+import { RootState } from '../../../initialState';
 
 interface DomainCellProps {
     answer_dnssec: boolean;
@@ -25,16 +29,16 @@ interface DomainCellProps {
 }
 
 const DomainCell = ({
-                        answer_dnssec,
-                        client_proto,
-                        domain,
-                        unicodeName,
-                        time,
-                        tracker,
-                        type,
-                        ecs,
-                    }: DomainCellProps) => {
-    const {t} = useTranslation();
+    answer_dnssec,
+    client_proto,
+    domain,
+    unicodeName,
+    time,
+    tracker,
+    type,
+    ecs,
+}: DomainCellProps) => {
+    const { t } = useTranslation();
 
     const dnssec_enabled = useSelector((state: RootState) => state.dnsConfig.dnssec_enabled);
 
@@ -107,7 +111,7 @@ const DomainCell = ({
     const renderGrid = (content: any, idx: any) => {
         const preparedContent = typeof content === 'string' ? t(content) : content;
 
-        const className = classNames('text-truncate o-hidden', {'overflow-break': preparedContent?.length > 100});
+        const className = classNames('text-truncate o-hidden', { 'overflow-break': preparedContent?.length > 100 });
 
         return (
             <div key={idx} className={className}>

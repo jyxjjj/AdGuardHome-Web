@@ -1,5 +1,5 @@
-import React, {Fragment} from 'react';
-import {Trans, withTranslation} from 'react-i18next';
+import React, { Fragment } from 'react';
+import { withTranslation, Trans } from 'react-i18next';
 
 const Examples = () => (
     <Fragment>
