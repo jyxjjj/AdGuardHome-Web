@@ -136,17 +136,7 @@ const Logs = () => {
     };
 
     useEffect(() => {
-        try {
-            mediaQuery.addEventListener('change', mediaQueryHandler);
-        } catch (e1) {
-            try {
-                // Safari 13.1 do not support mediaQuery.addEventListener('change', handler)
-                mediaQuery.addListener(mediaQueryHandler);
-            } catch (e2) {
-                console.error(e2);
-            }
-        }
-
+        mediaQuery.addEventListener('change', mediaQueryHandler);
         (async () => {
             setIsLoading(true);
             dispatch(getFilteringStatus());
@@ -162,17 +152,7 @@ const Logs = () => {
         })();
 
         return () => {
-            try {
-                mediaQuery.removeEventListener('change', mediaQueryHandler);
-            } catch (e1) {
-                try {
-                    // Safari 13.1 do not support mediaQuery.addEventListener('change', handler)
-                    mediaQuery.removeListener(mediaQueryHandler);
-                } catch (e2) {
-                    console.error(e2);
-                }
-            }
-
+            mediaQuery.removeEventListener('change', mediaQueryHandler);
             dispatch(resetFilteredLogs());
         };
     }, []);

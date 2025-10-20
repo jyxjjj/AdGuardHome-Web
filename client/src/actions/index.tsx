@@ -181,7 +181,7 @@ export const getVersion =
                     dispatch(addSuccessToast('updates_version_equal'));
                 }
             }
-        } catch (error) {
+        } catch {
             dispatch(addErrorToast({ error: 'version_request_error' }));
             dispatch(getVersionFailure());
         }
@@ -215,7 +215,7 @@ const checkStatus = async (handleRequestSuccess: any, handleRequestError: any, a
                 );
             }
         }
-    } catch (error) {
+    } catch {
         rmTimeout(timeout);
         timeout = setTimeout(checkStatus, CHECK_TIMEOUT, handleRequestSuccess, handleRequestError, attempts - 1);
     }
@@ -249,7 +249,7 @@ export const getUpdate = () => async (dispatch: any, getState: any) => {
     try {
         await apiClient.getUpdate();
         checkStatus(handleRequestSuccess, handleRequestError);
-    } catch (error) {
+    } catch {
         handleRequestError();
     }
 };
@@ -327,7 +327,7 @@ export const getDnsStatus = () => async (dispatch: any) => {
 
     try {
         checkStatus(handleRequestSuccess, handleRequestError);
-    } catch (error) {
+    } catch {
         handleRequestError();
     }
 };
@@ -362,7 +362,7 @@ export const getTimerStatus = () => async (dispatch: any) => {
 
     try {
         checkStatus(handleRequestSuccess, handleRequestError);
-    } catch (error) {
+    } catch {
         handleRequestError();
     }
 };

@@ -552,7 +552,7 @@ const isIpMatchCidr = (parsedIp: any, parsedCidr: any) => {
         const ipVersion = parsedIp.kind();
 
         return ipVersion === cidrIpVersion && parsedIp.match(parsedCidr);
-    } catch (e) {
+    } catch {
         return false;
     }
 };
@@ -612,7 +612,7 @@ export const findAddressType = (address: any) => {
         }
 
         return ADDRESS_TYPES.UNKNOWN;
-    } catch (e) {
+    } catch {
         return ADDRESS_TYPES.UNKNOWN;
     }
 };

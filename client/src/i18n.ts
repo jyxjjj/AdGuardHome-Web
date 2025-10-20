@@ -30,9 +30,9 @@ i18n.use(langDetect)
                 escapeValue: false,
             },
             react: {
-                wait: true,
+                useSuspense: true,
             },
-            whitelist: availableLanguages,
+            supportedLngs: availableLanguages,
         },
         () => {
             if (!availableLanguages.includes(i18n.language)) {
